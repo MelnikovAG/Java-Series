@@ -382,14 +382,6 @@ public class Test3 {
 
         ListenableFutureTask<Object> futureTask = ListenableFutureTask.create(new Callable<Object>() {
 
-            @Override
-            public Object call() throws Exception {
-                log.info(Thread.currentThread().getName() + " Callable任务启动....");
-                Thread.sleep(5000L);
-                return "当前时间:" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-            }
-        });
-
         Futures.addCallback(futureTask, new FutureCallback<Object>() {
 
             public void onSuccess(Object calCultorResult) {
@@ -418,8 +410,6 @@ public class Test3 {
 @Slf4j
 public class FutureTest {
     public static void main(String[] args) {
-
-        ListeningExecutorService service = MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(10));
 
         ListenableFuture<Integer> task1Future = service.submit(new Callable<Integer>() {
 

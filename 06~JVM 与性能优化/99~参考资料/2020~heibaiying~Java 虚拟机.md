@@ -282,8 +282,6 @@ Parallel Scavenge 收集器提供两个参数用于精确控制吞吐量：
 
 从名字也可以看出来，它是 Serial 收集器的老年代版本，同样是一个单线程收集器，采用 标记-整理 算法，主要用于给客户端模式下的 HotSpot 虚拟机使用：
 
-<div align="center"> <img src="https://gitee.com/heibaiying/Full-Stack-Notes/raw/master/pictures/jvm_收集器1.png"/> </div>
-
 ### 5.5 Paralled Old 收集器
 
 Paralled Old 是 Parallel Scavenge 收集器的老年代版本，支持多线程并发收集，采用 标记-整理 算法实现：

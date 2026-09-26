@@ -162,10 +162,6 @@ class People {
 
 public class Main {
 
-  public static void main(String[] args) {
-    People p1 = new People("Jack", 12);
-    System.out.println(p1.hashCode());
-
     HashMap<People, Integer> hashMap = new HashMap<People, Integer>();
     hashMap.put(p1, 1);
 
