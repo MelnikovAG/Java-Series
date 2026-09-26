@@ -113,7 +113,7 @@ Visual GC 面板默认是不显示的，需要通过插件进行扩展。它会�
  -Dcom.sun.management.jmxremote.ssl=false
  -Dcom.sun.management.jmxremote.authenticate=false
  -jar springboot.jar
-```java
+```
 此时只需要知道主机地址和端口号就可以连接，不需要使用用户名和密码，所以安全性比较低。
 
 ### 4.2 使用安全凭证
@@ -127,17 +127,17 @@ java -Dcom.sun.management.jmxremote.port=12345
 -Dcom.sun.management.jmxremote.access.file=/usr/local/jmxremote.access
 -Dcom.sun.management.jmxremote.password.file=/usr/local/jmxremote.password
 -jar springboot.jar
-```java
+```
 其中 `jmxremote.access ` 的内容如下，其中 admin 为用户名，readwrite 表示可读可写，也可以设置为 readonly（只读）：
 
 ```shell
 admin readwrite
-```java
+```
 `jmxremote.password` 的内容如下，其中 admin 为用户名，123456 为密码：
 
 ```shell
 admin 123456
-```java
+```
 两个文件创建好后，还需要赋予其执行权限：
 
 ```shell
@@ -145,7 +145,7 @@ chmod 600 /usr/local/jmxremote.access
 chmod 600 /usr/local/jmxremote.password
 chown root:root /usr/local/jmxremote.access
 chown root:root /usr/local/jmxremote.password
-```java
+```
 之后在使用 VisualVM 进行远程连接时，配置如下：
 
 <div align="center"> <img src="https://gitee.com/heibaiying/Full-Stack-Notes/raw/master/pictures/jvisual-连接远程主机.png"/> </div>

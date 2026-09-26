@@ -40,7 +40,7 @@ java.util.Date dt=sdf.parse("2005-2-19");
 
 // 从 LocalDateTime 中转化而来
 Date out = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
-```java
+```
 ## 获取与比较
 
 基于 Date 的日期比较常常使用以下方式：
@@ -71,7 +71,7 @@ public static void main(String[] args) {
 
 // Fri Feb 01 06:17:14 CST 2013
 // 2013-01-31 14:17:14
-```java
+```
 操作系统是"Asia/Shanghai"，即 GMT+8 的北京时间，那么执行日期转字符串的 format 方法时，由于日期生成时默认是操作系统时区，因此 2013-1-31 22:17:14 是北京时间，那么推算到 GMT 时区，自然是要减 8 个小时的；而执行字符串转日期的 parse 方法时，由于字符串本身没有时区的概念，因此 2013-1-31 22:17:14 就是指 GMT（UTC）时间，那么当转化为日期时要加上默认时区，即"Asia/Shanghai"，因此要加上 8 个小时。
 
 # Calendar
@@ -83,7 +83,7 @@ Calendar.Builder builder =new Calendar.Builder();
 Calendar calendar1 = builder.build();
 
 Date date = calendar.getTime();
-```java
+```
 在 Calendar 中我们则能够获得较为直观的年月日信息：
 
 ```java
@@ -99,7 +99,7 @@ int hour =calendar.get(Calendar.HOUR_OF_DAY);
 int minute =calendar.get(Calendar.MINUTE);
 
 int seconds =calendar.get(Calendar.SECOND);
-```java
+```
 除此之外，Calendar 还提供了一系列 set 方法来允许我们动态设置时间，还可以使用 add 等方法进行日期的加减。
 
 # SimpleDateFormat
@@ -109,4 +109,4 @@ SimpleDateFormat 用来进行简单的数据格式化转化操作：
 ```java
 Date dNow = new Date( );
 SimpleDateFormat ft = new SimpleDateFormat ("E yyyy.MM.dd 'at' hh:mm:ss a zzz");
-```java
+```

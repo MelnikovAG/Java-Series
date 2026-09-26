@@ -39,7 +39,7 @@ public @interface Table {
 @Target(ElementType.FIELD)
 public @interface NoDBColumn {
 }
-```java
+```
 注解 Table 可以用于注解类、接口(包括注解类型)或 enum 声明,而注解 NoDBColumn 仅可用于注解类的成员变量。
 
 #### @Retention
@@ -61,7 +61,7 @@ public @interface Column {
     public String getFuncName() default "getField";
     public boolean defaultDBValue() default false;
 }
-```java
+```
 Column 注解的的 RetentionPolicy 的属性值是 RUTIME,这样注解处理器可以通过反射，获取到该注解的属性值，从而去做一些运行时的逻辑处理
 
 #### @Documented
@@ -78,7 +78,7 @@ public @interface Column {
     public String getFuncName() default "getField";
     public boolean defaultDBValue() default false;
 }
-```java
+```
 #### @Inherited
 
 @Inherited 元注解是一个标记注解，@Inherited 阐述了某个被标注的类型是被继承的。如果一个使用了@Inherited 修饰的 annotation 类型被用于一个 class，则这个 annotation 将被用于该 class 的子类。
@@ -99,7 +99,7 @@ public @interface Greeting {
     String name();
     FontColor fontColor() default FontColor.GREEN;
 }
-```java
+```
 ### 自定义注解
 
 使用@interface 自定义注解时，自动继承了 java.lang.annotation.Annotation 接口，由编译程序自动完成其他细节。在定义注解时，不能继承其他的注解或接口。@interface 用来声明一个注解，其中的每一个方法实际上是声明了一个配置参数。方法的名称就是参数的名称，返回值类型就是参数的类型(返回值类型只能是基本类型、Class、String、enum)。可以通过 default 来声明参数的默认值。
@@ -107,7 +107,7 @@ public @interface Greeting {
 
 ```java
 　　public @interface 注解名 {定义体}
-```java
+```
 (2)注解参数的可支持数据类型：
 
 - 所有基本数据类型(int,float,boolean,byte,double,char,long,short)
@@ -145,7 +145,7 @@ import java.lang.annotation.Target;
 public @interface FruitName {
   String value() default "";
 }
-```java
+```
 ```java
 package annotation;
 
@@ -181,7 +181,7 @@ public @interface FruitColor {
    */
   Color fruitColor() default Color.GREEN;
 }
-```java
+```
 ```java
 package annotation;
 
@@ -211,7 +211,7 @@ public class Apple {
         System.out.println("水果的名字是：苹果");
     }
 }
-```java
+```
 ### 注解处理器
 
 Java 使用 Annotation 接口来代表程序元素前面的注解，该接口是所有 Annotation 类型的父接口。除此之外，Java 在 java.lang.reflect 包下新增了 AnnotatedElement 接口，该接口代表程序中可以接受注解的程序元素，该接口主要有如下几个实现类：
@@ -384,7 +384,7 @@ public class FruitRun {
  水果名称：Apple
  水果颜色：RED
  供应商编号：1 供应商名称：陕西红富士集团 供应商地址：陕西省西安市延安路89号红富士大厦
-```java
+```
 # Links
 
 - https://parg.co/kYB

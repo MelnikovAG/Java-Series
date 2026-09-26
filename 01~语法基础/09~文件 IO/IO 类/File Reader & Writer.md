@@ -8,7 +8,7 @@ FileReader 类从 InputStreamReader 类继承而来。该类按字符读取流�
 FileReader(File file)
 FileReader(FileDescriptor fd)
 FileReader(String fileName)
-```java
+```
 ```java
 public class FileRead {
     public static void main(String args[]) throws IOException {
@@ -30,4 +30,4 @@ public class FileRead {
         fr.close();
     }
 }
-```java
+```

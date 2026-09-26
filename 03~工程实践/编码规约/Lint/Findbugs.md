@@ -98,7 +98,7 @@ BigDecimal y = b.subtract(c);
 if (x.compareTo(y) == 0) {
     System.out.println("true");
 }
-```java
+```
 1. 【强制】如上所示 BigDecimal 的等值比较应使用 compareTo()方法，而不是 equals()方法。其中 equals 会比较值和精度，而 compareTo 则会忽略精度，也就是 2.00 和 2.0 的差别。
 2. 【强制】定义数据对象 DO 类时，属性类型要与数据库字段类型相匹配。如数据库字段的 bigint 必须与类属性的 Long 类型相对应。
 3. 【强制】禁止使用构造方法 BigDecimal(double)的方式把 double 值转化为 BigDecimal 对象。应该使用 String 形式的参数作为首选方案。
@@ -118,7 +118,7 @@ public class InitTest {
         System.out.println("构造函数");
     }
 }
-```java
+```
 1. 【强制】POJO 类必须写 toString 方法。如果继承了另一个 POJO 类，注意在前面加一下 super.toString。
 2. 【强制】禁止在 POJO 类中，同时存在对应属性 xxx 的 isXxx()和 getXxx()方法。因为框架在调用属性 xxx 的提取方法时，并不能确定哪个方法一定是被优先调用到的。
 3. 【推荐】使用索引访问用 String 的 split 方法得到的数组时，需做最后一个分隔符后有无内容的检查，否则会有抛 IndexOutOfBoundsException 的风险。
@@ -135,7 +135,7 @@ public Integer getData () {
         return this.data - 100;
     }
 }
-```java
+```
 ##### （五）日期时间
 
 1. 【强制】日期格式化时，传入 pattern 中表示年份统一使用小写的 y。
@@ -183,7 +183,7 @@ Exception in thread "main" java.lang.ClassCastException: [Ljava.lang.Object; can
 
 // 正确的方式：
 String[] array = (String[]) list.toArray(new String[0]);
-```java
+```
 1. 【强制】在使用 Collection 接口任何实现类的 addAll()方法时，都要对输入的集合参数进行 NPE 判断。
 
    说明：在 ArrayList#addAll 方法的第一行代码即 Object[] a = c.toArray(); 其中 c 为输入集合参数，如果为 null，则直接抛出异常。
@@ -194,7 +194,7 @@ List<String> temp=null;
 //应该首先判断temp是不是为null
 list.addAll(temp);
 //以上操作会抛出空指针异常
-```java
+```
 1. 【强制】使用工具类 Arrays.asList()把数组转换成集合时，不能使用其修改集合相关的方法，它的 add/remove/clear 方法会抛出 UnsupportedOperationException 异常。
 
    说明：asList 的返回对象是一个 Arrays 内部类，并没有实现集合的修改方法。Arrays.asList 体现的是适配 器模式，只是转换接口，后台的数据仍是数组。
@@ -211,7 +211,7 @@ String[] str = new String[] { "chen", "yang", "hao" };
 //不是这样操作 List<String> array = Arrays.asList(str);
 List<String> array = new ArrayList<>(Arrays.asList(str));
 array.add("xiang");
-```java
+```
 1. 【强制】泛型通配符<? extends T>来接收返回的数据，此写法的泛型集合不能使用 add 方法，而<? super T>不能使用 get 方法，两者在接口调用赋值的场景中容易出错。
 
    说明：扩展说一下 PECS(Producer Extends Consumer Super)原则：第一、频繁往外读取内容的，适合用<? extends T>。第二、经常往里插入的，适合用<? super T>
@@ -228,7 +228,7 @@ generics = notGenerics;
 if(generics.get(0) instanceof String){
     String string = generics.get(0);
 }
-```java
+```
 1. 【强制】不要在 foreach 循环里进行元素的 remove/add 操作。remove 元素请使用 Iterator 方式，如果并发操作，需要对 Iterator 对象加锁。
 
 ```java
@@ -243,7 +243,7 @@ while (iterator.hasNext()){
     }
 }
 System.out.println(list.toString());
-```java
+```
 1. 【推荐】集合初始化时，指定集合初始值大小。
 
    实例：HashMap 需要放置 1024 个元素，由于没有设置容量初始大小，随着元素增加而被迫不断扩容，resize()方法总共会调用 8 次，反复重建哈希表和数据迁移。当放置的集合元素个数达千万级时会影响程序 性能。
@@ -252,7 +252,7 @@ System.out.println(list.toString());
 
 ```java
 Map<Integer,Integer> map = new HashMap<>(16);for(int i=0;i<10;i++){    map.put(i,i);}System.out.println("通过Map.entrySet遍历key和value");for (Map.Entry<Integer, Integer> entry : map.entrySet()) {    System.out.println("key= " + entry.getKey() + " and value= " + entry.getValue());}map.forEach((k,v)->{    System.out.println("key= " + k + " and value= " + v);});
-```java
+```
 1. 【推荐】高度注意 Map 类集合 K/V 能不能存储 null 的情况，如以下表格。
 
 | 集合类            | key           | value         | super       | 说明       |
@@ -276,7 +276,7 @@ Map<Integer,Integer> map = new HashMap<>(16);for(int i=0;i<10;i++){    map.put(i
 
 ```java
 objectThreadLocal.set(userInfo);try {    // ...} finally {    objectThreadLocal.remove();}
-```java
+```
 1. 【强制】高并发时，同步调用应该去考量锁的性能损耗。能用无锁数据结构，就不要用锁；能 锁区块，就不要锁整个方法体；能用对象锁，就不要用类锁。
 2. 【强制】对多个资源、数据库表、对象同时加锁时，需要保持一致的加锁顺序，否则可能会造 成死锁。
 3. 【强制】在使用尝试机制来获取锁的方式中，进入业务代码块之前，必须先判断当前线程是否 持有锁。锁的释放规则与锁的阻塞等待方式相同。
@@ -290,7 +290,7 @@ objectThreadLocal.set(userInfo);try {    // ...} finally {    objectThreadLocal.
 
 ```java
     private static void method(String par){        if(par==null){            return; // 正确的应该添加该if语句        }        switch (par){            case "xzm":{                System.out.println(1);break;            }            case "null":{                System.out.println(2);break;            }            default:{                System.out.println(3);            }        }    }    public static void main(String[] args) {        method(null);    }
-```java
+```
 1. 【强制】在 if/else/for/while/do 语句中必须使用大括号。如即使只有一行代码，也禁止不采用大括号的编码方式：`if (condition) statements;`
 
 2. 【强制】三目运算符 condition? 表达式 1 : 表达式 2 中，高度注意表达式 1 和 2 在类型对齐时，可能抛出因自动拆箱导致的 NPE 异常。
@@ -355,7 +355,7 @@ objectThreadLocal.set(userInfo);try {    // ...} finally {    objectThreadLocal.
 
 ```java
 // 如果类不是太多，我们可以在DTO上加上该注释@JsonInclude(JsonInclude.Include.NON_NULL)// 如果较多，例如在springboot中我们可以采用#设置全局，Null值不返回到前端  jackson:     default-property-inclusion: non_null
-```java
+```
 1. 【强制】服务端发生错误时，返回给前端的响应信息必须包含 HTTP 状态码，errorCode、errorMessage、用户提示信息四个部分。
 2. 【强制】在前后端交互的 JSON 格式数据中，所有的 key 必须为小写字母开始的 lowerCamelCase 风格，符合英文表达习惯，且表意完整，这一点在实习中遇到，不能将数据库中的字段直接返回给前端。
 3. 【强制】errorMessage 是前后端错误追踪机制的体现，可以在前端输出到 type="hidden" 文字类控件中，或者用户端的日志中，帮助我们快速地定位出问题。
@@ -363,7 +363,7 @@ objectThreadLocal.set(userInfo);try {    // ...} finally {    objectThreadLocal.
 
 ```java
 Long a = 123L;String s = String.valueOf(a);
-```java
+```
 1. HTTP 请求通过 URL 传递参数时，不能超过 2048 字节。说明：不同浏览器对于 URL 的最大长度限制略有不同，并且对超出最大长度的处理逻辑也有差异，2048 字节是取所有浏览器的最小值。
 2. 【强制】HTTP 请求通过 body 传递内容时，必须控制长度，超出最大长度后，后端解析会出错。
 3. 【强制】在翻页场景中，用户输入参数的小于 1，则前端返回第一页参数给后端；后端发现用 户输入的参数大于总页数，直接返回最后一页。
@@ -371,12 +371,12 @@ Long a = 123L;String s = String.valueOf(a);
 
 ```java
 @RequestMapping(value="/testredirect",method = { RequestMethod.POST, RequestMethod.GET }) public  String testredirect(HttpServletRequest request){    //把username参数传递到request中    request.setAttribute("username", "xiangzhimin");    return "forward:/user/index";  }
-```java
+```
 1. 【推荐】前后端的时间格式统一为"yyyy-MM-dd HH:mm:ss"，统一为 GMT。
 
 ```java
 //后端返回给前端的时间格式@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT+8")private Date date;//前端封装成后端的日期数据格式@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")private Date date;
-```java
+```
 ##### （十一）其他
 
 1. 【强制】在使用正则表达式时，利用好其预编译功能，可以有效加快正则匹配速度。
@@ -403,7 +403,7 @@ Long a = 123L;String s = String.valueOf(a);
 
 ```java
 /*无法通过预检查的异常除外，比如，在解析字符串形式的数字时，可能存在数字格式错误，不得不通过 catch NumberFormatException 来实现。*///正确if (obj != null) {...}//错误try { obj.method(); } catch (NullPointerException e) {…}
-```java
+```
 1. 【强制】异常捕获后不要用来做流程控制，条件控制。毕竟条件判断的效率高于异常捕获。
 2. 【强制】捕获异常是为了处理它，不要捕获了却什么都不处理而抛弃之，如果不想处理它，请 将该异常抛给它的调用者。最外层的业务使用者，必须处理异常，将其转化为用户可以理解的内容。
 3. 【强制】事务场景中，抛出异常被 catch 后，如果需要回滚，一定要注意手动回滚事务。
@@ -434,7 +434,7 @@ Long a = 123L;String s = String.valueOf(a);
 
 ```java
 // 使用 SLF4J：import org.slf4j.Logger;import org.slf4j.LoggerFactory;private static final Logger logger = LoggerFactory.getLogger(Test.class);//使用 JCL：import org.apache.commons.logging.Log;import org.apache.commons.logging.LogFactory;private static final Log log = LogFactory.getLog(Test.class);
-```java
+```
 1. 所有日志文件至少保存 15 天，因为有些异常具备以“周”为频次发生的特点。对于当天日志，以“应用名.log”来保存，保存在/home/admin/应用名/logs/目录下，过往日志格式为: {logname}.log.{保存日期}，日期格式：yyyy-MM-dd。
 2. 【强制】在日志输出时，字符串变量之间的拼接使用占位符的方式。
 
@@ -486,7 +486,7 @@ Long a = 123L;String s = String.valueOf(a);
 
 ```java
 正例：aliyun_admin，rdc_config，level3_name反例：AliyunAdmin，rdcConfig，level_3_name
-```java
+```
 1. 【强制】表名不使用复数名词。表名应该仅仅表示表里面的实体内容，不应该表示实体数量，对应于 DO 类名也是单数形式，符合表达习惯。
 2. 【强制】主键索引名为`pk_字段名`；唯一索引名为`uk_字段名`；普通索引名则为`idx_字段名`
 
@@ -509,7 +509,7 @@ Long a = 123L;String s = String.valueOf(a);
 
 ```java
 CREATE TABLE IF NOT EXISTS `表名`(   `id` INT(11) NOT NULL AUTO_INCREMENT,#AUTO_INCREMENT 自增长列   `name` INT(11) NOT NULL,   `age` INT(11) NOT NULL,   PRIMARY KEY ( `id` ),   KEY (`name`,`age`))ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='表备注';
-```java
+```
 1. 【强制】超过三个表禁止 join。需要 join 的字段，数据类型保持绝对一致；多表关联查询时，保证被关联的字段需要有索引。
 
    [关于 join 的讲解传送](https://www.cnblogs.com/reaptomorrow-flydream/p/8145610.html)
@@ -518,7 +518,7 @@ CREATE TABLE IF NOT EXISTS `表名`(   `id` INT(11) NOT NULL AUTO_INCREMENT,#AUT
 
 ```java
 # 建表create table mytable(    id int not null,    username varchar(16) not null,    index [indexname] (username(length))    //unique [indexname] (username(length)));alter table mytable add unique [indexname] (username(length))
-```java
+```
 1. 【推荐】SQL 性能优化的目标：至少要达到 range 级别，要求是 ref 级别，如果可以是 consts 最好。
 
    说明：
@@ -537,7 +537,7 @@ CREATE TABLE IF NOT EXISTS `表名`(   `id` INT(11) NOT NULL AUTO_INCREMENT,#AUT
 
 ```java
 count(*)包括了所有的列,相当于行数,在统计结果的时候,不会忽略列值为NULL。count(1)包括了忽略所有列,用1代表代码行,在统计结果的时候,不会忽略列值为NULL。count(列名)只包括列名那一列,在统计结果的时候,会忽略列值为空（这里的空不是只空字符串或者0,而是表示null）的计数，,即某个字段值为NULL时,不统计。
-```java
+```
 1. 【强制】`count(distinct col)`计算该列除 NULL 之外的不重复行数，注意`count(distinct col1, col2)` 如果其中一列全为 NULL，那么即使另一列有不同的值，也返回为 0。
 
 2. 【强制】当某一列的值全是 NULL 时，count(col)的返回结果为 0，但 sum(col)的返回结果为 NULL，因此使用 sum()时需注意 NPE 问题。

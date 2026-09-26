@@ -4,7 +4,7 @@ Gradle 使用了一种约定俗成的方法来构建基于 JVM 的项目，它�
 
 ```groovy
 apply plugin: 'java'
-```java
+```
 Gradle 和 Maven 一样，采用了约定优于配置的方式对 Java 项目布局，并且布局方式是和 Maven 一样的，此外，Gradle 还可以方便的自定义布局。在 Gradle 中，一般把这些目录叫做 source set：
 
 ![gradle source set](https://s2.ax1x.com/2019/12/17/QINmpF.png)。

@@ -37,27 +37,27 @@
 
 ```java
 a?b:c?d:e
-```java
+```
 这个要怎么算？先看优先级，两个一样。再看结合性，右结合，所以先算：
 
 ```java
 c?d:e
-```java
+```
 再算:
 
 ```java
  a?b:(c?d:e)
-```java
+```
 这就是所谓右结合。如果是左结合的话 就是先算:
 
 ```java
 a?b:c
-```java
+```
 再算:
 
 ```java
 (a?b:c)?d:e
-```java
+```
 实际上，一般结合性的问题都可以用括号来解决。
 
 # 条件运算符
@@ -66,7 +66,7 @@ a?b:c
 
 ```java
 variable x = (expression) ? value if true : value if false
-```java
+```
 ```java
 public class Test {
    public static void main(String[] args){
@@ -86,20 +86,20 @@ public class Test {
 Value of b is : 30
 Value of b is : 20
 **/
-```java
+```
 # instanceof 运算符
 
 该运算符用于操作对象实例，检查该对象是否是一个特定类型（类类型或接口类型）。instanceof 运算符使用格式如下：
 
 ```java
 ( Object reference variable ) instanceof  (class/interface type)
-```java
+```
 如果运算符左侧变量所指的对象，是操作符右侧类或接口(class/interface)的一个对象，那么结果为真。下面是一个例子：
 
 ```java
 String name = "James";
 boolean result = name instanceof String; // 由于 name 是 String 类型，所以返回真
-```java
+```
 如果被比较的对象兼容于右侧类型,该运算符仍然返回 true。看下面的例子：
 
 ```java
@@ -114,12 +114,12 @@ public class Car extends Vehicle {
 }
 
 // true
-```java
+```
 值得注意的是，在判断一个实例引用的类型时，使用的是实际类型，而不是声明的类型。在下面的代码中：
 
 ```java
 Vehicle v2 = new Car();    // v2 是 Car 类型
-```java
+```
 v2 是 Car 类型，而不是 Vehicle 类型。
 
 ```java
@@ -144,4 +144,4 @@ public class Car extends Vehicle {
         System.out.println(result4);
    }
 }
-```java
+```

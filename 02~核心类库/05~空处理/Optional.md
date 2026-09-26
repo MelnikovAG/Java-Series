@@ -12,7 +12,7 @@ optional.get();                 // "bam"
 optional.orElse("fallback");    // "bam"
 
 optional.ifPresent((s) -> System.out.println(s.charAt(0)));     // "b"
-```java
+```
 Optional 类的的使用只是提示你这里可能存在空值，需要特殊处理，并提供了一些特殊处理的方法。如果你把 Optional 类当作空指针的救命稻草而不加思考的使用，那么依旧会碰到错误。
 
 # Optional 创建
@@ -31,7 +31,7 @@ public void createOptionalTest() {
     // Optional 构造方式3 - ofNullable 支持传入 null 值的 optional
     Optional<String> nullOptional = Optional.ofNullable(null);
 }
-```java
+```
 其中构造方式 1 中 of 方法，如果传入的值会空，会报出 NullPointerException 异常。
 
 # Optional 判断
@@ -47,7 +47,7 @@ public void checkOptionalTest() {
     Optional<Object> emptyOptional = Optional.empty();
     System.out.println(emptyOptional.isPresent());
 }
-```java
+```
 从 JDK11 开始，提供了 isEmpty 方法用来检查相反的结果：是否为空。如果想要在有值的时候进行一下操作。可以使用 ifPresent 方法。
 
 ```java
@@ -59,7 +59,7 @@ public void whenIsPresent() {
     helloOptional.ifPresent(s -> System.out.println(s.length()));
     emptyOptional.ifPresent(s -> System.out.println(s.length()));
 }
-```java
+```
 # Optional 获取值
 
 使用 `get`方法可以获取值，但是如果值不存在，会抛出 `NoSuchElementException` 异常。
@@ -73,7 +73,7 @@ public void getTest() {
     Optional<String> emptyOptional = Optional.empty();
     System.out.println(emptyOptional.get());
 }
-```java
+```
 得到结果：
 
 ```java
@@ -82,7 +82,7 @@ hello
 java.util.NoSuchElementException: No value present
     at java.util.Optional.get(Optional.java:135)
     at net.codingme.feature.jdk8.Jdk8Optional.getTest(Jdk8Optional.java:91)
-```java
+```
 # Optional 默认值
 
 使用 `orElse`, `orElseGet` 方法可以在没有值的情况下获取给定的默认值。
@@ -97,13 +97,13 @@ public void whenIsNullGetTest() {
     System.out.println(orElse);
     System.out.println(orElseGet);
 }
-```java
+```
 得到的结果：
 
 ```java
 orElse default
 orElseGet default
-```java
+```
 看到这里你可能会有些疑惑了，这两个方法看起来效果是一模一样的，为什么会提供两个呢？下面再看一个例子，你会发现两者的区别。
 
 ```java
@@ -132,7 +132,7 @@ public String getDefault() {
     System.out.println("   获取默认值中..run getDeafult method");
     return "hello";
 }
-```java
+```
 得到的输出：
 
 ```java
@@ -148,7 +148,7 @@ public String getDefault() {
 有值Optional.orElseGet
 有值Optional.orElse结果：hello
 有值Optional.orElseGet结果：hello
-```java
+```
 在这个例子中会发现 `orElseGet` 传入的方法在有值的情况下并不会运行。而 `orElse`却都会运行。
 
 # Optional 异常
@@ -166,7 +166,7 @@ public void whenIsNullThrowExceTest() throws Exception {
     String value = emptyOptional.orElseThrow(() -> new Exception("发现空值"));
     System.out.println(value);
 }
-```java
+```
 得到结果：
 
 ```java
@@ -174,7 +174,7 @@ java.lang.Exception: 发现空值
     at net.codingme.feature.jdk8.Jdk8Optional.lambda$whenIsNullThrowExceTest$7(Jdk8Optional.java:118)
     at java.util.Optional.orElseThrow(Optional.java:290)
     at net.codingme.feature.jdk8.Jdk8Optional.whenIsNullThrowExceTest(Jdk8Optional.java:118)
-```java
+```
 # Optional 函数接口
 
 `Optional` 随 JDK8 一同出现，必然会有一些 JDK8 中的新特性，比如函数接口。`Optional` 中主要有三个传入函数接口的方法，分别是`filter`，`map`，`flatMap`。这里面的实现其实是 JDK8 的另一个新特性了，因此这里只是简单演示，不做解释。后面放到其他 JDK8 新特性文章里介绍。
@@ -193,13 +193,13 @@ public void functionTest() {
     Optional<Integer> optional789 = Optional.of(789);
     optional789.map(String::valueOf).map(String::length).ifPresent(length -> System.out.println(length));
 }
-```java
+```
 得到结果：
 
 ```java
 123
 3
-```java
+```
 # 案例
 
 假设有计算机、声卡、usb 三种硬件（下面的代码中使用了 `Lombok` 的 `@Data` 注解）。
@@ -228,7 +228,7 @@ class SoundCard {
 class Usb {
     private String version;
 }
-```java
+```
 计算机可能会有声卡，声卡可能会有 usb。那么怎么取得 usb 版本呢？
 
 ```java
@@ -271,7 +271,7 @@ public void optionalTest() {
             .orElse("UBKNOW")))
             .ifPresent(System.out::println);
 }
-```java
+```
 得到结果：
 
 ```java
@@ -280,7 +280,7 @@ UNKNOWN
 SoundCard(usb=Optional[Usb(version=2.0)])
 SoundCard(usb=Optional[Usb(version=2.0)])
 -----------------
-```java
+```
 # Links
 
 - [Java 8 Optional 类深度解析](http://www.importnew.com/6675.html)

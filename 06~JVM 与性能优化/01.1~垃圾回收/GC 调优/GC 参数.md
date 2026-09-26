@@ -4,7 +4,7 @@
 
 ```sh
 -server       -- 启用能够执行优化的编译器，显著提高服务器的性能
-```java
+```
 ## 空间设置参数
 
 ```sh
@@ -17,7 +17,7 @@
 -XX:LargePageSizeInBytes=128M        -- 内存页的大小不可设置过大，会影响 Perm 的大小
 -XX:NewRatio=3 -- 为 Tenured:Young 的初始尺寸比例(设置了大小就不再设置此值)，此时 Young 占用整个 HeapSize 的 1/4 大小。
 -XX:SurvivorRatio=1       -- 年轻代中 Eden 区与两个 Survivor 区的比值
-```java
+```
 ## 垃圾回收器选择参数
 
 ```sh
@@ -39,7 +39,7 @@
 -XX:+CMSClassUnloadingEnabled        -- 回收动态生成的代理类 SEE：http://stackoverflow.com/questions/3334911/what-does-jvm-flag-cmsclassunloadingenabled-actually-do
 -XX:+UseCMSInitiatingOccupancyOnly   -- 使用手动定义初始化定义开始 CMS 收集，禁止 HotSpot 自行触发 CMS GC
 -XX:CMSInitiatingOccupancyFraction=80  -- 使用 CMS 作为垃圾回收，使用 80％ 后开始 CMS 收集；在并发 GC 下，由于一边使用，一边 GC，就不能在不够用的时候 GC，默认情况下是在使用了 68%的时候进行 GC，通过该参数可以调整实际的值。
-```java
+```
 ## 日志策略参数
 
 ```sh
@@ -48,7 +48,7 @@
 -Xloggc:$WEB_APP_HOME/.tomcat/logs/gc.log  --把相关日志信息记录到文件以便分析.
 -XX:+HeapDumpOnOutOfMemoryError            --发生内存溢出时生成heapdump文件
 -XX:HeapDumpPath=$WEB_APP_HOME/.tomcat/logs/heapdump.hprof  --heapdump文件地址
-```java
+```
 ![各平台默认的垃圾回收器](https://s1.ax1x.com/2020/11/11/BXGCy8.jpg)
 
 # Links

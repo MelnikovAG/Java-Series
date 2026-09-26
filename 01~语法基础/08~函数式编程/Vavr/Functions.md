@@ -21,7 +21,7 @@ public void givenVavrBiFunction_whenWorks_thenCorrect() {
 
     assertEquals(12, result);
 }
-```java
+```
 当没有参数但我们仍然需要一个输出时，在 Java 8 中，我们需要使用一个 Consumer 类型，在 Vavr 中 Function0 是有帮助的。
 
 ```java
@@ -32,7 +32,7 @@ public void whenCreatesFunction_thenCorrect0() {
 
     assertEquals("com.baeldung.vavr.VavrTest", clazzName);
 }
-```java
+```
 五参数函数怎么样，用 Function5 就可以了。
 
 ```java
@@ -45,7 +45,7 @@ public void whenCreatesFunction_thenCorrect5() {
 
     assertEquals("Hello world! Learn Vavr", finalString);
 }
-```java
+```
 我们也可以结合任何一个函数的静态工厂方法 FunctionN.of，从方法引用中创建一个 Vavr 函数。就像如果我们有以下的 sum 方法。
 
 ```java
@@ -60,7 +60,7 @@ public void whenCreatesFunctionFromMethodRef_thenCorrect() {
 
     assertEquals(11, summed);
 }
-```java
+```
 # 组合（Composition）
 
 在数学上，函数组合可以用两个函数形成第三个函数，例如函数 f:X->Y 和函数 g:Y->Z 可以组合成 h:g(f(x))，表示 X->Z。这里看个组合的例子。

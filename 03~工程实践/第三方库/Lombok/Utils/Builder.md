@@ -16,7 +16,7 @@ public class BuilderExample {
     BuilderExample builderExample = BuilderExample.builder().build();
   }
 }
-```java
+```
 编译之后的源代码：
 
 ```java
@@ -94,7 +94,7 @@ public class BuilderExample {
 		}
 	}
 }
-```java
+```
 # 设置建造者模式的必要参数
 
 ```java
@@ -111,4 +111,4 @@ public class Person {
     return hiddenBuilder().name(name);
   }
 }
-```java
+```

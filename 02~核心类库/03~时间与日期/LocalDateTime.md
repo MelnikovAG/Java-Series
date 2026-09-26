@@ -30,14 +30,14 @@ LocalDate localDate = LocalDate.now(ZoneId.of("GMT+02:30"));
 LocalDateTime localDateTime = LocalDateTime.now();
 
 LocalDate localDate = localDateTime.toLocalDate();
-```java
+```
 LocalDate 同样需要依赖于 DateTimeFormatter 来进行格式化：
 
 ```java
 LocalDate localDate = LocalDate.now();//For reference
 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
 String formattedString = localDate.format(formatter);
-```java
+```
 LocalDate 提供了内置方法以提取日历相关的信息，以及对于日期进行加减操作：
 
 ```java
@@ -55,7 +55,7 @@ LocalDate firstDayOf2015 = lastDayOfThisMonth.plusDays(1); // 变成了2015-01-0
 
 // 取2015年1月第一个周一
 LocalDate firstMondayOf2015 = LocalDate.parse("2015-01-01").with(TemporalAdjusters.firstInMonth(DayOfWeek.MONDAY)); // 2015-01-05
-```java
+```
 ## LocalTime
 
 ```java
@@ -69,7 +69,7 @@ LocalTime localTime = localDateTime.toLocalTime();
 - 12:00
 - 12:01:02
 - 12:01:02.345
-```java
+```
 ## LocalDateTime
 
 ```java
@@ -89,7 +89,7 @@ DateTimeFormatter formatter =
 LocalDateTime parsed = LocalDateTime.parse("Nov 03, 2014 - 07:13", formatter);
 String string = formatter.format(parsed);
 System.out.println(string);     // Nov 03, 2014 - 07:13
-```java
+```
 - 获取年、月、日等信息
 
 ```java
@@ -103,16 +103,16 @@ System.out.println(month);          // DECEMBER
 
 long minuteOfDay = sylvester.getLong(ChronoField.MINUTE_OF_DAY);
 System.out.println(minuteOfDay);    // 1439
-```java
+```
 - 时间格式化展示
 
 ```java
 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 LocalDateTime dateTime = LocalDateTime.of(1986, Month.APRIL, 8, 12, 30);
 String formattedDateTime = dateTime.format(formatter); // "1986-04-08 12:30"
-```java
+```
 ```java
 localDateTime.plusDays(1);
 
 localDateTime.minusHours(2);
-```java
+```

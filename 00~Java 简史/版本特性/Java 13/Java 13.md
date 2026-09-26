@@ -44,7 +44,7 @@ java -XX:+TraceClassLoading JEP353  | grep Socket
 [0.044s][info   ][class,load] java.net.ServerSocket source: jrt:/java.base
 [0.045s][info   ][class,load] jdk.internal.access.JavaNetSocketAccess source: jrt:/java.base
 [0.045s][info   ][class,load] java.net.ServerSocket$1 source: jrt:/java.base
-```java
+```
 上面输出的 sun.nio.ch.NioSocketImpl 就是新提供的实现。如果使用旧的实现也是可以的（指定参数 jdk.net.usePlainSocketImpl）：
 
 ```sh
@@ -75,7 +75,7 @@ $ java -Djdk.net.usePlainSocketImpl -XX:+TraceClassLoading JEP353  | grep Socket
 [0.058s][info   ][class,load] java.net.ServerSocket source: jrt:/java.base
 [0.058s][info   ][class,load] jdk.internal.access.JavaNetSocketAccess source: jrt:/java.base
 [0.058s][info   ][class,load] java.net.ServerSocket$1 source: jrt:/java.base
-```java
+```
 上面的结果中，旧的实现 java.net.PlainSocketImpl 被用到了。
 
 # Switch Expressions (Preview)
@@ -95,7 +95,7 @@ switch (x) {
         i = x.length();
         break;
 }
-```java
+```
 在 JDK13 中使用以下语法：
 
 ```java
@@ -117,7 +117,7 @@ int i = switch (x) {
         yield len;
     }
 };
-```java
+```
 在这之后，switch 中就多了一个关键字用于跳出 switch 块了，那就是 yield，他用于返回一个值。和 return 的区别在于：return 会直接跳出当前循环或者方法，而 yield 只会跳出当前 switch 块。
 
 # Text Blocks (Preview)
@@ -132,7 +132,7 @@ int i = switch (x) {
       <p>Hello, world</p>
   </body>
 </html>
-```java
+```
 将其复制到 Java 的字符串中，会展示成以下内容：
 
 ```java
@@ -141,7 +141,7 @@ int i = switch (x) {
 "        <p>Hello, world</p>\n" +
 "    </body>\n" +
 "</html>\n";
-```java
+```
 即被自动进行了转义，这样的字符串看起来不是很直观，在 JDK 13 中，就可以使用以下语法了：
 
 ```java
@@ -152,7 +152,7 @@ int i = switch (x) {
   </body>
 </html>
 """;
-```java
+```
 使用“”“作为文本块的开始符合结束符，在其中就可以放置多行的字符串，不需要进行任何转义。看起来就十分清爽了。如常见的 SQL 语句：
 
 ```java
@@ -161,4 +161,4 @@ String query = """
     WHERE `CITY` = 'INDIANAPOLIS'
     ORDER BY `EMP_ID`, `LAST_NAME`;
 """;
-```java
+```

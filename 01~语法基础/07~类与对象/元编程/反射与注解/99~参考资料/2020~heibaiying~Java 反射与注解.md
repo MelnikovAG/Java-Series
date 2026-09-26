@@ -11,18 +11,18 @@
 ```java
 Class<Date> dateClass = Date.class;
 Class<Integer> integerClass = int.class;
-```java
+```
 2. 通过对象的`getClass()`方法获取：
 
 ```java
 Date date = new Date();
 Class<? extends Date> aClass = date.getClass();
-```java
+```
 3. 通过 Class 类的静态方法 `forName` 获取：
 
 ```java
 Class<?> aClass = Class.forName("java.util.Date");
-```java
+```
 ### 1.2 名称信息
 
 Class 提供了如下三个方法，用于获取名称信息，其作用和输出分别如下：
@@ -55,7 +55,7 @@ public Constructor<?>[] getDeclaredConstructors()
 public Constructor<T> getConstructor(Class<?>... parameterTypes)
 // 获取指定参数的构造器឴
 public Constructor<T> getDeclaredConstructor(Class<?>... parameterTypes)
-```java
+```
 获取指定的构造器后，可以使用 `newInstance` 方法来创建其实例，示例如下：
 
 ```java
@@ -84,12 +84,12 @@ class Test {
 }
 
 // 输出：Student{name='heibaiying', age=10}
-```java
+```
 如果你只是想调用默认的无参构造器，则可以直接使用 Class 对象的`newInstance`方法：
 
 ```java
 Student student = Student.class.newInstance();
-```java
+```
 ### 1.4 字段信息
 
 Class 有以下四个获取字段信息的方法：
@@ -103,7 +103,7 @@ public Field[] getDeclaredFields()
 public Field getField(String name)
 // 返回本类声明的指定名称的字段
 public Field getDeclaredField(String name)
-```java
+```
 字段信息被封装在 Field 类中，Field 对象有以下常用方法：
 
 ```java
@@ -117,7 +117,7 @@ public void setAccessible(boolean flag)
 public Object get(Object obj)
 // 将指定对象obj中该字段的值设为value
 public void set(Object obj, Object value)
-```java
+```
 以下给出一个修改字段的使用示例：
 
 ```java
@@ -138,7 +138,7 @@ class Test {
     }
 }
 // 输出： heibaiying
-```java
+```
 ### 1.5 方法信息
 
 Class 有以下四个获取方法信息的方法：
@@ -152,7 +152,7 @@ public Method[] getDeclaredMethods()
 public Method getMethod(String name, Class<?>... parameterTypes)
 // 返回本类声明的指定名称及其参数类型的方法
 public Method getDeclaredMethod(String name, Class<?>... parameterTypes)
-```java
+```
 方法信息被封装在 Method 类中，Method 对象有以下常用方法：
 
 ```java
@@ -162,7 +162,7 @@ public String getName()
 public void setAccessible(boolean flag)
 // 在指定的obj对象上调用invoke方法，args为传递的参数列表
 public Object invoke(Object obj, Object... args)
-```java
+```
 基本使用示例如下：
 
 ```java
@@ -184,7 +184,7 @@ class Test {
     }
 }
 // 输出： heibaiying
-```java
+```
 ### 1.6 类型检查
 
 想要判断某个对象是否是某个类或其子类的示例，可以使用 `instanceof` 关键字，或者使用 Class 的 `isInstance` 方法，示例如下：
@@ -203,19 +203,19 @@ public static void main(String[] args) {
     System.out.println(Employee.class.isInstance(employee)); // true
 
 }
-```java
+```
 如果想要判断对象的具体类型，则可以使用`equals`方法进行比较，示例如下：
 
 ```java
 employee.getClass().equals(Manager.class); // false
 employee.getClass().equals(Employee.class); // true
-```java
+```
 在知道对象的类型后，如果你需要对其进行类型转换，则可以使用类型转换语法或者 Class 的 `cast` 方法：
 
 ```java
 Manager manager01 = Manager.class.cast(employee);
 Manager manager02 = (Manager) employee;
-```java
+```
 ## 二、注解
 
 ### 2.1 注解定义
@@ -227,7 +227,7 @@ Manager manager02 = (Manager) employee;
 @Retention(RetentionPolicy.SOURCE)
 public @interface Override {
 }
-```java
+```
 `@Target` 有以下可选值，其含义分别如下：
 
 - **TYPE**：表示类、接口（包括注释类型）或枚举声明；
@@ -260,7 +260,7 @@ public Annotation[] getDeclaredAnnotations()
 public <T extends Annotation> T getAnnotation(Class<T> annotationClass)
 // 判断是否有指定类型的注解
 public boolean isAnnotationPresent(Class<? extends Annotation> annotationClass)
-```java
+```
 这里给出一个使用示例，模仿常用的序列化框架，通过注解定义字段的序列化名称和序列化格式，注解定义如下：
 
 ```java
@@ -270,7 +270,7 @@ public @interface Json {
     String value();
     String format() default "";
 }
-```java
+```
 ```java
 class Test {
 
@@ -312,7 +312,7 @@ class Test {
 输出如下：
 姓名:heibai
 出生日期:2019-07-06 08:45:47
-```java
+```
 ### 2.3 注解继承
 
 一个常用的元注解是 `@Inherited`，它表示某个注解是否能够被继承。示例如下：
@@ -324,7 +324,7 @@ class Test {
 public @interface ClassName {
     String value();
 }
-```java
+```
 使用示例如下，此时如果加上 `@Inherited` 注解，则两者的输出都是 true；如果不加上 `@Inherited` ，第二行语句输出 false，代表子类 PrimaryStudent 没有继承到 `@ClassName` 注解：
 
 ```java
@@ -340,7 +340,7 @@ class Test {
         System.out.println(PrimaryStudent.class.isAnnotationPresent(ClassName.class));
     }
 }
-```java
+```
 ## 参考资料
 
 - 马俊昌 . Java 编程的逻辑 . 机械工业出版社 . 2018-01-01

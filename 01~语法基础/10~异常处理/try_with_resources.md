@@ -17,7 +17,7 @@ try {
     ac.close();
     ac2.close();
 }
-```java
+```
 try-with-resources 的语法如下：
 
 ```java
@@ -25,7 +25,7 @@ try (AC ac = new AC();
         AC2 ac2 = new AC2()) {
 } catch (Exception e) {
 }
-```java
+```
 可以很明显的看到，try-with-resources 会自动调用类中的 close() 方法，简化了流程，提高了代码的整洁度。
 
 ## IO 案例
@@ -46,7 +46,7 @@ private static void printFile() throws IOException {
         }
     }
 }
-```java
+```
 以上程序 try 语句块中有 3 处能抛出异常，finally 语句块中有一处会抛出异常。以上程序 try 语句块中有 3 处能抛出异常，finally 语句块中有一处会抛出异常。不论 try 语句块中是否有异常抛出，finally 语句块始终会被执行。这意味着，不论 try 语句块中发生什么，InputStream 都会被关闭，或者说都会试图被关闭。如果关闭失败，close()方法也可能会抛出异常。
 
 假设 try 语句块抛出一个异常，然后 finally 语句块被执行。同样假设 finally 语句块也抛出了一个异常。那么哪个异常会根据调用栈往外传播？即使 try 语句块中抛出的异常与异常传播更相关，最终还是 finally 语句块中抛出的异常会根据调用栈向外传播。在 Java7 以后，对于上面的例子可以用 try-with-resource 结构这样写：
@@ -61,7 +61,7 @@ private static void printFileJava7() throws IOException {
         }
     }
 }
-```java
+```
 这就是 try-with-resource 结构的用法。FileInputStream 类型变量就在 try 关键字后面的括号中声明。而且一个 FileInputStream 类型被实例化并被赋给了这个变量。
 
 当 try 语句块运行结束时，FileInputStream 会被自动关闭。这是因为 FileInputStream 实现了 java 中的 java.lang.AutoCloseable 接口。所有实现了这个接口的类都可以在 try-with-resources 结构中使用。
@@ -95,7 +95,7 @@ public class AC2 implements AutoCloseable {
         System.out.println("Program 2 running.");
     }
 }
-```java
+```
 AC2 和 AC 在实现上是相同的。我创建两个类的原因是想让大家知道 try-with-resources 可以支持同时进行多个类的关闭。再编写一个主方法，运行测试：
 
 ```java
@@ -109,4 +109,4 @@ public class Main {
         }
     }
 }
-```java
+```

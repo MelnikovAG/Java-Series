@@ -31,7 +31,7 @@ Futures.addCallback(
     },
     service);
 
-```java
+```
 另外，如果你要从基于 FutureTask 的 API 进行转换，则 Guava 提供了 ListenableFutureTask.create(Callable)和 ListenableFutureTask.create(Runnable, V)。与 JDK 不同，ListenableFutureTask 不能直接扩展。如果你更喜欢抽象的方式设置 future 值，而不是实现一种计算该值的方法，请考虑扩展 AbstractFuture 或直接使用 SettableFuture。
 
 如果必须将另一个 API 提供的 Future 转换为 ListenableFuture，则别无选择，只能使用重量级的 JdkFutureAdapters.listenInPoolThread(Future)将 Future 转换为 ListenableFuture。只要有可能，最好修改原始代码以返回
@@ -122,7 +122,7 @@ public class TestThread {
         return "处理完了";
     }
 }
-```java
+```
 ```java
 public class MyCallable implements Callable{
 
@@ -142,7 +142,7 @@ public class MyCallable implements Callable{
         this.list = list;
     }
 }
-```java
+```
 ## 异步操作链
 
 使用 ListenableFuture 的最重要原因是可以拥有复杂的异步操作链：
@@ -158,7 +158,7 @@ AsyncFunction<RowKey, QueryResult> queryFunction =
 ListenableFuture<QueryResult> queryFuture =
     Futures.transformAsync(rowKeyFuture, queryFunction, queryExecutor);
 
-```java
+```
 ListenableFuture 可以有效地支持许多其他操作，而单独的 Future 不能支持。不同的执行者可以执行不同的操作，并且单个 ListenableFuture 可以有多个操作在等待它。
 
 | 方法          | 描述                                                                                                                                                                                          |
@@ -273,7 +273,7 @@ public class ListeningFutureDemo {
     }
 
 }
-```java
+```
 ## 与 CompletableFuture 之间互相转化
 
 ```java
@@ -316,7 +316,7 @@ public class ListenableFutureAdapter<T> {
     }
 
 }
-```java
+```
 # 实践案例
 
 ## 异步阻塞
@@ -366,7 +366,7 @@ public class Test2 {
 16:25:47.699 [Thread-2] INFO com.pipiha.Collections.Concurrency.ListenableFutuTest.Test2 - Thread-2 Callable任务启动....
 16:25:52.792 [main] INFO com.pipiha.Collections.Concurrency.ListenableFutuTest.Test2 - main当前时间:2020-05-30 16:25:52
 16:25:52.792 [main] INFO com.pipiha.Collections.Concurrency.ListenableFutuTest.Test2 - main主线程继续执行
-```java
+```
 注意观察运行结果的线程名和日志输出时间。需要注意的是由于没有执行成功的异步回调，实际上我们的主线程依旧是阻塞的，必须等子线程运行完，才能拿到结果。
 
 ## 异步非阻塞
@@ -407,7 +407,7 @@ public class Test3 {
     }
 
 }
-```java
+```
 分析打印的日志，可以看到主线程在提交任务过后就紧着执行，没有被阻塞而停下来。还可以发现，计算的执行过程是由 pool-1-thread-1 执行的，回调逻辑是由线程池里面的 pool-1-thread-2 处理的。
 
 ## 多任务协作
@@ -466,4 +466,4 @@ public class FutureTest {
     }
 
 }
-```java
+```

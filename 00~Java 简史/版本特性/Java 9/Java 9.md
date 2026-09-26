@@ -5,12 +5,12 @@ Java 9 为我们提供了用于创建不可变列表、集合与映射的工厂�
 ```java
 List<String> list=List.of("apple","bat");
 list.add("cat");
-```java
+```
 强制操作的话会抛出 `unsupportedOperationException`，并且这种创建方式不允许传入空参数，否则会抛出空指针异常：
 
 ```java
 List<String> list = List.of("apple",null);
-```java
+```
 ```java
 List<String> list1 = List.of("apple","bat");
 List<String> list2 = List.of();
@@ -24,7 +24,7 @@ list2.forEach(value-> System.out.println(value));
 apple
 bat
 ** List empty **
-```java
+```
 ```java
 Set<String> set1= Set.of("apple","bat");
 Set<String> set2= Set.of();
@@ -33,7 +33,7 @@ System.out.println("** Set with values **");
 set1.forEach(value-> System.out.println(value));
 System.out.println("** List empty **");
 set2.forEach(value-> System.out.println(value));
-```java
+```
 ```java
 Map<Integer,String> emptyMap = Map.of();
 Map<Integer,String> map = Map.of(1, "Apple", 2, "Bat", 3, "Cat");
@@ -48,7 +48,7 @@ map.forEach((k,v) -> System.out.println( k +"-"+ v));
 1-Apple
 3-Cat
 2-Bat
-```java
+```
 ```java
 System.out.println("** Empty  Map Entry **");
 Map<Integer,String> emptyEntry = Map.ofEntries();
@@ -67,4 +67,4 @@ mapEntry.forEach((k,v) -> System.out.println(k+"-"+v));
 1-Apple
 3-Cat
 2-Bat
-```java
+```

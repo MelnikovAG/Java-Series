@@ -252,4 +252,4 @@ public class MiniBrowser extends JFrame implements HyperlinkListener {
     browser.show();
   }
 }
-```java
+```

@@ -24,7 +24,7 @@ public int hashCode() {
     }
     return h;
 }
-```java
+```
 ```java
 public class IdentityHashCodeTest {
 
@@ -55,7 +55,7 @@ public class IdentityHashCodeTest {
 13078969----3154093
 28399250----28399250
 */
-```java
+```
 在有些情况下，程序设计者在设计一个类的时候为需要重写 equals 方法，比如 String 类，但是千万要注意，在重写 equals 方法的同时，必须重写 hashCode 方法。
 
 ```java
@@ -101,7 +101,7 @@ public class Main {
     System.out.println(hashMap.get(new People("Jack", 12)));
   }
 }
-```java
+```
 在这里我只重写了 equals 方法，也就说如果两个 People 对象，如果它的姓名和年龄相等，则认为是同一个人。这段代码本来的意愿是想这段代码输出结果为“1”，但是事实上它输出的是“null”。为什么呢？原因就在于重写 equals 方法的同时忘记重写 hashCode 方法。
 
 虽然通过重写 equals 方法使得逻辑上姓名和年龄相同的两个对象被判定为相等的对象(跟 String 类类似)，但是要知道默认情况 下，hashCode 方法是将对象的存储地址进行映射。那么上述代码的输出结果为“null”就不足为奇了。原因很简单，p1 指向的对象和 `System.out.println(hashMap.get(new People("Jack", 12)));` 这句中的 `new People("Jack", 12)` 生成的是两个对象，它们的存储地址肯定不同。
@@ -117,7 +117,7 @@ public class Main {
            return (key==null   ? 0 : key.hashCode()) ^
                    (value==null ? 0 : value.hashCode());
         }
-```java
+```
 下面这段话摘自 Effective Java 一书：
 
 > - 在程序执行期间，只要 equals 方法的比较操作用到的信息没有被修改，那么对这同一个对象调用多次，hashCode 方法必须始终如一地返回同一个整数。
@@ -174,7 +174,7 @@ public class Main {
     System.out.println(hashMap.get(p1));
   }
 }
-```java
+```
 这段代码输出的结果为“null”，想必其中的原因大家应该都清楚了。因此，在设计 hashCode 方法和 equals 方法的时候，如果对象中的数据易变，则最好在 equals 方法和 hashCode 方法中不要依赖于该字段。
 
 # Links

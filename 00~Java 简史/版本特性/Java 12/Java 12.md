@@ -32,7 +32,7 @@ public static void switchJava12Before(String day) {
             break;
     }
 }
-```java
+```
 上面的例子中，通过传入一个月份，输出这个月份对应的季节。简单的功能却写了大量代码，而且每个操作都需要一个 break 来防止 Case 穿透。由于 Switch 表达式在 Java 12 中并不是一个正式发布的功能，还处于预览测试阶段，所以想要使用 Java 12 去编译运行就需要打开功能预览参数，当然，如果你使用的是 Java 14 以及更高版本，就可以直接跳过这个部分了。
 
 ```sh
@@ -40,7 +40,7 @@ public static void switchJava12Before(String day) {
 ./bin/javac --enable-preview -source 12 ./Xxx.java
 # 运行时
 ./bin/java --enable-preview Xxx
-```java
+```
 由于 Switch 存在的上述问题，所以在 Java 12 中对 Switch 进行了改进，让其可以使用 case L -> 的方式进行操作，那么在 Java 12 中可以怎么编写这段代码呢？
 
 ```java
@@ -52,7 +52,7 @@ public static void switchJava12(String day) {
         case "december", "january", "february"  -> System.out.println("冬天");
     }
 }
-```java
+```
 通过测试可以得到预期的输出结果。这还不够，在 Switch 的改进中，还支持了使用 Switch 的返回值进行赋值。像下面这样：
 
 ```java
@@ -68,7 +68,7 @@ String season = switch (day) {
     }
 };
 System.out.println("当前季节是:" + season);
-```java
+```
 虽然编写更加简单了，其实这些只不过是语法糖式的更新，编译后和之前并没有太大区别。
 
 # 文件对比 Files.mismatch
@@ -99,7 +99,7 @@ pathB.toFile().deleteOnExit();
 // RESULT
 // -1
 // 3
-```java
+```
 # Compact Number
 
 简化的数字格式可以直接转换数字显示格式，比如 1000 -> 1K，1000000 -> 1M 。
@@ -119,7 +119,7 @@ upvotes.setMaximumFractionDigits(1);
 System.out.println(upvotes.format(1234));
 System.out.println(upvotes.format(123456));
 System.out.println(upvotes.format(12345678));
-```java
+```
 可以得到输出如下：
 
 ```java
@@ -131,7 +131,7 @@ System.out.println(upvotes.format(12345678));
 1.2K
 123.5K
 12.3M
-```java
+```
 # JVM 相关更新
 
 ## Shenandoah 垃圾收集器

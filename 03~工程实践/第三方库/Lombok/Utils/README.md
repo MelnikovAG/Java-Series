@@ -22,7 +22,7 @@ public class ConstructorExample<T> {
     private String field;
   }
 }
-```java
+```
 编译之后：
 
 ```java
@@ -56,7 +56,7 @@ public class ConstructorExample<T> {
     public NoArgsExample() {}
   }
 }
-```java
+```
 ## Exception:异常处理
 
 ### NonNull
@@ -74,7 +74,7 @@ public class NonNullExample extends Something {
     this.name = person.getName();
   }
 }
-```java
+```
 编译之后：
 
 ```java
@@ -91,7 +91,7 @@ public class NonNullExample extends Something {
     this.name = person.getName();
   }
 }
-```java
+```
 ### SneakyThrows
 
 源代码：
@@ -111,7 +111,7 @@ public class SneakyThrowsExample implements Runnable {
     throw new Throwable();
   }
 }
-```java
+```
 编译之后：
 
 ```java
@@ -135,7 +135,7 @@ public class SneakyThrowsExample implements Runnable {
     }
   }
 }
-```java
+```
 ## Thread:线程
 
 ### Synchronized
@@ -163,7 +163,7 @@ public class SynchronizedExample {
     System.out.println("bar");
   }
 }
-```java
+```
 编译之后：
 
 ```java
@@ -190,7 +190,7 @@ public class SynchronizedExample {
     }
   }
 }
-```java
+```
 ## Utils
 
 ### Cleanup
@@ -216,7 +216,7 @@ public class CleanupExample {
     }
   }
 }
-```java
+```
 编译之后：
 
 ```java
@@ -246,7 +246,7 @@ public class CleanupExample {
 		}
 	}
 }
-```java
+```
 ### Log:日志
 
 使用@Log 或者类似注解可以为类自动创建一个 log 对象，其效果如下所示：
@@ -264,7 +264,7 @@ Creates private static final org.apache.logging.log4j.Logger log = org.apache.lo
 Creates private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(LogExample.class);
 @XSlf4j
 Creates private static final org.slf4j.ext.XLogger log = org.slf4j.ext.XLoggerFactory.getXLogger(LogExample.class);
-```java
+```
 使用了 Lombok 之后的代码如下：
 
 ```java
@@ -294,7 +294,7 @@ public class LogExampleCategory {
     log.error("Calling the 'CounterLog' with a message");
   }
 }
-```java
+```
 编译之后的代码如下：
 
 ```java
@@ -321,7 +321,7 @@ public class LogExampleCategory {
 		log.error("Calling the 'CounterLog' with a message");
 	}
 }
-```java
+```
 其他可配置的参数为：
 
 - lombok.log.fieldName = an identifier (default: log)

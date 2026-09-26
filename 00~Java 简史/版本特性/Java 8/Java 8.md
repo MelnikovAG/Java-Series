@@ -64,4 +64,4 @@ public class Java8Tester {
       Collections.sort(names, (s1, s2) -> s1.compareTo(s2));
    }
 }
-```java
+```

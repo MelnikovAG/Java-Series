@@ -34,7 +34,7 @@ try {
  } catch (IOException e) {
       e.printStackTrace();
  }
-```java
+```
 # Sink
 
 ![](http://s3.51cto.com/wyfs02/M02/5B/94/wKiom1UL7ifA8Gq9AABmy7lI3Yo667.jpg)
@@ -49,4 +49,4 @@ try {
  } catch (IOException e) {
     e.printStackTrace();
 }
-```java
+```

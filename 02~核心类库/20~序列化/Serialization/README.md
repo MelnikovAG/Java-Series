@@ -8,13 +8,13 @@ Java 是面向对象的编程语言，有时需要保存对象，并在下次使
 
 ```java
 public final void writeObject(Object x) throws IOException
-```java
+```
 上面的方法序列化一个对象，并将它发送到输出流。相似的 ObjectInputStream 类包含如下反序列化一个对象的方法：
 
 ```java
 public final Object readObject() throws IOException,
                                  ClassNotFoundException
-```java
+```
 该方法从流中取出下一个对象，并将对象反序列化。它的返回值为 Object，因此，你需要将它转换成合适的数据类型。
 
 ## 序列化机制
@@ -53,7 +53,7 @@ public class Employee implements java.io.Serializable
                            + " " + address);
    }
 }
-```java
+```
 请注意，一个类的对象要想序列化成功，必须满足两个条件：
 
 - 该类必须实现 java.io.Serializable 接口。
@@ -91,7 +91,7 @@ public class SerializeDemo
       }
    }
 }
-```java
+```
 为什么一个类实现了 Serializable 接口，它就可以被序列化呢？在上节的示例中，使用 ObjectOutputStream 来持久化对象，在该类中有如下代码：
 
 ```java
@@ -115,7 +115,7 @@ private void writeObject0(Object obj, boolean unshared) throws IOException {
     }
     ...
 }
-```java
+```
 从上述代码可知，如果被写对象的类型是 String，或数组，或 Enum，或 Serializable，那么就可以对该对象进行序列化，否则将抛出 NotSerializableException。
 
 ## 反序列化对象
@@ -152,7 +152,7 @@ public class DeserializeDemo
       System.out.println("Number: " + e.number);
     }
 }
-```java
+```
 readObject() 方法中的 try/catch 代码块尝试捕获 ClassNotFoundException 异常。对于 JVM 可以反序列化对象，它必须是能够找到字节码的类。如果 JVM 在反序列化对象的过程中找不到该类，则抛出一个 ClassNotFoundException 异常。
 
 注意，readObject() 方法的返回值被转化成 Employee 引用。当对象被序列化时，属性 SSN 的值为 111222333，但是因为该属性是短暂的，该值没有被发送到输出流。所以反序列化后 Employee 对象的 SSN 属性为 0。

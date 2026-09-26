@@ -40,7 +40,7 @@ Remote 接口是一个标识接口，用于标识所包含的方法可以从非�
     public interface Hello extends Remote {
         public String sayHello(String name) throws RemoteException;
     }
-```java
+```
 由于远程方法调用的本质依然是网络通信，只不过隐藏了底层实现，网络通信是经常会出现异常的，所以接口的所有方法都必须抛出 RemoteException 以说明该方法是有风险的
 2，创建远程方法接口实现类：
 UnicastRemoteObject 类的构造函数抛出了 RemoteException，故其继承类不能使用默认构造函数，继承类的构造函数必须也抛出 RemoteException
@@ -63,7 +63,7 @@ UnicastRemoteObject 类的构造函数抛出了 RemoteException，故其继承�
             return "Hello,"+name;
         }
     }
-```java
+```
 3，利用 java 自带 rmic 工具生成 sutb 存根类(jdk1.5.0_15/bin/rmic)
 jdk1.2 以后的 RMI 可以通过反射 API 可以直接将请求发送给真实类，所以不需要 skeleton 类了
 sutb 存根为远程方法类在本地的代理，是在服务端代码的基础上生成的，需要 HelloImpl.class 文件，由于 HelloImpl 继承了 Hello 接口，故 Hello.class 文件也是不可少的
@@ -77,12 +77,12 @@ Test
 ```java
 [name@name Test]$ cd /home/name/Test/
 [name@name Test]$ rmic server.HelloImpl
-```java
+```
 方式二：
 
 ```java
 [name@name Test]$ rmic -classpath /home/name/Test server.HelloImpl
-```java
+```
 运行成功后将会生成 HelloImpl_Stub.class 文件
 4，启动 RMI 注册服务(jdk1.5.0_15/bin/rmiregistry)
 方式一：后台启动 rmiregistry 服务
@@ -93,13 +93,13 @@ Test
     [name@name jdk]$ ps -ef|grep rmiregistry
     name    22720 13763  0 16:43 pts/3    00:00:00 jdk1.5.0_15/bin/rmiregistry 12312
     name    22737 13763  0 16:43 pts/3    00:00:00 grep rmiregistry
-```java
+```
 如果不带具体端口号，则默认为 1099
 方式二：人工创建 rmiregistry 服务，需要在代码中添加：
 
 ```java
     LocateRegistry.createRegistry(12312);
-```java
+```
 5，编写服务端代码
 
 ```java
@@ -132,7 +132,7 @@ Test
             }
         }
     }
-```java
+```
 先创建注册表，然后才能在注册表中存储远程对象信息
 6，运行服务端(58.164)：
 Test
@@ -145,7 +145,7 @@ Test
 ```java
     [name@name ~]$ java server.HelloServer
     HelloServer启动成功
-```java
+```
 当然/home/name/Test 一定要在系统 CLASSPATH 中，否则会报找不到相应的.class 文件
 7，编写客户端代码
 
@@ -174,7 +174,7 @@ Test
             }
         }
     }
-```java
+```
 8，运行客户端(58.163)：
 Test
 
@@ -187,5 +187,5 @@ Test
 ```java
     [name@name client]$ java client.HelloClient
     Hello,zx
-```java
+```
 ![](http://img.blog.csdn.net/20130816094554390?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYTE5ODgxMDI5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)

@@ -19,7 +19,7 @@ switch(today) {
  Sat: play sports game; break;
  Sun: have a rest; break;
 }
-```java
+```
 最直接的益处就是扩大 switch 语句使用范围。5.0 之前，Java 中 switch 的值只能够是简单类型，比如 int、byte、short、char, 有了枚举类型之后，就可以使用对象了。需要注意的是，Java 中的枚举类型实际上会被编译为类文件，值即是这个类型的成员变量，譬如我们丰富下前文的枚举类型：
 
 ```java
@@ -53,7 +53,7 @@ public enum WeekDay {
     return day;
   }
 }
-```java
+```
 # 枚举值关联
 
 我们可以创建如下的枚举类型：
@@ -71,7 +71,7 @@ public enum Element {
         this.label = label;
     }
 }
-```java
+```
 首先，我们注意到声明列表中的特殊语法。这就是枚举类型的构造函数被调用的方式。尽管对枚举类型使用 new 操作符是非法的，但我们可以在声明列表中传递构造器参数。
 
 然后我们声明一个实例变量 label。这里面有几件事需要注意。
@@ -82,12 +82,12 @@ public enum Element {
 
 ```java
 System.out.println(BE.label);
-```java
+```
 另一方面，该字段可以是私有的，用 getLabel()方法访问。为了简洁起见，本文将继续使用公共字段的样式。Java 为所有枚举类型提供了一个 valueOf(String)方法。因此，我们总是可以根据声明的名称得到一个枚举的值。
 
 ```java
 assertSame(Element.LI, Element.valueOf("LI"));
-```java
+```
 然而，我们可能也想通过我们的标签字段来查询一个枚举值。要做到这一点，我们可以添加一个静态方法。
 
 ```java
@@ -99,12 +99,12 @@ public static Element valueOfLabel(String label) {
     }
     return null;
 }
-```java
+```
 static valueOfLabel()方法遍历元素值，直到找到一个匹配的元素。如果没有找到匹配的，它就返回 null。反之，可以抛出一个异常，而不是返回 null。
 
 ```java
 assertSame(Element.LI, Element.valueOfLabel("Lithium"));
-```java
+```
 为了提高值查询的效率，我们还可以添加如下的缓存：
 
 ```java
@@ -148,4 +148,4 @@ public enum Element {
         return BY_ATOMIC_WEIGHT.get(weight);
     }
 }
-```java
+```

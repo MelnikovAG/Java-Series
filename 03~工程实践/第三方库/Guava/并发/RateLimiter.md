@@ -4,12 +4,12 @@ RateLimiter 类是一个构造，它允许我们调节一些处理发生的速�
 
 ```java
 RateLimiter rateLimiter = RateLimiter.create(2);
-```java
+```
 接下来，为了从 RateLimiter 获得执行许可，我们需要调用 acquire()方法：
 
 ```java
 rateLimiter.acquire(1);
-```java
+```
 为了检查是否有效，我们将对节制方法进行 2 次后续调用：
 
 ```java
@@ -19,12 +19,12 @@ doSomeLimitedOperation();
 rateLimiter.acquire(1);
 doSomeLimitedOperation();
 long elapsedTimeSeconds = ZonedDateTime.now().getSecond() - startTime;
-```java
+```
 为了简化我们的测试，我们假设 doSomeLimitedOperation()方法立即完成。在这种情况下，两次对 acquire()方法的调用都不应该阻塞，经过的时间应该小于或低于一秒--因为两个许可证都可以立即获得。
 
 ```java
 assertThat(elapsedTimeSeconds <= 1);
-```java
+```
 此外，我们可以在一次 acquire()调用中获得所有的许可证。
 
 ```java
@@ -42,7 +42,7 @@ public void givenLimitedResource_whenRequestOnce_thenShouldPermitWithoutBlocking
     // then
     assertThat(elapsedTimeSeconds <= 1);
 }
-```java
+```
 例如，如果我们需要每秒发送 100 个字节，这就很有用。我们可以一次发送 100 次一个字节获取一个许可证。另一方面，我们可以一次发送所有 100 个字节，在一次操作中获取所有 100 个许可证。
 
 # 阻塞方式获取权限
@@ -66,7 +66,7 @@ public void givenLimitedResource_whenUseRateLimiter_thenShouldLimitPermits() {
     // then
     assertThat(elapsedTimeSeconds >= 10);
 }
-```java
+```
 注意，我们在这里是如何使用 acquire() 方法的--这是一个阻塞方法，我们在使用它时应该谨慎。当 acquire() 方法被调用时，它会阻塞执行线程，直到有许可。在没有参数的情况下调用 acquire() 方法和以 1 作为参数调用该方法是一样的，它将尝试获取一个许可证。
 
 # 设置超时
@@ -86,4 +86,4 @@ public void givenLimitedResource_whenTryAcquire_shouldNotBlockIndefinitely() {
     // then
     assertThat(result).isFalse();
 }
-```java
+```

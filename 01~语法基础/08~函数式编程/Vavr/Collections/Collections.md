@@ -7,13 +7,13 @@ Vavr 实现了一套新的 Java 集合框架来匹配函数式编程范式，Vav
 ```java
 Arrays.asList(1, 2, 3).stream().reduce((i, j) -> i + j);
 IntStream.of(1, 2, 3).sum();
-```java
+```
 使用 Vavr 实现相同的功能，则更加直接：
 
 ```java
 // io.vavr.collection.List
 List.of(1, 2, 3).sum();
-```java
+```
 ## Java 转化我 Vavr
 
 Vavr 中的每个集合实现都有一个静态的工厂方法 ofAll()，它接收一个 java.util.Iterable。这允许我们从一个 Java 集合中创建一个 Vavr 集合。同样的，另一个工厂方法 All()也直接取一个 Java Stream。
@@ -24,7 +24,7 @@ List<Integer> vavrList = List.ofAll(javaList);
 
 java.util.stream.Stream<Integer> javaStream = javaList.stream();
 Set<Integer> vavrSet = HashSet.ofAll(javaStream);
-```java
+```
 另一个有用的函数是 collector()，它可以和 Stream.collect()一起使用，以获得一个 Vavr 集合。
 
 ```java
@@ -35,7 +35,7 @@ List<Integer> vavrList = IntStream.range(1, 10)
 
 assertEquals(4, vavrList.size());
 assertEquals(2, vavrList.head().intValue());
-```java
+```
 ## Vavr 转化为 Java
 
 ```java
@@ -52,7 +52,7 @@ java.util.Set<Integer> javaSet = List.of(1, 2, 3)
 
 assertEquals(3, javaSet.size());
 assertEquals(1, javaSet.toArray()[0]);
-```java
+```
 # Seq（序列类型）
 
 ## List
@@ -72,7 +72,7 @@ assertEquals(list3.size(), 2);
 
 List list4 = list.dropWhile(s -> s.length() > 0);
 assertTrue(list4.isEmpty());
-```java
+```
 drop(int n) 从列表中的第一个元素开始删除 n 个元素，而 dropRight() 从列表中的最后一个元素开始做同样的事情。dropUntil() 继续从列表中删除元素，直到谓词值为真，而 dropWhile()则在谓词为真时继续删除元素。接下来，take(int n) 用于从一个列表中抓取元素。它从列表中抓取 n 个元素，然后停止。还有一个 takeRight(int n)是从列表的末尾开始抓取元素。
 
 ```java
@@ -84,7 +84,7 @@ assertEquals(list6.single(), "JAVA");
 
 List list7 = list.takeUntil(s -> s.length() > 6);
 assertEquals(list7.size(), 3);
-```java
+```
 最后，takeUntil() 继续从列表中提取元素，直到谓词为真。还有一个 takeWhile()的变体，也会取一个谓词参数。此外，API 中还有其他有用的方法，例如，实际上还有返回非重复元素列表的 distinct()，以及接受一个比较器来确定平等的 distinctBy()。非常有趣的是，还有 intersperse()，它可以在一个列表的每个元素之间插入一个元素。对于 String 操作来说，它可以非常方便。
 
 ```java
@@ -99,7 +99,7 @@ String words = List.of("Boys", "Girls")
   .trim();
 
 assertEquals(words, "Boys and Girls");
-```java
+```
 想把一个列表分成几类？那么，也有一个 API 可以实现。
 
 ```java
@@ -110,7 +110,7 @@ Map<Boolean, List<String>> map = list.groupBy(e -> e.startsWith("J"));
 assertEquals(map.size(), 2);
 assertEquals(map.get(false).get().size(), 1);
 assertEquals(map.get(true).get().size(), 5);
-```java
+```
 group(int n)将一个 List 划分为每组 n 个元素的组。groupdBy()接受一个包含划分列表逻辑的 Function，并返回一个有两个条目的 Map--true 和 false。true 键映射到满足 Function 中指定条件的元素的 List；false 键映射到不满足条件的元素的 List。正如预期的那样，当修改一个 List 时，原始 List 实际上并没有被修改。相反，总是返回一个新版本的 List。我们还可以使用堆栈语义与 List 进行交互--元素的最后进先出（LIFO）检索。在这个程度上，有一些 API 方法用于操作堆栈，如 peek()、pop()和 push()。
 
 ```java
@@ -122,7 +122,7 @@ assertEquals(intList1.peek(), Integer.valueOf(10));
 
 List intList2 = intList1.pop();
 assertEquals(intList2.size(), (intList1.size() - 1) );
-```java
+```
 pushAll() 函数用来将一系列的整数插入到堆栈中，而 peek() 则用来获取堆栈的头部。还有 peekOption() 可以将结果包裹在 Option 对象中。更多操作如下：
 
 - List Creation
@@ -141,7 +141,7 @@ List<String> animals = Collections.unmodifiableList(...);
 List<String> animals = List.of("🐱", "🐶");
 List<String> another = List.ofAll(animals);
 List<String> empty = List.empty();
-```java
+```
 - Add Element
 
 ```java
@@ -164,7 +164,7 @@ List<String> animals = List.of("🐱", "🐶");
 List<String> another = animals.append("😌");
 // animals: "🐱", "🐶"
 // another: "🐱", "🐶", "😌"
-```java
+```
 - Get Element
 
 ```java
@@ -183,7 +183,7 @@ animals.get(1);
 // "🐶"
 animals.last();
 // "🐶"
-```java
+```
 - Remove Element
 
 ```java
@@ -216,7 +216,7 @@ List<Integer> numbers = List.of(2, 3);
 List<Integer> another = numbers.removeAt(1);
 // numbers: 2, 3
 // another: 2
-```java
+```
 - Streaming API
 
 ```java
@@ -247,7 +247,7 @@ List<String> dogs = List.of("🐶", "🐕");
 List<List<String>> lists = List.of(cats, dogs);
 List<String> list = lists.flatMap(Function.identity());
 // "🐱", "🐈", "🐶", "🐕"
-```java
+```
 ## Queue
 
 一个不可改变的 Queue 存储元素，允许先入先出（FIFO）检索。一个 Queue 内部由两个链接的列表组成，一个前列表（Front List），一个后列表（Rear List）。前面的列表包含了去 quequeued 的元素，后面的列表包含了 enqueued 的元素。这使得 enqueue 和 dequeue 操作可以在 O(1)中执行。当前置 List 的元素用完时，前置 List 和后置 List 的元素被交换，后置 List 被反转。
@@ -264,13 +264,13 @@ assertEquals(Integer.valueOf(1), result._1);
 
 Queue<Integer> tailQueue = result._2;
 assertFalse(tailQueue.contains(secondQueue.get(0)));
-```java
+```
 dequeue 函数从 Queue 中移除头部元素，并返回一个 `Tuple2<T，Q>`。这个元组包含被移除的头部元素作为第一个条目，Queue 的其余元素作为第二个条目。我们可以使用组合(n)来获得 Queue 中所有可能的 N 种元素组合。
 
 ```java
 Queue<Queue<Integer>> queue1 = queue.combinations(2);
 assertEquals(queue1.get(2).toCharSeq(), CharSeq.of("23"));
-```java
+```
 ## Stream
 
 Stream 是一个懒惰链接列表的实现，与 java.util.stream 有很大不同。与 java.util.stream 不同的是，Vavr Stream 存储的是数据，并且是懒惰地计算下一个元素。将 s.toString()的结果打印到控制台，只会显示 Stream(2，?)。这意味着只有 Stream 的头部被评估，而尾部没有被评估。
@@ -288,13 +288,13 @@ long evenSum = intStream.filter(i -> i % 2 == 0)
   .longValue();
 
 assertEquals(20, evenSum);
-```java
+```
 相对于 Java 8 Stream API 而言，Vavr 的 Stream 是一种用于存储元素序列的数据结构。因此，它有 get()、append()、insert()等方法来操作其元素。前面考虑的 drop()、distinct()和其他一些方法也都可以使用。最后，我们快速演示一下 Stream 中的 tabulate()。该方法返回一个长度为 n 的 Stream，其中包含的元素是应用一个函数的结果。
 
 ```java
 Stream<Integer> s1 = Stream.tabulate(5, (i)-> i + 1);
 assertEquals(s1.get(2).intValue(), 3);
-```java
+```
 我们还可以使用 zip()生成一个 Tuple2<Integer，Integer>的 Stream，其中包含的元素是由两个 Stream 组合而成。
 
 ```java
@@ -305,7 +305,7 @@ Tuple2<Integer, Integer> t1 = s2.get(0);
 
 assertEquals(t1._1().intValue(), 2);
 assertEquals(t1._2().intValue(), 7);
-```java
+```
 ## Array
 
 数组是一个不可变的、有索引的、允许高效随机访问的序列。它是由一个 Java 对象数组支持的。本质上，它是一个 T 类型的对象数组的可遍历包装器。我们可以通过使用静态方法 of()来实例化一个 Array。我们也可以通过使用静态的 range()和 rangeBy()方法生成一个范围元素。rangeBy()有第三个参数，让我们定义步长。
@@ -321,7 +321,7 @@ assertTrue(rArray2.contains(5));
 
 Array<Integer> rArray3 = Array.rangeClosedBy(1,6,2);
 assertEquals(rArray3.size(), 3);
-```java
+```
 让我们通过索引来操作元素：
 
 ```java
@@ -334,7 +334,7 @@ assertEquals(3, newArray.get(1).intValue());
 
 Array<Integer> array2 = intArray.replace(1, 5);
 assertEquals(array2.get(0).intValue(), 5);
-```java
+```
 ## Vector
 
 向量是介于数组和列表之间的一种，它提供了另一个有索引的元素序列，允许在恒定的时间内随机访问和修改。
@@ -348,7 +348,7 @@ assertEquals(4, newVector.size());
 
 assertEquals(2, intVector.get(1).intValue());
 assertEquals(6, newVector.get(1).intValue());
-```java
+```
 ## CharSeq
 
 CharSeq 是一个集合对象，用于表达一个原始字符序列。它本质上是一个增加了集合操作的 String 包装器。
@@ -363,7 +363,7 @@ assertEquals(4, newChars.size());
 assertEquals('v', chars.charAt(0));
 assertEquals('V', newChars.charAt(0));
 assertEquals("Vavr", newChars.mkString());
-```java
+```
 # Set
 
 在本节中，我们将详细介绍集合库中各种 Set 的实现。Set 数据结构的独特之处在于它不允许有重复的值。然而，Set 有不同的实现：HashSet 是基本的实现。TreeSet 不允许重复的元素，并且可以进行排序。LinkedHashSet 保持其元素的插入顺序。
@@ -379,7 +379,7 @@ HashSet<Integer> set1 = HashSet.rangeClosed(3, 6);
 assertEquals(set0.union(set1), HashSet.rangeClosed(1,6));
 assertEquals(set0.diff(set1), HashSet.rangeClosed(1,2));
 assertEquals(set0.intersect(set1), HashSet.rangeClosed(3,5));
-```java
+```
 我们还可以进行基本的操作，如添加和删除元素：
 
 ```java
@@ -389,7 +389,7 @@ HashSet<String> newSet = set.add("Yellow");
 assertEquals(3, set.size());
 assertEquals(4, newSet.size());
 assertTrue(newSet.contains("Yellow"));
-```java
+```
 ## TreeSet
 
 一个不可改变的 TreeSet 是 SortedSet 接口的一个实现。它存储一个排序元素的 Set，并使用二进制搜索树来实现。它的所有操作都以 O(log n)时间运行。默认情况下，TreeSet 的元素是按照自然顺序排序的。让我们创建一个使用自然排序顺序的 SortedSet。
@@ -400,7 +400,7 @@ assertEquals("Blue", set.head());
 
 SortedSet<Integer> intSet = TreeSet.of(1,2,3);
 assertEquals(2, intSet.average().get().intValue());
-```java
+```
 要以自定义的方式对元素进行排序，可以在创建 TreeSet 时传递一个比较器实例。我们也可以从集合元素中生成一个字符串。
 
 ```java
@@ -410,7 +410,7 @@ assertEquals("Red", reversedSet.head());
 
 String str = reversedSet.mkString(" and ");
 assertEquals("Red and Green and Blue", str);
-```java
+```
 ## BitSet
 
 Vavr 集合还包含一个不可变的 BitSet 实现。BitSet 接口扩展了 SortedSet 接口。BitSet 可以使用 BitSet.Builder 中的静态方法来实例化。与 Set 数据结构的其他实现一样，BitSet 不允许向集合中添加重复的条目。
@@ -421,7 +421,7 @@ Vavr 集合还包含一个不可变的 BitSet 实现。BitSet 接口扩展了 So
 BitSet<Integer> bitSet = BitSet.of(1,2,3,4,5,6,7,8);
 BitSet<Integer> bitSet1 = bitSet.takeUntil(i -> i > 4);
 assertEquals(bitSet1.size(), 4);
-```java
+```
 我们使用 takeUntil()来选择 BitSet 的前四个元素。该操作返回一个新的实例。请注意，takeUntil()是在 Traversable 接口中定义的，Traversable 接口是 BitSet 的父接口。上面演示的其他方法和操作，是在 Traversable 接口中定义的，也同样适用于 BitSet。
 
 # Map
@@ -439,7 +439,7 @@ Map<Integer, List<Integer>> map = List.rangeClosed(0, 10)
 assertEquals(2, map.size());
 assertEquals(6, map.get(0).get().size());
 assertEquals(5, map.get(1).get().size());
-```java
+```
 类似于 HashSet，HashMap 的实现是由一个哈希数组映射的 Trie(HAMT)支持的，导致几乎所有的操作都是恒定的时间。我们可以使用 filterKeys()方法按键过滤映射条目，或者使用 filterValues()方法按值过滤。这两种方法都接受一个 Predicate 作为参数。
 
 ```java
@@ -454,7 +454,7 @@ Map<String, String> fMap2
   = map1.filterValues(v -> v.contains("3"));
 assertEquals(fMap2.size(), 1);
 assertTrue(fMap2.containsValue("val3"));
-```java
+```
 我们还可以通过使用 map()方法来转换 Map 条目。例如，让我们将 map1 转换为 Map<String, Integer>。
 
 ```java
@@ -462,7 +462,7 @@ Map<String, Integer> map2 = map1.map(
   (k, v) -> Tuple.of(k, Integer.valueOf(v.charAt(v.length() - 1) + "")));
 
 assertEquals(map2.get("key1").get().intValue(), 1);
-```java
+```
 更多 HashMap 用法如下：
 
 ```java
@@ -523,7 +523,7 @@ Option<String> cat = map.get("cat");
 if (cat.isDefined()) {
   ...
 }
-```java
+```
 ## TreeMap
 
 一个不可改变的 TreeMap 是 SortedMap 接口的一个实现。与 TreeSet 类似，一个比较器实例用于自定义 TreeMap 的元素排序。我们来演示一下 SortedMap 的创建。
@@ -534,14 +534,14 @@ SortedMap<Integer, String> map
 
 assertEquals(1, map.keySet().toJavaArray()[0]);
 assertEquals("Four", map.get(4).get());
-```java
+```
 默认情况下，TreeMap 的条目是按照键的自然顺序进行排序的。但是，我们可以指定一个用于排序的比较器。
 
 ```java
 TreeMap<Integer, String> treeMap2 =
   TreeMap.of(Comparator.reverseOrder(), 3,"three", 6, "six", 1, "one");
 assertEquals(treeMap2.keySet().mkString(), "631");
-```java
+```
 # Links
 
 - https://www.baeldung.com/vavr-collections

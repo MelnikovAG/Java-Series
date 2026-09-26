@@ -11,7 +11,7 @@ try {
 } catch (IOException e) {
     e.printStackTrace();
 }
-```java
+```
 如您所见，只需将 JsonNode.class 作为第二个参数传递给 readValue() 方法，而不是本教程前面的示例中使用的 Car.class，就可以将 JSON 字符串解析为 JsonNode 对象而不是 Car 对象。。
 
 ObjectMapper 类还具有一个特殊的 readTree() 方法，该方法始终返回 JsonNode。这是使用 ObjectMapper readTree() 方法将 JSON 解析为 JsonNode 的示例：
@@ -25,7 +25,7 @@ try {
 } catch (IOException e) {
     e.printStackTrace();
 }
-```java
+```
 通过 JsonNode 类，您可以以非常灵活和动态的方式将 JSON 作为 Java 对象进行导航。如前所述，JsonNode 类在其自己的教程中进行了更详细的介绍，但是我仅在此处向您展示如何使用它的基础知识。
 
 将 JSON 解析为 JsonNode（或 JsonNode 实例树）后，就可以浏览 JsonNode 树模型。这是一个 JsonNode 示例，显示了如何访问 JSON 字段，数组和嵌套对象：
@@ -63,7 +63,7 @@ try {
 } catch (IOException e) {
     e.printStackTrace();
 }
-```java
+```
 请注意，JSON 字符串现在包含一个称为所有者的数组字段和一个称为 nestedObject 的嵌套对象字段。无论您访问的是字段，数组还是嵌套对象，都可以使用 JsonNode 类的 get() 方法。通过将字符串作为参数提供给 get() 方法，您可以访问 JsonNode 的字段。如果 JsonNode 表示数组，则需要将索引传递给 get() 方法。索引指定要获取的数组元素。
 
 可以使用 Jackson ObjectMapper 将 Java 对象转换为 JsonNode，而 JsonNode 是转换后的 Java 对象的 JSON 表示形式。您可以通过 Jackson ObjectMapper valueToTree() 方法将 Java 对象转换为 JsonNode。这是一个使用 ObjectMapper valueToTree() 方法将 Java 对象转换为 JsonNode 的示例：
@@ -79,4 +79,4 @@ ObjectMapper objectMapper = new ObjectMapper();
 String carJson = "{ \"brand\" : \"Mercedes\", \"doors\" : 5 }";
 JsonNode carJsonNode = objectMapper.readTree(carJson);
 Car car = objectMapper.treeToValue(carJsonNode);
-```java
+```
