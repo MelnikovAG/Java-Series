@@ -12,8 +12,7 @@ Options:
     -F  强制dump线程堆栈信息. 用于进程hung住，jstack <pid>命令没有响应的情况
     -m  同时打印java和本地(native)线程栈信息，m是mixed mode的简写
     -l  打印锁的额外信息
-```
-
+```java
 # 典型用法
 
 jstack 的典型用法如下：
@@ -22,8 +21,7 @@ jstack 的典型用法如下：
 
 ```sh
 $ ps -ef | grep qmq | grep -v grep
-```
-
+```java
 拿到进程号，例如上面对应的是 3192
 
 - 第二步找出该进程内最耗费 CPU 的线程，可以使用 ps -Lfp pid 或者 ps -mp pid -o THREAD, tid, time 或者 top -Hp pid。例如用第三个 top -Hp 3192：
@@ -40,8 +38,7 @@ PID USER PR NI VIRT RES SHR S %CPU %MEM TIME+ COMMAND
 3588 tomcat 20 0 4905m 1.1g 11m S 0.3 28.4 0:07.35 java
 3192 tomcat 20 0 4905m 1.1g 11m S 0.0 28.4 0:00.00 java
 3194 tomcat 20 0 4905m 1.1g 11m S 0.0 28.4 0:00.82 java
-```
-
+```java
 - TIME 列就是各个 Java 线程耗费的 CPU 时间，CPU 时间最长的是线程 ID 为 3551 的线程，用 `printf "%x\n" 3551` 得到 ddf
 
 - sudo -u tomcat jstack 3192 | grep ddf
@@ -49,8 +46,7 @@ PID USER PR NI VIRT RES SHR S %CPU %MEM TIME+ COMMAND
 ```sh
 "New I/O worker #30" daemon prio=10 tid=0x00007f44fd525800 nid=0xde4 runnable [0x00007f4530ddf000]
 "DubboResponseTimeoutScanTimer" daemon prio=10 tid=0x00007f44fca88000 nid=0xddf waiting on condition [0x00007f45322e5000]
-```
-
+```java
 # 线程信息详解
 
 jstack 命令会打印出所有的线程，包括用户自己启动的线程和 jvm 后台线程，我们主要关注的是用户线程，如：
@@ -75,8 +71,7 @@ Full thread dump Java HotSpot(TM) 64-Bit Server VM (25.65-b01 mixed mode):
     at java.lang.Thread.run(Thread.java:745)
 
 ....
-```
-
+```java
 线程 dump 信息说明：
 
 - elasticsearch[Native][merge][T#1] 是我们为线程起的名字
@@ -141,8 +136,7 @@ synchronized(obj) {
         obj.wait();
         // .........
 }
-```
-
+```java
 ## 死锁
 
 在 Java 5 中加强了对死锁的检测。线程 Dump 中可以直接报告出 Java 级别的死锁，如下所示：
@@ -164,8 +158,7 @@ which is held by "Thread-0"
 waiting to lock monitor 0x0003f314 (object 0x22c19f20, a java.lang.Object),
 
 which is held by "Thread-1"
-```
-
+```java
 ## nid
 
 每个线程都有一个 tid 和 nid，tid 是 java 中这个线程的编号，而 nid(native id)是对应操作系统线程 id。有的时候，我们会收到报警，说服务器，某个进程占用 CPU 过高，肯定是因为某个 java 线程有耗 CPU 资源的方法。

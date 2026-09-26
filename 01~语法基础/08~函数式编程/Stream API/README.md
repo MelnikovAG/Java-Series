@@ -18,8 +18,7 @@ stringCollection.add("ddd1");
 //直接从数组创建流
 int m = Arrays.stream(ints)
               .reduce(Integer.MIN_VALUE, Math::max);
-```
-
+```java
 # 方法引用
 
 有时候 Lambda 表达式的代码就只是一个简单的方法调用而已，遇到这种情况，Lambda 表达式还可以进一步简化为方法引用(Method References)。一共有四种形式的方法引用：
@@ -29,23 +28,20 @@ int m = Arrays.stream(ints)
 ```java
 List<Integer> ints = Arrays.asList(1, 2, 3);
 ints.sort(Integer::compare);
-```
-
+```java
 - 某个特定对象的实例方法
 
 例如前面那个遍历并打印每一个 word 的例子可以写成这样：
 
 ```java
 words.forEach(System.out::println);
-```
-
+```java
 - 某个类的实例方法
 
 ```java
 words.stream().map(word -> word.length()); // lambda
 words.stream().map(String::length); // method reference
-```
-
+```java
 - 构造函数引用
 
 ```java
@@ -56,4 +52,4 @@ words.stream().map(word -> {
 
 // constructor reference
 words.stream().map(StringBuilder::new);
-```
+```java

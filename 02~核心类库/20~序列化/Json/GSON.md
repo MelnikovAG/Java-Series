@@ -20,8 +20,7 @@ String json = gson.toJson(car);
 
 // 美化输出
 Gson gson = new GsonBuilder().setPrettyPrinting().create();
-```
-
+```java
 # 类注解
 
 您可以告诉 GSON 从序列中排除 Java 类中的字段。有几种告诉 GSON 排除字段的方法。GSON 教程的以下部分将介绍最有用和最容易使用的排除字段的方法。
@@ -35,8 +34,7 @@ public class Car {
     public transient String brand = null;
     public int    doors = 0;
 }
-```
-
+```java
 # JsonReader
 
 GSON JsonReader 是 GSON 流 JSON 解析器。GSON JsonReader 使您可以读取 JSON 字符串或文件作为 JSON 令牌流。为令牌迭代 JSON 令牌也称为通过 JSON 令牌进行流传输。这就是为什么 GSON JsonReader 有时也称为流 JSON 解析器的原因。
@@ -81,4 +79,4 @@ try {
 } catch (IOException e) {
     e.printStackTrace();
 }
-```
+```java

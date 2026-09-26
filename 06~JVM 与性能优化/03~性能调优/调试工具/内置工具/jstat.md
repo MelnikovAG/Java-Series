@@ -4,20 +4,17 @@
 
 ```sh
 $ jstat -<option> [-t] [-h<lines>] <vmid> [<interval> [<count>]]
-```
-
+```java
 如下表示分析进程 id 为 31736 的 gc 情况，每隔 1000ms 打印一次记录，打印 10 次停止，每 3 行后打印指标头部：
 
 ```sh
 $ jstat -gc -h3 31736 1000 10
-```
-
+```java
 # jstat -gc
 
 ```sh
 $ jstat -gc xxxx
-```
-
+```java
 其对应的指标含义如下：
 
 | 参数 | 描述                                                   |
@@ -44,8 +41,7 @@ $ jstat -gc xxxx
 
 ```sh
 $ jstat -gcutil xxxx
-```
-
+```java
 其对应的指标含义如下：
 
 | 参数 | 描述                                                      |
@@ -65,8 +61,7 @@ $ jstat -gcutil xxxx
 
 ```sh
 $ jstat -gccapacity xxxx1
-```
-
+```java
 其对应的指标含义如下：
 
 | 参数  | 描述                                           |
@@ -92,28 +87,24 @@ $ jstat -gccapacity xxxx1
 
 1. 查看年轻代对象的信息及其占用量。
 
-```
+```java
 jstat -gcnewcapacity xxxx1
-```
-
+```java
 2. 查看老年代对象的信息及其占用量。
 
-```
+```java
 jstat -gcoldcapacity xxxx1
-```
-
+```java
 3. 查看年轻代对象的信息
 
-```
+```java
 jstat -gcnew xxxx1
-```
-
+```java
 4. 查看老年代对象的信息
 
-```
+```java
 jstat -gcold xxxx
-```
-
+```java
 # Links
 
 - https://club.perfma.com/article/316783?hmsr=toutiao.io&utm_medium=toutiao.io&utm_source=toutiao.io

@@ -12,4 +12,4 @@ public void whenAppendToFileUsingFiles_thenCorrect()
       new FileInputStream(fileName)))
       .isEqualTo("UK\r\n" + "US\r\n" + "Germany\r\n" + "Spain\r\n");
 }
-```
+```java

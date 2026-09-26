@@ -30,8 +30,8 @@
 @Target(ElementType.TYPE)
 public @interface Table {
   /**
-   * 数据表名称注解，默认值为类名称
-   * @return
+   - 数据表名称注解，默认值为类名称
+   - @return
    */
   public String tableName() default "className";
 }
@@ -39,8 +39,7 @@ public @interface Table {
 @Target(ElementType.FIELD)
 public @interface NoDBColumn {
 }
-```
-
+```java
 注解 Table 可以用于注解类、接口(包括注解类型)或 enum 声明,而注解 NoDBColumn 仅可用于注解类的成员变量。
 
 #### @Retention
@@ -53,7 +52,7 @@ public @interface NoDBColumn {
 
 Retention meta-annotation 类型有唯一的 value 作为成员，它的取值来自 java.lang.annotation.RetentionPolicy 的枚举类型值。具体实例如下：
 
-```
+```java
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Column {
@@ -62,15 +61,14 @@ public @interface Column {
     public String getFuncName() default "getField";
     public boolean defaultDBValue() default false;
 }
-```
-
+```java
 Column 注解的的 RetentionPolicy 的属性值是 RUTIME,这样注解处理器可以通过反射，获取到该注解的属性值，从而去做一些运行时的逻辑处理
 
 #### @Documented
 
 @Documented 用于描述其它类型的 annotation 应该被作为被标注的程序成员的公共 API，因此可以被例如 javadoc 此类的工具文档化。Documented 是一个标记注解，没有成员。
 
-```
+```java
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
@@ -80,8 +78,7 @@ public @interface Column {
     public String getFuncName() default "getField";
     public boolean defaultDBValue() default false;
 }
-```
-
+```java
 #### @Inherited
 
 @Inherited 元注解是一个标记注解，@Inherited 阐述了某个被标注的类型是被继承的。如果一个使用了@Inherited 修饰的 annotation 类型被用于一个 class，则这个 annotation 将被用于该 class 的子类。
@@ -90,7 +87,7 @@ public @interface Column {
 
 当@Inherited annotation 类型标注的 annotation 的 Retention 是 RetentionPolicy.RUNTIME，则反射 API 增强了这种继承性。如果我们使用 java.lang.reflect 去查询一个@Inherited annotation 类型的 annotation 时，反射代码检查将展开工作：检查 class 和其父类，直到发现指定的 annotation 类型被发现，或者到达类继承结构的顶层。
 
-```
+```java
 /**
  *
 
@@ -102,17 +99,15 @@ public @interface Greeting {
     String name();
     FontColor fontColor() default FontColor.GREEN;
 }
-```
-
+```java
 ### 自定义注解
 
 使用@interface 自定义注解时，自动继承了 java.lang.annotation.Annotation 接口，由编译程序自动完成其他细节。在定义注解时，不能继承其他的注解或接口。@interface 用来声明一个注解，其中的每一个方法实际上是声明了一个配置参数。方法的名称就是参数的名称，返回值类型就是参数的类型(返回值类型只能是基本类型、Class、String、enum)。可以通过 default 来声明参数的默认值。
 (1)定义注解格式
 
-```
+```java
 　　public @interface 注解名 {定义体}
-```
-
+```java
 (2)注解参数的可支持数据类型：
 
 - 所有基本数据类型(int,float,boolean,byte,double,char,long,short)
@@ -140,7 +135,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 水果名称注解
+ - 水果名称注解
 
  *
  */
@@ -150,8 +145,7 @@ import java.lang.annotation.Target;
 public @interface FruitName {
   String value() default "";
 }
-```
-
+```java
 ```java
 package annotation;
 
@@ -162,7 +156,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 水果颜色注解
+ - 水果颜色注解
 
  *
  */
@@ -171,7 +165,7 @@ import java.lang.annotation.Target;
 @Documented
 public @interface FruitColor {
   /**
-   * 颜色枚举
+   - 颜色枚举
 
    *
    */
@@ -182,14 +176,13 @@ public @interface FruitColor {
   ;
 
   /**
-   * 颜色属性
-   * @return
+   - 颜色属性
+   - @return
    */
   Color fruitColor() default Color.GREEN;
 }
-```
-
-```
+```java
+```java
 package annotation;
 
 import annotation.FruitColor.Color;
@@ -218,8 +211,7 @@ public class Apple {
         System.out.println("水果的名字是：苹果");
     }
 }
-```
-
+```java
 ### 注解处理器
 
 Java 使用 Annotation 接口来代表程序元素前面的注解，该接口是所有 Annotation 类型的父接口。除此之外，Java 在 java.lang.reflect 包下新增了 AnnotatedElement 接口，该接口代表程序中可以接受注解的程序元素，该接口主要有如下几个实现类：
@@ -241,7 +233,7 @@ java.lang.reflect 包下主要包含一些实现反射功能的工具类，实�
 /***********注解声明***************/
 
 /**
- * 水果名称注解
+ - 水果名称注解
 
  *
  */
@@ -253,7 +245,7 @@ public @interface FruitName {
 }
 
 /**
- * 水果颜色注解
+ - 水果颜色注解
 
  *
  */
@@ -262,22 +254,22 @@ public @interface FruitName {
 @Documented
 public @interface FruitColor {
     /**
-     * 颜色枚举
+     - 颜色枚举
 
      *
      */
     public enum Color{ BULE,RED,GREEN};
 
     /**
-     * 颜色属性
-     * @return
+     - 颜色属性
+     - @return
      */
     Color fruitColor() default Color.GREEN;
 
 }
 
 /**
- * 水果供应者注解
+ - 水果供应者注解
 
  *
  */
@@ -286,20 +278,20 @@ public @interface FruitColor {
 @Documented
 public @interface FruitProvider {
     /**
-     * 供应商编号
-     * @return
+     - 供应商编号
+     - @return
      */
     public int id() default -1;
 
     /**
-     * 供应商名称
-     * @return
+     - 供应商名称
+     - @return
      */
     public String name() default "";
 
     /**
-     * 供应商地址
-     * @return
+     - 供应商地址
+     - @return
      */
     public String address() default "";
 }
@@ -378,7 +370,7 @@ public class FruitInfoUtil {
 public class FruitRun {
 
     /**
-     * @param args
+     - @param args
      */
     public static void main(String[] args) {
 
@@ -392,8 +384,7 @@ public class FruitRun {
  水果名称：Apple
  水果颜色：RED
  供应商编号：1 供应商名称：陕西红富士集团 供应商地址：陕西省西安市延安路89号红富士大厦
-```
-
+```java
 # Links
 
 - https://parg.co/kYB

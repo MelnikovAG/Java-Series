@@ -21,8 +21,7 @@ LoadingCache<Key, Graph> graphs = CacheBuilder.newBuilder()
                     return createExpensiveGraph(key);
                 }
         });
-```
-
+```java
 ## Null 处理
 
 不过需要注意一点的是，CacheLoader 不允许返回的数据为 NULL，否则会抛出异常：CacheLoader returned null for key。所以我们需要保证查找的数据必须存在，或者抛出异常外部处理。在某些情况下，我们的数据可能确实不在，比如用户管理模块，我们在新增数据前，要查询原来是否已经存在该用户，那么这时候抛出异常也不合适，此时可以使用 Optional 来优化 CacheLoader：
@@ -37,8 +36,7 @@ LoadingCache<String, Optional<User>> cache = CacheBuilder.newBuilder().expireAft
         }
     }
 );
-```
-
+```java
 这样我们保证了 CacheLoader 返回值不为 NULL，而业务数据是否存在，只需要判断 Optional.ifPresent()就行了，同时 Optional 的其他函数在业务逻辑中也是非常有用的。
 
 ## Callable
@@ -63,8 +61,7 @@ try {
 } catch (ExecutionException e) {
     throw new OtherException(e.getCause());
 }
-```
-
+```java
 ## 显式插入
 
 使用 cache.put(key, value)方法可以直接向缓存中插入值，这会直接覆盖掉给定键之前映射的值。使用 Cache.asMap()视图提供的任何方法也能修改缓存。但请注意，asMap 视图的任何方法都不能保证缓存项被原子地加载到缓存中。进一步说，asMap 视图的原子运算在 Guava Cache 的原子加载范畴之外，所以相比于 Cache.asMap().putIfAbsent(K,V)，Cache.get(K, Callable<V>) 应该总是优先使用。
@@ -93,8 +90,7 @@ LoadingCache<Key, Graph> graphs = CacheBuilder.newBuilder()
                     return createExpensiveGraph(key);
                 }
             });
-```
-
+```java
 ## 定时回收（Timed Eviction）
 
 CacheBuilder 提供两种定时回收的方法：
@@ -140,8 +136,7 @@ LoadingCache<Key, Graph> graphs = CacheBuilder.newBuilder()
                     }
                 }
             });
-```
-
+```java
 CacheBuilder.refreshAfterWrite(long, TimeUnit)可以为缓存增加自动定时刷新功能。和 expireAfterWrite 相反，refreshAfterWrite 通过定时刷新可以让缓存项保持可用，但请注意：缓存项只有在被检索时才会真正刷新（如果 CacheLoader.refresh 实现为异步，那么检索不会被刷新拖慢）。因此，如果你在缓存上同时声明 expireAfterWrite 和 refreshAfterWrite，缓存并不会因为刷新盲目地定时重置，如果缓存项没有被检索，那刷新就不会真的发生，缓存项在过期时间后也变得可以回收。
 
 # 其他特性

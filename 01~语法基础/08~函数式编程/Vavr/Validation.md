@@ -11,8 +11,7 @@ public class Person {
 
     // standard constructors, setters and getters, toString
 }
-```
-
+```java
 接下来，我们创建一个名为 PersonValidator 的类。每个字段都将由一个方法进行验证，另一个方法可以用来将所有结果合并成一个 Validation 实例。
 
 ```java
@@ -38,8 +37,7 @@ class PersonValidator {
           : Validation.valid(age);
     }
 }
-```
-
+```java
 年龄的规则是它应该是一个大于 0 的整数，而名字的规则是它不应该包含特殊字符。
 
 ```java
@@ -62,8 +60,7 @@ public void whenValidationWorks_thenCorrect() {
         Age must be at least 0))",
           invalid.toString());
 }
-```
-
+```java
 一个有效的值包含在 Validation.Valid 实例中，一个验证错误的列表包含在 Validation.Invalid 实例中。所以任何验证方法都必须返回两者之一。
 
 # Links

@@ -59,16 +59,14 @@ public class TestArrays {
         System.out.println("元素9在array1中的位置：Arrays.binarySearch(array1, 9)：" + "\n" + Arrays.binarySearch(array1, 9));
     }
 }
-```
-
+```java
 # 复制与扩容
 
 数组容量如果不够用可以使用 Arrays.copyOf() 进行扩容：
 
 ```java
 Array.copy(E[] e,newLength);
-```
-
+```java
 其第一个形参指的是需要扩容的数组，后面是扩容后的大小，其内部实现其实是使用了 System.arrayCopy(); 在内部重新创建一个长度为 newLength 类型是 E 的数组。
 
 ```java
@@ -82,8 +80,7 @@ public class Main {
         }
     }
 }
-```
-
+```java
 默认补 **0**，输出结果为：**10 20 30 40 50 0**
 
 # 排序
@@ -116,8 +113,7 @@ public class sort1 {
 	}
 
 }
-```
-
+```java
 `Arrays.sort(int [] a,int fromIndex,int toIndex)` 这种形式是对数组部分排序，也就是对数组 a 的下标从 fromIndex 到 toIndex-1 的元素排序，注意：下标为 toIndex 的元素不参与排序：
 
 ```java
@@ -133,8 +129,7 @@ public class sort2 {
 	}
 
 }
-```
-
+```java
 ## 自定义排序器
 
 ```java
@@ -169,8 +164,7 @@ class MyComparator implements Comparator<Integer>{
 	}
 
 }
-```
-
+```java
 ## 对象排序
 
 当我们给一个整型数组或者浮点型之类的数组排序的时候，很简单就可以达到我们排序的目的，无非是排序算法的问题。那么，如果我们现在想根据对象的一个属性值给一个对象数组进行排序。假如我们现在有一个 Car 类型，Car 类中有一个 double 型的 speed 属性用来描述车辆的速度，现在我们想根据车速来对一个 Car 数组中的车辆进行排序：
@@ -191,8 +185,7 @@ public class Car{
 		this.speed = speed;
 	}
 }
-```
-
+```java
 用 Array.sort()方法实现对车辆排序的代码：
 
 ```java
@@ -216,8 +209,7 @@ public class Car implements Comparable<Car>{
 		return Double.compare(this.getSpeed(),newCar.getSpeed());
 	}
 }
-```
-
+```java
 # 搜索
 
 - `public static int binarySearch(Object[] a, Object key)`：用二分查找算法在给定数组中搜索给定值的对象(Byte,Int,double 等)。数组在调用前必须排序好的。如果查找值包含在数组中，则返回搜索键的索引；否则返回 (-(插入点) - 1)。

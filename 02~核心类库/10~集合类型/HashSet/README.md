@@ -29,14 +29,12 @@ public static Character findFirstRepeatedChar(String string) {
     // 默认返回为空
     return null;
 }
-```
-
+```java
 其中，由于 Set 的 add 函数有个特性——如果添加的元素已经再集合中存在，则会返回 false。可以简化代码为：
 
 ```java
 if (!charSet.add(ch)) {
     return ch;
 }
-```
-
+```java
 # 源码分析

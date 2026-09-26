@@ -23,8 +23,7 @@ public class Main {
 interface MyIntegerCalculator {
   public Integer calcIt(Integer s1);
 }
-```
-
+```java
 我们可以选择省略 Lambda 表达式中的参数类型，如果我们选择省略参数的类型，我们必须省略所有参数的类型。
 
 ```java
@@ -42,8 +41,7 @@ public class Main {
 interface Processor {
   int getStringLength(String str);
 }
-```
-
+```java
 对于单参数 Lambda 表达式，我们可以省略括号，因为我们省略了参数类型。
 
 ```java
@@ -61,8 +59,7 @@ public class Main {
 interface Processor {
   int getStringLength(String str);
 }
-```
-
+```java
 对于一个没有参数的 Lambda 表达式，我们仍然需要括号。
 
 ```java
@@ -78,8 +75,7 @@ public class Main {
     System.out.println(bs.getAsBoolean());
   }
 }
-```
-
+```java
 你可以在参数声明中使用 final 修饰符来表达显式 lambda。
 
 ```java
@@ -97,8 +93,7 @@ public class Main {
 interface Processor {
   int getStringLength(String str);
 }
-```
-
+```java
 ## 函数体
 
 Lambda 表达式主体可以是一个块状语句，也可以是一个单一表达式。块语句用大括号括起来，而单个表达式可以没有大括号。lambda 是没有必要返回一个值的。下面两个 Lambda 表达式只是将参数输出到标准输出，并不返回任何东西。
@@ -121,8 +116,7 @@ public class Main {
 interface Processor {
   int getStringLength(String str);
 }
-```
-
+```java
 # 类型推导
 
 一个 Lambda 表达式代表一个功能接口的实例。一个 Lambda 表达式可以根据上下文映射到不同的功能接口类型。编译器会推断 Lambda 表达式的类型。
@@ -149,8 +143,7 @@ interface Processor {
 interface SecondProcessor {
   int noName(String str);
 }
-```
-
+```java
 Processor 或 SecondProcessor 称为目标类型。推断 Lambda 表达式类型的过程称为目标类型。编译器使用以下规则来确定一个 Lambda 表达式是否可以分配到它的目标类型。
 
 - 它必须是一个函数接口
@@ -198,8 +191,7 @@ interface IntCalculator{
 interface LongCalculator{
   long calculate(long x, long y);
 }
-```
-
+```java
 # 方法引用
 
 一个 Lambda 表达式表示一个在函数接口中定义的匿名函数，方法引用使用现有方法创建一个 Lambda 表达式。方法引用的一般语法是 `Qualifier::MethodName` 两个连续的冒号作为分隔符。MethodName 是方法的名称，Qualifier 告诉在哪里可以找到方法的引用。方法参考有六种类型。
@@ -229,16 +221,14 @@ public class Main {
     System.out.println(func2.apply(10));
   }
 }
-```
-
+```java
 我们可以在静态方法引用中使用重载静态方法。在重载方法的时候我们要多注意方法的签名和对应的功能接口。在下面的列表中，我们有三个版本的来自 Integer 类的 valueOf()。
 
 ```java
 static Integer valueOf(int i)
 static Integer valueOf(String s)
 static Integer valueOf(String s, int radix)
-```
-
+```java
 下面的代码显示了不同的目标功能接口如何与重载的 Integer.valueOf()静态方法一起使用。
 
 ```java
@@ -261,8 +251,7 @@ public class Main{
     System.out.println(func3.apply("101010101010", 2));
   }
 }
-```
-
+```java
 ## 实例方法引用
 
 我们可以通过两种方式获取实例方法引用，从对象实例或从类名中获取。基本上我们有以下两种形式：instance::MethodName, ClassName::MethodName。这里的 instance 代表任何对象实例。ClassName 是类的名称，如 String、Integer。`instance`和 ClassName 被称为接收器。更具体地说，`instance` 被称为有界接受者，而 ClassName 被称为无界接受者，我们称 `instance` 为有界接受者，因为接受者与 `instance` 是有界的，而 ClassName 为无界接受者，因为接受者是后来才有界的。
@@ -279,13 +268,11 @@ public class Main{
     Supplier<Integer> supplier  = () ->  "test".length();
     System.out.println(supplier.get());
 
-
     Supplier<Integer> supplier1  = "test"::length;
     System.out.println(supplier1.get());
   }
 }
-```
-
+```java
 下面的例子展示了如何使用绑定接收器和带参数的方法来创建实例方法引用。
 
 ```java
@@ -297,7 +284,6 @@ public class Main{
 
     Consumer<String> consumer  = str ->  util.print(str);
     consumer.accept("Hello");
-
 
     Consumer<String> consumer1  = util::print;
     consumer1.accept("test");
@@ -316,8 +302,7 @@ class Util{
     System.out.println("count:" + count);
   }
 }
-```
-
+```java
 ### Unbound Instance Method Reference
 
 一个未绑定的接收器使用以下语法：`ClassName::instanceMethod`，这与我们用来引用静态方法的语法相同。从下面的代码中我们可以看到，输入类型是 ClassName 的类型。在下面的代码中，我们使用了 `String:length`，所以功能接口的输入类型是 String。Lambda 表达式在使用的时候，得到的是输入。下面的代码使用 String length 方法作为 unbind 实例方法引用。String length 方法通常在字符串值实例上调用，并返回字符串实例的长度。因此输入是 String 类型，输出是 int 类型，这与 Buildin Function 功能接口相匹配。我们每次调用 strLengthFunc 都会传入一个字符串值，长度方法就会从传入的字符串值中调用。
@@ -338,8 +323,7 @@ public class Main{
 
   }
 }
-```
-
+```java
 下面的代码定义了一个带有静态方法 append 的类 Util。append 方法接受两个 String 类型的参数，并返回一个 String 类型的结果，然后使用 append 方法创建一个 lambda 表达式，并分配给 Java buildin BiFunction 函数接口。然后 append 方法被用来创建一个 lambda 表达式，并分配给 Java buildin BiFunction 函数接口。append 方法的签名与 BiFunction 功能接口中定义的抽象方法的签名一致。
 
 ```java
@@ -358,8 +342,7 @@ class Util{
     return s1+s2;
   }
 }
-```
-
+```java
 ### Supertype Instance Method References
 
 关键字 super 只在实例上下文中使用，它引用的是被覆盖的方法。我们可以使用下面的语法来创建一个方法引用，引用父类型中的实例方法：`ClassName.super::instanceMethod`。下面的代码定义了一个名为 ParentUtil 的父类。在 ParentUtil 中，有一个名为 append 的方法，它将两个 String 值追加在一起。
@@ -402,8 +385,7 @@ class ParentUtil{
     return s1+s2;
   }
 }
-```
-
+```java
 ## Constructor Reference
 
 我们可以使用构造函数来创建一个 Lambda 表达式。使用构造函数引用的语法是：`ClassName::new`。关键字 new 指的是类的构造函数。编译器根据上下文选择构造函数。
@@ -428,8 +410,7 @@ public class Main{
     System.out.println(func4.apply("test"));
   }
 }
-```
-
+```java
 ### Array Constructor References
 
 我们可以使用数组构造函数创建一个数组，如下所示：ArrayTypeName::new。int[]::new 是调用 new int[]，new int[]需要一个 int 类型的值作为数组长度，因此 int[]:new 需要一个 int 类型的输入值。下面的代码使用数组构造函数引用来创建一个 int 数组。
@@ -450,8 +431,7 @@ public class Main{
     System.out.println(Arrays.toString(intArray2));
   }
 }
-```
-
+```java
 通过使用 `Function<Integer,ArrayType>`，我们可以在声明中指定数组类型。
 
 ```java
@@ -465,8 +445,7 @@ public class Main{
     System.out.println(Arrays.toString(intArray));
   }
 }
-```
-
+```java
 在创建二维数组时，我们可以指定第一维的长度。
 
 ```java
@@ -487,8 +466,7 @@ public class Main{
     System.out.println(Arrays.deepToString(intArray));
   }
 }
-```
-
+```java
 ## Generic Method Reference
 
 我们可以在方法引用中通过指定实际类型参数来使用通用方法。其语法如下：`ClassName::<TypeName>methodName`，通用构造函数引用的语法：`ClassName<TypeName>::new`。
@@ -505,4 +483,4 @@ public class Main{
     System.out.println(asList.apply(new String[]{"a","b","c"}));
   }
 }
-```
+```java

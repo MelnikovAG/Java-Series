@@ -37,8 +37,7 @@ Maven 插件方式使用 spotbugs 及相关插件：
 		</plugins>
 	</configuration>
 </plugin>
-```
-
+```java
 # Gradle
 
 ```js
@@ -86,8 +85,7 @@ spotless {
         target '**/*.md'
     }
 }
-```
-
+```java
 其中 spotbugs-filter.xml 定义如下：
 
 ```xml
@@ -99,4 +97,4 @@ spotless {
   <Match>
   </Match>
 </FindBugsFilter>
-```
+```java

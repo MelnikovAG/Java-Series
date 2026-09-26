@@ -21,8 +21,7 @@ public void whenCheckArgumentEvaluatesFalse_throwsException() {
       .isInstanceOf(IllegalArgumentException.class)
       .hasMessage(null).hasNoCause();
 }
-```
-
+```java
 我们可以通过传递错误信息从 checkArgument 方法中得到一个有意义的错误信息：
 
 ```java
@@ -35,8 +34,7 @@ public void givenErrorMsg_whenCheckArgEvalsFalse_throwsException() {
       .isInstanceOf(IllegalArgumentException.class)
       .hasMessage(message).hasNoCause();
 }
-```
-
+```java
 我们可以通过传递一个错误信息，从 checkArgument 方法中得到一个有意义的错误信息以及动态数据：
 
 ```java
@@ -50,8 +48,7 @@ public void givenTemplateMsg_whenCheckArgEvalsFalse_throwsException() {
       .isInstanceOf(IllegalArgumentException.class)
       .hasMessage(message, age).hasNoCause();
 }
-```
-
+```java
 # checkElementIndex
 
 方法 checkElementIndex 检查一个索引是否是列表、字符串或指定大小的数组中的有效索引。元素索引的范围可以从 0 到大小不等。你不需要直接传递一个 list、字符串或数组，你只需要传递它的大小。如果索引不是有效的元素索引，这个方法就会抛出 IndexOutOfBoundsException，否则就会返回一个正在传递给方法的索引。
@@ -69,8 +66,7 @@ public void givenArrayAndMsg_whenCheckElementEvalsFalse_throwsException() {
       .isInstanceOf(IndexOutOfBoundsException.class)
       .hasMessageStartingWith(message).hasNoCause();
 }
-```
-
+```java
 # checkNotNull
 
 方法 checkNotNull 检查作为参数提供的值是否为空。它返回被检查的值。如果传递给这个方法的值是空的，那么就会抛出一个 NullPointerException。接下来，我们将展示如何使用这个方法，通过传递错误信息，从 checkNotNull 方法中获取有意义的错误信息：
@@ -85,8 +81,7 @@ public void givenNullString_whenCheckNotNullWithMessage_throwsException () {
       .isInstanceOf(NullPointerException.class)
       .hasMessage(message).hasNoCause();
 }
-```
-
+```java
 我们还可以通过向错误信息传递一个参数，从 checkNotNull 方法中得到一个基于动态数据的有意义的错误信息：
 
 ```java
@@ -101,8 +96,7 @@ public void whenCheckNotNullWithTemplateMessage_throwsException() {
       .isInstanceOf(NullPointerException.class)
       .hasMessage(message, nullObject).hasNoCause();
 }
-```
-
+```java
 # checkPositionIndex
 
 方法 checkPositionIndex 检查作为参数传递给本方法的索引是否是指定大小的列表、字符串或数组中的有效索引。一个位置索引的范围可以从 0（含）到大小（含）。你不需要直接传递列表、字符串或数组，你只需要传递它的大小。
@@ -120,8 +114,7 @@ public void givenArrayAndMsg_whenCheckPositionEvalsFalse_throwsException() {
       .isInstanceOf(IndexOutOfBoundsException.class)
       .hasMessageStartingWith(message).hasNoCause();
 }
-```
-
+```java
 # checkState
 
 方法 checkState 检查对象状态的有效性，并且不依赖于方法的参数。例如，一个 Iterator 可能会使用这个方法来检查在调用 remove 之前是否已经调用了 next。如果对象的状态（作为方法参数传递的布尔值）处于无效状态，该方法会抛出一个 IllegalStateException。
@@ -141,4 +134,4 @@ public void givenStatesAndMsg_whenCheckStateEvalsFalse_throwsException() {
       .isInstanceOf(IllegalStateException.class)
       .hasMessageStartingWith(message).hasNoCause();
 }
-```
+```java

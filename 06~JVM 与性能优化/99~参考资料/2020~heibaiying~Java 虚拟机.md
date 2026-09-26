@@ -30,8 +30,7 @@ C:\Users> java -version
 java version "1.8.0_171"   # 如果是openJDK, 则这里会显示：openjdk version
 Java(TM) SE Runtime Environment (build 1.8.0_171-b11)
 Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode) # 使用的是HotSpot虚拟机，默认为服务端模式
-```
-
+```java
 ## 二、Java 内存区域
 
 <div align="center"> <img src="https://gitee.com/heibaiying/Full-Stack-Notes/raw/master/pictures/java虚拟机运行时数据区.png"/> </div>
@@ -150,8 +149,7 @@ objB.instance = objA
 objA = null;
 objB = null;
 System.gc();
-```
-
+```java
 如上所示，此时两个对象已经不能再被访问，但其互相持有对对方的引用，如果采用引用计数法，则两个对象都无法被回收。
 
 #### 2. 可达性分析
@@ -272,10 +270,9 @@ Serial 收集器是最基础、历史最悠久的收集器，它是一个单线�
 
 Parallel Scavenge 也是新生代收集器，基于 标记-复制 算法进行实现，它的目标是达到一个可控的吞吐量。这里的吞吐量指的是处理器运行用户代码的时间与处理器总消耗时间的比值：
 
-```
+```java
 吞吐量 = 运行用户代码时间 \ (运行用户代码时间 + 运行垃圾收集时间)
-```
-
+```java
 Parallel Scavenge 收集器提供两个参数用于精确控制吞吐量：
 
 - **-XX:MaxGCPauseMillis**：控制最大垃圾收集时间，假设需要回收的垃圾总量不变，那么降低垃圾收集的时间就会导致收集频率变高，所以需要将其设置为合适的值，不能一味减小。
@@ -526,8 +523,7 @@ public static String concat(String... strings) {
     }
     return sb.toString(); // 没有发生方法逃逸
 }
-```
-
+```java
 如果能证明一个对象不会逃逸到方法或线程之外，或者逃逸程度比较低（只逃逸出方法而不会逃逸出线程），则可以为这个对象实例采取不同程序的优化：
 
 - **栈上分配 (Stack Allocations)**：如果一个对象不会逃逸到线程外，那么将会在栈上分配内存来创建这个对象，而不是 Java 堆上，此时对象所占用的内存空间就会随着栈帧的出栈而销毁，从而可以减轻垃圾回收的压力。

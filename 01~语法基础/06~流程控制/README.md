@@ -6,7 +6,7 @@
 
 ### ++ / --
 
-```
+```java
 public class Test{
 
     public static void main(String args[]){
@@ -18,16 +18,14 @@ public class Test{
     }
 }
 // 输出结果为 0
-```
-
+```java
 整个过程实际上如下所示:
 
-```
+```java
 int oldValue = i;
 i = i + 1;
 i = oldValue;
-```
-
+```java
 # 循环
 
 ## while

@@ -25,8 +25,7 @@ ConcurrentMap<String, Object> mapAll = new MapMaker()
                 // TODO Auto-generated method stub
                 return null;
             }});
-```
-
+```java
 上面的例子中，我们构造了一个 ConcurrentHashMap，使用 String 类型作为 key，使用 Book 对象作为 value 值，通过对 ConcurrentHashMap 声明的泛型进行指定，我们首先调用了 concurrencyLevel()方法，设置了我们允许在 map 中并发修改的数量，我们还指定了 softValues()方法，这样 map 中的 value 值都包裹在一个 SoftReference(软引用)对象中，可以在内存过低的时候被当作垃圾回收。
 
 其他我们可以指定的方法还包括：weakKeys()和 weakValues()，但是 MapMaker 没有提供 softKeys()，当我们给 keys 或 values 使用 WeakReferences(弱引用)或 SoftReference(软引用)时，如果键值的其中一个被当做垃圾回收，整个键值对就 会从 map 中移除，剩余的部分并不会暴露给客户端。

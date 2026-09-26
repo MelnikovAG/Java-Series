@@ -11,8 +11,7 @@ public void whenCreatesTuple_thenCorrect1() {
     assertEquals("Java", element1);
     assertEquals(8, element2);
 }
-```
-
+```java
 元组的作用在于存储一组固定的任何类型的对象，这些对象最好作为一个单元来处理，并且可以传递。一个比较明显的用例是在 Java 中从一个函数或方法中返回多个对象。
 
 ```java
@@ -27,4 +26,4 @@ public void whenCreatesTuple_thenCorrect2() {
     assertEquals(8, element2);
     assertEquals(1.8, element3, 0.1);
 }
-```
+```java

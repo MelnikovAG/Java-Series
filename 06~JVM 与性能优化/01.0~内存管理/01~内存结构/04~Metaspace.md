@@ -50,8 +50,7 @@
             结束点
             异常处理代码的程序计数器(PC)偏移量
             被捕获的异常类对应的常量池下标
-```
-
+```java
 # 运行时常量池
 
 JVM 维护了一个按类型区分的常量池，一个类似于符号表的运行时数据结构。尽管它包含更多数据。Java 字节码需要数据。这个数据经常因为太大不能直接存储在字节码中，取而代之的是存储在常量池中，字节码包含这个常量池的引用。运行时常量池被用来上面介绍过的动态链接。
@@ -66,22 +65,20 @@ JVM 维护了一个按类型区分的常量池，一个类似于符号表的运�
 
 示例代码如下：
 
-```
+```java
 Object foo = new Object();
-```
-
+```java
 写成字节码将是下面这样：
 
-```
+```java
 0:     new #2             // Class java/lang/Object
 1:    dup
 2:    invokespecial #3    // Method java/ lang/Object "&lt;init&gt;"( ) V
-```
-
+```java
 new 操作码的后面紧跟着操作数 #2。这个操作数是常量池的一个索引，表示它指向常量池的第二个实体。第二个实体是一个类的引用，这个实体反过来引用了另一个在常量池中包含 UTF8 编码的字符串类名的实体(// Class java/lang/Object)。然后，这个符号引用被用来寻找 java.lang.Object 类。new 操作码创建一个类实例并初始化变量。新类实例的引用则被添加到操作数栈。dup 操作码创建一个操作数栈顶元素引用的额外拷贝。最后用 invokespecial 来调用第 2 行的实例初始化方法。操作码也包含一个指向常量池的引用。初始化方法把操作数栈出栈的顶部引用当做此方法的一个参数。最后这个新对象只有一个引用，这个对 象已经完成了创建及初始化。
 如果你编译下面的类：
 
-```
+```java
 package org.jvminternals;
 public class SimpleClass {
 
@@ -90,11 +87,10 @@ public class SimpleClass {
     }
 
 }
-```
-
+```java
 生成的类文件常量池将是这个样子：
 
-```
+```java
 Constant pool:
    #1 = Methodref          #6.#17         //  java/lang/Object."&lt;init&gt;":()V
    #2 = Fieldref           #18.#19        //  java/lang/System.out:Ljava/io/PrintStream;
@@ -126,8 +122,7 @@ Constant pool:
   #28 = Utf8               java/io/PrintStream
   #29 = Utf8               println
   #30 = Utf8               (Ljava/lang/String;)V
-```
-
+```java
 这个常量池包含了下面的类型：
 
 ## 方法信息
@@ -156,10 +151,9 @@ Finally 异常处理器匹配所有的异常类型，且不管什么异常抛出
 
 Java 语言规范要求相同的(即包含相同序列的 Unicode 指针序列)字符串字面量必须指向相同的 String 实例。除此之外，在一个字符串实例上调用 String.intern() 方法的返回引用必须与字符串是字面量时的一样。因此，下面的代码返回 true：
 
-```
+```java
 ("j" + "v" + "m").intern() == "jvm"
-```
-
+```java
 Hotspot JVM 中 interned 字符串保存在字符串表中。字符串表是一个哈希表，保存着对象指针到符号的映射关系(也就是`Hashtable<oop, Symbol>`)，它被保存到永久代中。符号表和字符串表的实体都以规范的格式保存，保证每个实体都只出现一次。
 当类加载时，字符串字面量被编译器自动 intern 并加入到符号表。除此之外，String 类的实例可以调用 String.intern() 显式地 intern。当调用 String.intern() 方法时，如果符号表已经包含了这个字符串，那么就会返回符号表里的这个引用，如果不是，那么这个字符串就被加入到字符串表中同时返回这个引用。
 

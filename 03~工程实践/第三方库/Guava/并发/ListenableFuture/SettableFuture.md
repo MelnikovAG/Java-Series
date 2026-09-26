@@ -11,8 +11,7 @@ SettableFuture sf = SettableFuture.create();
 sf.set("SUCCESS");
 //设置失败后返回特定的异常信息
 sf.setException(new RuntimeException("Fails"));
-```
-
+```java
 通过上面的例子，我们看到，通过 create()方法，我们可以创建一个默认的 ettableFuture 实例，当我们需要为 Future 实例设置一个返 回值时，我们可以通过 set 方法，设置的值就是 Future 实例在执行成功后将要返回的值；另外，当我们想要设置一个异常导致 Future 执行失败，我们 可以通过调用 setException 方法，我们将给 Future 实例设置指定的异常返回。
 
 当我们有一个方法返回 Future 实例时，SettableFuture 会显得更有价值，但是已经有了 Future 的返回值，我们也不需要再去执行异步任务获取返回值。

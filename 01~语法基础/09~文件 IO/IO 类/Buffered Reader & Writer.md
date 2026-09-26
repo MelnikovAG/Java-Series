@@ -12,8 +12,7 @@ String url = this.getClass().getResource("/userFile.properties").getFile();
 // 找某个类
 File f = new File(MyClass.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 String[] classpathEntries = classpath.split(File.pathSeparator);
-```
-
+```java
 在大部分情况下，我们会首先将文件转化为 InputStream 流，然后从其中读取文本：
 
 ```java
@@ -29,8 +28,7 @@ private String readFromInputStream(InputStream inputStream)
     }
   return resultStringBuilder.toString();
 }
-```
-
+```java
 对于绝对路径的文件可以直接以绝对路径读取，而对于 Classpath 下的文件，则可以以 getResourceAsStream 方式读取：
 
 ```java
@@ -55,8 +53,7 @@ BufferedReader reader =
 // 使用辅助函数创建
 BufferedReader reader =
   Files.newBufferedReader(Paths.get("src/main/resources/input.txt"))
-```
-
+```java
 使用某个类对象的 getResourceAsStream 方法其会根据文件前缀来判断是从根路径还是相对于该类文件的路径开始读取，而使用 ClassLoader 的 getResourceAsStream 方法，则默认是从根路径开始读取。另外值得一提的是，我们务必需要在读取完毕后关闭文件流：
 
 ```java
@@ -76,8 +73,7 @@ finally {
         }
     }
 }
-```
-
+```java
 ## 按字符读取
 
 我们可以使用 read 函数来读取单个字符：
@@ -93,8 +89,7 @@ public String readAllCharsOneByOne(BufferedReader reader) throws IOException {
 
     return content.toString();
 }
-```
-
+```java
 也可以读取多个字符：
 
 ```java
@@ -129,8 +124,7 @@ public void givenBufferedReader_whensSkipChars_thenOk() throws IOException {
 
     assertEquals("12345", result);
 }
-```
-
+```java
 我们可以使用 mark(int readAheadLimit) 和 reset() 方法来标记流中的某些位置，然后再返回。作为一个人为的示例，让我们使用 mark() 和 reset() 忽略流开头的所有空格：
 
 ```java
@@ -151,8 +145,7 @@ public void givenBufferedReader_whenSkipsWhitespacesAtBeginning_thenOk()
 
     assertEquals("Lorem ipsum dolor sit amet.", result);
 }
-```
-
+```java
 在上面的示例中，我们使用 mark() 方法标记刚刚读取的位置。给它一个值 1 意味着只有代码会记住一个字符向前的标记。这很方便，因为一旦看到第一个非空白字符，我们就可以返回并重新读取该字符，而无需重新处理整个流。没有标记，我们将在最终字符串中丢失 L。
 
 ## 按行读取
@@ -197,7 +190,7 @@ public class ReadSelectedLine{
     }
 
     /**
-     * 读取文件指定行。
+     - 读取文件指定行。
      */
     public static void main(String[] args) throws IOException {
      // 指定读取的行号
@@ -210,8 +203,7 @@ public class ReadSelectedLine{
      System.out.println(getTotalLines(sourceFile));
     }
 }
-```
-
+```java
 # BufferedWriter
 
 ## 追加写
@@ -231,4 +223,4 @@ public void whenAppendToFileUsingFileWriter_thenCorrect()
       new FileInputStream(fileName)))
       .isEqualTo("UK\r\n" + "US\r\n" + "Germany\r\n" + "Spain\r\n");
 }
-```
+```java

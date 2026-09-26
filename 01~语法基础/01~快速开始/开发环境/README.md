@@ -11,7 +11,7 @@ $ brew install jenv
 
 $ jenv add /Library/Java/JavaVirtualMachines/jdk1.8.0_202.jdk/Contents/Home/
 $ jenv versions
-* system
+- system
   1.8
   1.8.0.202-ea
   11.0
@@ -24,4 +24,4 @@ $ java -version
 java version "1.8.0_202-ea"
 Java(TM) SE Runtime Environment (build 1.8.0_202-ea-b03)
 Java HotSpot(TM) 64-Bit Server VM (build 25.202-b03, mixed mode)
-```
+```java

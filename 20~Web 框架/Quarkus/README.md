@@ -25,8 +25,7 @@ mvn -version
 
 # GraalVM (可选，用于原生编译)
 gu install native-image
-```
-
+```java
 ### 2. 创建项目
 
 ```bash
@@ -39,11 +38,10 @@ mvn io.quarkus:quarkus-maven-plugin:create \
 
 # 或使用 Quarkus CLI
 quarkus create app org.example:quarkus-demo
-```
-
+```java
 ### 3. 项目结构
 
-```
+```java
 quarkus-demo/
 ├── src/
 │   ├── main/
@@ -53,8 +51,7 @@ quarkus-demo/
 │   └── test/
 ├── pom.xml
 └── README.md
-```
-
+```java
 ## 三、基础开发
 
 ### 1. REST 接口开发
@@ -77,21 +74,18 @@ public class GreetingResource {
         return Response.ok(greeting).build();
     }
 }
-```
-
+```java
 ### 2. 配置管理
 
 ```properties
 # application.properties
 greeting.message=Hello
 quarkus.http.port=8080
-```
-
+```java
 ```java
 @ConfigProperty(name = "greeting.message")
 String message;
-```
-
+```java
 ### 3. 依赖注入
 
 ```java
@@ -113,8 +107,7 @@ public class GreetingResource {
         return greetingService.greet(name);
     }
 }
-```
-
+```java
 ## 四、数据库访问
 
 ### 1. Panache (简化版 JPA)
@@ -124,8 +117,7 @@ public class GreetingResource {
     <groupId>io.quarkus</groupId>
     <artifactId>quarkus-hibernate-orm-panache</artifactId>
 </dependency>
-```
-
+```java
 ```java
 @Entity
 public class Person extends PanacheEntity {
@@ -137,8 +129,7 @@ public class Person extends PanacheEntity {
         return find("name", name).firstResult();
     }
 }
-```
-
+```java
 ### 2. 事务管理
 
 ```java
@@ -155,8 +146,7 @@ public class PersonService {
         return Person.list("status", Status.ACTIVE);
     }
 }
-```
-
+```java
 ## 五、测试
 
 ### 1. 单元测试
@@ -174,8 +164,7 @@ public class GreetingResourceTest {
              .body(is("Hello RESTEasy"));
     }
 }
-```
-
+```java
 ### 2. 集成测试
 
 ```java
@@ -196,8 +185,7 @@ public class PersonResourceIT {
                 .statusCode(201);
     }
 }
-```
-
+```java
 ## 六、部署
 
 ### 1. JVM 模式
@@ -208,8 +196,7 @@ public class PersonResourceIT {
 
 # 运行
 java -jar target/quarkus-app/quarkus-run.jar
-```
-
+```java
 ### 2. 原生模式
 
 ```bash
@@ -218,8 +205,7 @@ java -jar target/quarkus-app/quarkus-run.jar
 
 # 运行
 ./target/quarkus-demo-1.0.0-SNAPSHOT-runner
-```
-
+```java
 ### 3. Docker 部署
 
 ```dockerfile
@@ -237,8 +223,7 @@ EXPOSE 8080
 USER 185
 
 ENTRYPOINT [ "java", "-jar", "/deployments/quarkus-run.jar" ]
-```
-
+```java
 ## 七、高级特性
 
 ### 1. 响应式编程
@@ -248,8 +233,7 @@ ENTRYPOINT [ "java", "-jar", "/deployments/quarkus-run.jar" ]
     <groupId>io.quarkus</groupId>
     <artifactId>quarkus-resteasy-reactive</artifactId>
 </dependency>
-```
-
+```java
 ```java
 @Path("/reactive")
 public class ReactiveResource {
@@ -261,8 +245,7 @@ public class ReactiveResource {
             .map(tick -> "Tick " + tick);
     }
 }
-```
-
+```java
 ### 2. 健康检查
 
 ```java
@@ -274,8 +257,7 @@ public class CustomHealthCheck implements HealthCheck {
         return HealthCheckResponse.up("Custom health check");
     }
 }
-```
-
+```java
 ### 3. 指标监控
 
 ```java
@@ -290,8 +272,7 @@ public class CounterResource {
         return counter.increment();
     }
 }
-```
-
+```java
 ## 八、最佳实践
 
 1. **项目结构**

@@ -31,6 +31,5 @@ Jackson 可以轻松的将 Java 对象转换成 json 对象和 xml 文档，同�
   </dependency>
   ...
 </dependencies>
-```
-
+```java
 注意，databind 项目已经自动依赖了 jackson-core 与 jackson-annotation，不需要额外重复引入。

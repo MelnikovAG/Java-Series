@@ -17,8 +17,7 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok:1.18.8'
 	annotationProcessor 'org.projectlombok:lombok:1.18.8'
 }
-```
-
+```java
 对于复杂配置的场景，也可以使用官方的 Gradle 插件：
 
 ```groovy
@@ -38,8 +37,7 @@ buildscript {
 }
 
 apply plugin: "io.freefair.lombok"
-```
-
+```java
 # 自定义注解原理
 
 Lombok 这款插件正是依靠可插件化的 Java 自定义注解处理 API（JSR 269: Pluggable Annotation Processing API）来实现在 Javac 编译阶段利用“Annotation Processor”对自定义的注解进行预处理后生成真正在 JVM 上面执行的“Class 文件”。其大致执行原理图如下：

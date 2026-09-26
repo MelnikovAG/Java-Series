@@ -6,8 +6,7 @@
 
 ```java
 DataInputStream dis = new DataInputStream(InputStream in);
-```
-
+```java
 另一种创建方式是接收一个字节数组，和两个整形变量 off、len，off 表示第一个读取的字节，len 表示读取字节的长度。
 
 | 序号 | 方法描述                                                                                                                                                                                                                                                                             |
@@ -37,4 +36,4 @@ public class Test{
       out.close();
    }
 }
-```
+```java

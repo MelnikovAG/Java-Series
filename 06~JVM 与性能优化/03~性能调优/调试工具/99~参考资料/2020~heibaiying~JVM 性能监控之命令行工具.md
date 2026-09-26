@@ -16,8 +16,7 @@ C:/Users>jps
 11572
 9492 DeadLockTest
 7868 JConsole
-```
-
+```java
 可选参数有 `-v` ，用于输出虚拟机进程启动时的 JVM 参数。
 
 ## 三、jstat
@@ -26,8 +25,7 @@ jstat（JVM Statistics Monitoring Tool）用于监视虚拟机的运行状态。
 
 ```shell
 jstat -<option> [-t] [-h<lines>] <vmid> [<interval> [<count>]]
-```
-
+```java
 其中 `option` 的所有可选值如下：
 
 | 选项              | 作用                                                                                         |
@@ -48,8 +46,7 @@ jstat -<option> [-t] [-h<lines>] <vmid> [<interval> [<count>]]
 
 ```shell
 jstat -gc 9492 3s 5 # 每3s输出一次，一共输出5次
-```
-
+```java
 <div align="center"> <img src="https://gitee.com/heibaiying/Full-Stack-Notes/raw/master/pictures/jstat_gc.png"/> </div>
 
 输出信息中各个参数含义分别如下：
@@ -80,8 +77,7 @@ jinfo（Configuration Info for Java）的作用是实时查看和调整虚拟机
 
 ```shell
 jinfo [option] <pid>
-```
-
+```java
 其中 `option ` 支持以下可选项：
 
 - **-flag name** ：输出指定的虚拟机参数的值；
@@ -95,8 +91,7 @@ jinfo [option] <pid>
 ```java
 jinfo -flags 13604
 jinfo -flag CMSInitiatingOccupancyFraction 13604
-```
-
+```java
 <div align="center"> <img src="https://gitee.com/heibaiying/Full-Stack-Notes/raw/master/pictures/jinfo.png"/> </div>
 
 ## 五、jmap
@@ -105,8 +100,7 @@ jmap（Memory Map for Java）命令主要用于生成堆转储快照（一般称
 
 ```shell
 jmap [option] <pid>
-```
-
+```java
 其中 `option` 支持以下可选项：
 
 | 选项                        | 作用                                                                                                      |
@@ -122,8 +116,7 @@ jmap [option] <pid>
 
 ```shell
 jmap -dump:format=b,file=test.bin 3260
-```
-
+```java
 <div align="center"> <img src="https://gitee.com/heibaiying/Full-Stack-Notes/raw/master/pictures/jmap.png"/> </div>
 
 ## 六、jhat
@@ -142,8 +135,7 @@ public class StackOverFlowTest {
         }
     }
 }
-```
-
+```java
 其最终会抛出 `java.lang.OutOfMemoryError: Java heap space` 异常，意味着在 JVM 堆上发生了内存溢出。在程序运行期间，我们可以使用上面的 jmap 命令生成堆转储快照，并使用 jhat 命令进行分析：
 
 <div align="center"> <img src="https://gitee.com/heibaiying/Full-Stack-Notes/raw/master/pictures/jhat.png"/> </div>
@@ -168,8 +160,7 @@ jstack（Stack Trace for Java）命令用于生成虚拟机的线程快照（一
 
 ```shell
  jstack -F [-m] [-l] <pid>
-```
-
+```java
 各选项的作用如下：
 
 | 选项 | 作用                                            |
@@ -210,14 +201,12 @@ public class DeadLockTest {
         }).start();
     }
 }
-```
-
+```java
 此时使用 jstack 分析就能很快的定位到问题所在，示例如下：
 
 ```shell
 jstack 8112
-```
-
+```java
 输出结果如下：
 
 <div align="center"> <img src="https://gitee.com/heibaiying/Full-Stack-Notes/raw/master/pictures/jstack.png"/> </div>

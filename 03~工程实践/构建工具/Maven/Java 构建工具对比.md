@@ -22,8 +22,7 @@ Ant 的主要优点在于对构建过程的控制上。Ivy 的依赖需要在 iv
         <dependency org="org.hamcrest" name="hamcrest-all" rev="1.3"/>
     </dependencies>
 </ivy-module>
-```
-
+```java
 现在我们来创建 Ant 脚本，任务只是编译一个 Jar 文件。最终文件是下面的 build.xml。
 
 ```xml
@@ -57,16 +56,14 @@ Ant 的主要优点在于对构建过程的控制上。Ivy 的依赖需要在 iv
     </target>
 
 </project>
-```
-
+```java
 首先，我们设置了几个属性，然后是一个接一个的 task。我们用 Ivy 来处理依赖，清理，编译和打包，这是几乎所有的 Java 项目都会进行的 task，配置有很多。
 
 运行 Ant task 来生成 Jar 文件，执行下面的命令。
 
-```
+```java
 ant jar
-```
-
+```java
 # Maven
 
 Maven 发布于 2004 年。目的是解决码农使用 Ant 所带来的一些问题。Maven 仍旧使用 XML 作为编写构建配置的文件格式，但是，文件结构却有巨大的变化。Ant 需要码农将执行 task 所需的全部命令都一一列出，然而 Maven 依靠约定(convention)并提供现成的可调用的目标(goal)。不仅如此，有可能最重要的一个补充是，Maven 具备从网络上自动下载依赖的能力(Ant 后来通过 Ivy 也具备了这个功能)，这一点革命性地改变了我们开发软件的方式。
@@ -107,14 +104,12 @@ http://maven.apache.org/maven-v4_0_0.xsd">
     </build>
 
 </project>
-```
-
+```java
 通过执行下面的命令来运行 Maven goal 生成 Jar 文件。
 
 ```xml
 mvn package
-```
-
+```java
 主要的区别在于 Maven 不需要指定执行的操作。我们没有创建 task，而是设置了一些参数(有哪些依赖，用哪些插件...). Maven 推行使用约定并提供了开箱即用的 goals。Ant 和 Maven 的 XML 文件都会随时间而变大，为了说明这一点，我们加入 CheckStyle，FindBugs 和 PMD 插件来进行静态检查，三者是 Java 项目中使用很普遍的的工具。我们希望将所有静态检查的执行以及单元测试一起作为一个单独的 targetVerify。当然我们还应该指定自定义的 checkstyle 配置文件的路径并且确保错误时能够提示。更新后的 Maven 代码如下：
 
 ```xml
@@ -159,14 +154,12 @@ mvn package
         </execution>
     </executions>
 </plugin>
-```
-
+```java
 通过执行下面的命令来运行 Maven goal，包括单元测试，静态检查，如 CheckStyle，FindBugs 和 PMD。
 
 ```xml
 mvn verify
-```
-
+```java
 # Gradle
 
 Gradle 结合了前两者的优点，在此基础之上做了很多改进。它具有 Ant 的强大和灵活，又有 Maven 的生命周期管理且易于使用。最终结果就是一个工具在 2012 年华丽诞生并且很快地获得了广泛关注。例如，Google 采用 Gradle 作为 Android OS 的默认构建工具。Gradle 不用 XML，它使用基于 Groovy 的专门的 DSL，从而使 Gradle 构建脚本变得比用 Ant 和 Maven 写的要简洁清晰。Gradle 样板文件的代码很少，这是因为它的 DSL 被设计用于解决特定的问题：贯穿软件的生命周期，从编译，到静态检查，到测试，直到打包和部署。
@@ -189,4 +182,4 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
     testCompile group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
 }
-```
+```java

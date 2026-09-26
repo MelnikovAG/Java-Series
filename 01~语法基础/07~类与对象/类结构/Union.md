@@ -127,8 +127,7 @@ public class CustomerMessage {
 
     ...
 }
-```
-
+```java
 Union 类使用如下：
 
 ```java
@@ -138,8 +137,7 @@ List<Article> articleList = ...;
 News news = new News(articleList);
 CustomerMessage customerMessage = new CustomerMessage(toUser, news);
 wechatApi.sendCustomerMessage(accessToken, customerMessage);
-```
-
+```java
 # 使用继承方式实现 Union
 
 ```java
@@ -192,8 +190,7 @@ public class NewsCustomerMessage extends CustomerMessage {
         this.news = news;
     }
 }
-```
-
+```java
 Union 类使用如下：
 
 ```java
@@ -203,6 +200,5 @@ List<Article> articleList = ...;
 News news = new News(articleList);
 CustomerMessage customerMessage = new NewsCustomerMessage(toUser, news);
 wechatApi.sendCustomerMessage(accessToken, customerMessage);
-```
-
+```java
 在 C/C++语言中，联合体并不包括联合体当前的数据类型。但在上面实现的 Java 联合体中，已经包含了联合体对应的数据类型。所以，从严格意义上说，Java 联合体并不是真正的联合体，只是一个具备“多个数据每次只取其一”功能的类。

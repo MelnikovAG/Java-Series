@@ -24,8 +24,7 @@ protected void startUp() {
   servlets.add(new GcStatsServlet());
 }
 protected void shutDown() {}
-```
-
+```java
 请注意，对 GcStatsServlet 的任何查询都已经有一个在运行的线程。在服务运行时，我们不需要该服务自行执行任何操作。
 
 ## AbstractExecutionThreadService
@@ -38,8 +37,7 @@ public void run() {
     // perform a unit of work
   }
 }
-```
-
+```java
 或者，你可以以任何方式重写，从而使 run()返回。重写 startUp()和 shutDown()是可选的，但是将为你管理服务状态。
 
 ```java
@@ -56,8 +54,7 @@ protected void triggerShutdown() {
   dispatcher.stopListeningForConnections(queue);
   queue.put(POISON);
 }
-```
-
+```java
 请注意，start()调用你的 startUp()方法，为你创建一个线程，并在该线程中调用 run()。stop()调用 triggerShutdown()方法并等待线程死亡。
 
 ## AbstractScheduledService

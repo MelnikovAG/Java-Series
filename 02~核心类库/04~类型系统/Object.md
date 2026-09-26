@@ -12,8 +12,7 @@ System.out.println("hello".toLowerCase());
 System.out.println("hello".charAt(0));
 System.out.println("hello".indexOf('l'));
 System.out.println("hello".indexOf('o'));
-```
-
+```java
 数组的定义如下：
 
 ```java
@@ -30,8 +29,7 @@ System.out.println(arrayLength);
 System.out.println(intArray);
 System.out.println(intArray.equals(clonedArray));
 var matrix = new double[][] { { 2.0, 3.0}, { 4.0, 5.0 } };
-```
-
+```java
 由于基本类型和数组几乎没有方法，因此，如果要使用它们，则必须使用静态方法。静态方法是在可以使用语法调用的某个类型上声明的函数 `SomeWhere.methodName(arg0, arg1, arg2)`。
 
 ```java
@@ -42,8 +40,7 @@ var text = java.util.Arrays.toString(intArray);
 System.out.println(text);
 
 var intList = List.of(2, 3);
-```
-
+```java
 # Links
 
 - https://mp.weixin.qq.com/s?__biz=MzI4Njg5MDA5NA==&mid=2247484210&idx=1&sn=9d40e2e4c72f0727c7b7925cbe314fc0&chksm=ebd74233dca0cb2560677c7dc7746bf166195d793860c41ab477431af2cf0a6004477e27b814&scene=21###wechat_redirect

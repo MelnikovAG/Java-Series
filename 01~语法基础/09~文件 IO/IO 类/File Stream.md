@@ -6,14 +6,12 @@
 
 ```java
 InputStream f = new FileInputStream("C:/java/hello");
-```
-
+```java
 也可以使用一个文件对象来创建一个输入流对象来读取文件。我们首先得使用 File() 方法来创建一个文件对象：
 
 ```java
 File f = new File("C:/java/hello"); InputStream out = new FileInputStream(f);
-```
-
+```java
 创建了 InputStream 对象，就可以使用下面的方法来读取流或者进行其他的流操作。
 
 | **序号** | **方法及描述**                                                                                                                                         |
@@ -32,15 +30,13 @@ File f = new File("C:/java/hello"); InputStream out = new FileInputStream(f);
 
 ```java
 OutputStream f = new FileOutputStream("C:/java/hello")
-```
-
+```java
 也可以使用一个文件对象来创建一个输出流来写文件。我们首先得使用 File()方法来创建一个文件对象：
 
 ```java
 File f = new File("C:/java/hello");
 OutputStream f = new FileOutputStream(f);
-```
-
+```java
 创建 OutputStream 对象完成后，就可以使用下面的方法来写入流或者进行其他的流操作。
 
 | **序号** | **方法及描述**                                                                                                                                      |
@@ -77,8 +73,7 @@ public class fileStreamTest {
         }
     }
 }
-```
-
+```java
 上面的程序首先创建文件 test.txt，并把给定的数字以二进制形式写进该文件，同时输出到控制台上。以上代码由于是二进制写入，可能存在乱码，你可以使用以下代码实例来解决乱码问题：
 
 ```java
@@ -130,4 +125,4 @@ public class fileStreamTest2 {
 
     }
 }
-```
+```java

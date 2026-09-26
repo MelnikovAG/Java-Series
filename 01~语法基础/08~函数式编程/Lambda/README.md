@@ -12,4 +12,4 @@ Runnable task = () -> {
 Comparator<String> cmp = (s1, s2) -> {
     return Integer.compare(s1.length(), s2.length());
 };
-```
+```java

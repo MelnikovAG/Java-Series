@@ -14,8 +14,7 @@ public class HelloWorld {
     System.out.println("Hello World");
   }
 }
-```
-
+```java
 # 基本语法
 
 一个完整的 Java，源程序应该包括下列部分：
@@ -41,8 +40,7 @@ class TheFirstClass｛...｝;
 //第一个普通类TheFirstClass的定义
 interface TheFirstInterface{......}
 /*定义一个接口TheFirstInterface*/
-```
-
+```java
 Java 的主方法入口：所有的 Java 程序由 `public static void main(String []args)` 方法开始执行。值得注意的是，Java 是大小写敏感的，这就意味着标识符 Hello 与 hello 是不同的。对于所有的类来说，类名的首字母应该大写。如果类名由若干单词组成，那么每个单词的首字母应该大写，例如 MyFirstJavaClass。所有的方法名都应该以小写字母开头。如果方法名含有若干单词，则后面的每个单词首字母大写。源文件名必须和类名相同。当保存文件的时候，你应该使用类名作为文件名保存（切记 Java 是大小写敏感的），文件名的后缀为 .java。（如果文件名和类名不相同则会导致编译错误）。
 
 ## 源文件声明规则
@@ -90,8 +88,7 @@ protected static final int BOXWIDTH = 42;
 public static void main(String[] arguments) {
    // 方法体
 }
-```
-
+```java
 ## 关键字
 
 | 类别                 | 关键字                         | 说明                 |
@@ -172,7 +169,6 @@ var colorName = "black";  // it's a reference to String somewhere in memory
 // if you are using var, you are asking the compiler to find the type for you
 String colorName = "black";
 
-
 // System.out.println()
 // To print a value in Java we have a weird incantation `System.out.println()` that we will detail later
 System.out.println(maxIntensity);
@@ -226,7 +222,6 @@ System.out.println(redLight.equals(anotherRedLight));
 System.out.println(redLight.hashCode());
 System.out.println(anotherRedLight.hashCode());
 
-
 // # Summary
 // A `record` has components that are the parameters used to create an object
 // To create an object we use the operator `new` followed by the arguments of the
@@ -236,8 +231,7 @@ System.out.println(anotherRedLight.hashCode());
 // A Record defines methods to access the value of a component, and also
 // `toString()` to get the textual representation of an object and
 // `equals()` to test if two objects are equals.
-```
-
+```java
 # 命令行应用
 
 ## 选择执行类
@@ -247,8 +241,8 @@ System.out.println(anotherRedLight.hashCode());
 ```java
 public class MainApplication {
   /**
-   * Calls main method of the class provided by the user.
-   * @param args  Accepts the classname as the first parameter. The rest are passed as argument as args.
+   - Calls main method of the class provided by the user.
+   - @param args  Accepts the classname as the first parameter. The rest are passed as argument as args.
    */
   public static void main(String[] args) throws Exception {
     String[] arguments;
@@ -264,10 +258,9 @@ public class MainApplication {
     }
   }
 }
-```
-
+```java
 然后在运行 jar 的时候动态指定主类名即可：
 
 ```sh
 $ java -jar target/target.jar io.dapr.examples.actors.DemoActorClient
-```
+```java

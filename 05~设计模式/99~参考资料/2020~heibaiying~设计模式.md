@@ -59,8 +59,7 @@ public class HungrySingleton implements Serializable {
         return instance;
     }
 }
-```
-
+```java
 静态内部类方式：
 
 ```java
@@ -79,8 +78,7 @@ public class StaticInnerClassHungrySingleton {
     }
 
 }
-```
-
+```java
 饿汉式单例的优点在于其不存在线程安全问题，对象的唯一性由虚拟机在类初始化创建时保证；其缺点在于如果对象的创建比较消耗资源，并且单例对象不一定会被使用时就会造成资源的浪费。
 
 ### 1.2 懒汉式单例
@@ -102,16 +100,14 @@ public class LazySingletonUnsafe {
         return instance;
     }
 }
-```
-
+```java
 需要注意的是上面的代码在单线程环境下是没有问题的，但是在多线程环境下是线程不安全的，原因在于下面的创建代码是非原子性的：
 
 ```java
 if (instance == null) {
     instance = new LazySingletonUnsafe();
 }
-```
-
+```java
 想要保证创建操作的原子性，可以通过 synchronized 关键字来进行实现：
 
 ```java
@@ -121,8 +117,7 @@ public synchronized static LazySingletonUnsafe getInstance() {
         }
         return instance;
     }
-```
-
+```java
 此时该方法是线程安全的，但是性能却存在问题。因为 synchronized 修饰的是静态方法，其锁住的是整个类对象，这意味着所有想要获取该单例对象的线程都必须要等待内部锁的释放。假设单例对象已经创建完成，并有 100 个线程并发获取该单例对象，则这 100 个线程都需要等待，显然这会降低系统的吞吐量，因此更好的方式是采用 **双重检查锁的机制** 来实现懒汉式单例：
 
 ```java
@@ -146,8 +141,7 @@ public class DoubleCheckLazySingletonSafe {
         return instance;
     }
 }
-```
-
+```java
 还是沿用上面的举例，假设单例对象已经创建完成，并有 100 个线程并发获取该单例对象，此时 `instance == null` 判断肯定是 false，所以所有线程都会直接获得该单例对象，而不会进入 synchronized 同步代码块，这减小了锁的锁定范围，用更小的锁粒度获得了更好的性能。但内部的 `if` 代码块仍然需要使用 synchronized 关键字修饰，从而保证整个 if 代码块的原子性。
 
 需要注意的是这里的 instance 需要使用 volatile 关键修饰，用于禁止对象在创建过程中出现指令重排序。通常对象的创建分为以下三步：
@@ -169,8 +163,7 @@ if (instance == null) {
     }
 }
 return instance;
-```
-
+```java
 由于重排序的存在，其他线程可能拿到的是一个尚未初始化完成的 instance，此时就可能会导致异常，所以需要禁止其出现指令重排序。
 
 ### 1.3 使用序列化破坏单例
@@ -188,8 +181,7 @@ public class SerializationDamage {
         System.out.println(instance == newInstance); // false
     }
 }
-```
-
+```java
 将 HungrySingleton 实现 Serializable 接口后，使用上面的代码将对象序列化写入文件，然后再反序列获取，你会发现两次得到的不是一个对象，这就代表单例模式受到了序列化和反序列化的破坏。想要解决这个问题，需要在对应的单例类中定义 `readResolve()` 方法：
 
 ```java
@@ -200,8 +192,7 @@ public class HungrySingleton implements Serializable {
     }
     ......
 }
-```
-
+```java
 此时在反序列化时该方法就会被调用来返回单例对象，对应的 ObjectInputStream 类的源码如下：
 
 ```java
@@ -218,8 +209,7 @@ private Object readOrdinaryObject(boolean unshared) throws IOException{
         }
         return obj;
     }
-```
-
+```java
 ### 1.4 使用反射破坏单例
 
 使用反射也可以破坏单例模式，并且由于 Java 的反射功能过于强大，这种破坏几乎是无法规避的，示例如下：
@@ -235,8 +225,7 @@ public class ReflectionDamage {
         System.out.println(hungrySingleton == instance); // false
     }
 }
-```
-
+```java
 即便在创建单例对象时将构造器声明为私有，此时仍然可以通过反射修改权限来获取，此时单例模式就被破坏了。如果你采用的是饿汉式单例，此时可以通过如下的代码来规避这种破坏：
 
 ```java
@@ -257,8 +246,7 @@ public class HungrySingleton implements Serializable {
 
     ......
 }
-```
-
+```java
 以上是饿汉式单例防止反射攻击的办法，如果你使用的是懒汉式单例，此时由于无法知道对象何时会被创建，并且反射功能能够获取到任意字段，方法，构造器的访问权限，所以此时没有任何方法能够规避掉反射攻击。
 
 那么有没有一种单例模式能够在保证线程安全，还能够防止序列化和反射功能呢？在 Java 语言中，可以通过枚举式单例来实现。
@@ -286,8 +274,7 @@ public enum EnumInstance {
         return INSTANCE;
     }
 }
-```
-
+```java
 想要实现一个单例枚举，对应的单例类必须要使用 enum 修饰，其余的字段声明（如：field）, 方法声明（如：setField）都和正常的类一样。首先枚举类是线程安全的，这点可以使用反编译工具 Jad 对类的 class 文件进行反编译来验证：
 
 ```java
@@ -349,8 +336,7 @@ public final class EnumInstance extends Enum
         });
     }
 }
-```
-
+```java
 通过反编译工具可以看到其和饿汉式单例模式类似，因此它也是线程安全的。另外它也能防止序列化攻击和反射攻击：
 
 ```java
@@ -370,16 +356,14 @@ public class EnumInstanceTest {
         System.out.println(instance == enumInstance);
     }
 }
-```
-
+```java
 对于序列化与反序列化，枚举类单例能保证两次拿到的都是同一个实例。对于反射攻击，枚举类单例会抛出明确的异常：
 
 ```java
 Exception in thread "main" java.lang.IllegalArgumentException: Cannot reflectively create enum objects
     at java.lang.reflect.Constructor.newInstance(Constructor.java:417)
     at com.heibaiying.creational.singleton.EnumInstanceTest.main(EnumInstanceTest.java:18)
-```
-
+```java
 ## 2. 简单工厂模式
 
 ### 2.1 定义
@@ -396,8 +380,7 @@ Exception in thread "main" java.lang.IllegalArgumentException: Cannot reflective
 public abstract class Phone {
     public abstract void call(String phoneNum);
 }
-```
-
+```java
 具体的产品：
 
 ```java
@@ -406,16 +389,14 @@ public class HuaweiPhone extends Phone {
         System.out.println("华为手机拨打电话：" + phoneNum);
     }
 }
-```
-
+```java
 ```java
 public class XiaomiPhone extends Phone {
     public void call(String phoneNum) {
         System.out.println("小米手机拨打电话：" + phoneNum);
     }
 }
-```
-
+```java
 手机工厂：
 
 ```java
@@ -430,8 +411,7 @@ public class PhoneFactory {
         return null;
     }
 }
-```
-
+```java
 调用工厂类获取具体的实例：
 
 ```java
@@ -442,8 +422,7 @@ public class ZTest {
         phoneFactory.getPhone("huawei").call("321");
     }
 }
-```
-
+```java
 ### 2.3 优缺点
 
 简单工厂的优点在于其向用户屏蔽了对象创建过程，使得用户可以不必关注具体的创建细节，其缺陷在于违背了开闭原则。在简单工厂模式中，如果想要增加新的产品，就需要修改简单工厂中的判断逻辑，这就违背了开闭原则，因此其并不属于 GOF 经典的 23 种设计模式。在 Java 语言中，可以通过泛型来尽量规避这一缺陷，此时可以将创建产品的方法修改为如下所示：
@@ -457,8 +436,7 @@ public Phone getPhone(Class<? extends Phone> phoneClass) {
     }
     return null;
 }
-```
-
+```java
 ## 3. 工厂模式
 
 ### 3.1 定义
@@ -475,8 +453,7 @@ public Phone getPhone(Class<? extends Phone> phoneClass) {
 public abstract class Phone {
     public abstract void call(String phoneNum);
 }
-```
-
+```java
 产品实现类：
 
 ```java
@@ -485,24 +462,21 @@ public class HuaweiPhone extends Phone {
         System.out.println("华为手机拨打电话：" + phoneNum);
     }
 }
-```
-
+```java
 ```java
 public class XiaomiPhone extends Phone {
     public void call(String phoneNum) {
         System.out.println("小米手机拨打电话：" + phoneNum);
     }
 }
-```
-
+```java
 工厂接口：
 
 ```java
 public interface Factory {
     Phone produce();
 }
-```
-
+```java
 工厂实现类：
 
 ```java
@@ -512,8 +486,7 @@ public class HuaweiPhoneFactory implements Factory {
         return new HuaweiPhone();
     }
 }
-```
-
+```java
 ```java
 public class XiaomiPhoneFactory implements Factory {
     @Override
@@ -521,8 +494,7 @@ public class XiaomiPhoneFactory implements Factory {
         return new XiaomiPhone();
     }
 }
-```
-
+```java
 由调用者来决定实例化哪一个工厂对象：
 
 ```java
@@ -534,8 +506,7 @@ public class ZTest {
         huaweiPhoneFactory.produce().call("456");
     }
 }
-```
-
+```java
 ### 3.3 优点
 
 工厂模式的优点在于良好的封装性和可扩展性，如果想要增加新的产品（如：OppoPhone），只需要增加对应的工厂类即可，同时和简单工厂一样，它也向用户屏蔽了不相关的细节，使得系统的耦合度得以降低。
@@ -556,8 +527,7 @@ public class ZTest {
 public abstract class Charger {
     public abstract void Charge(Phone phone);
 }
-```
-
+```java
 充电器实现类：
 
 ```java
@@ -567,8 +537,7 @@ public class HuaiweiCharger extends Charger {
         System.out.println("华为充电器给" + phone + "充电");
     }
 }
-```
-
+```java
 ```java
 public class XiaomiCharger extends Charger {
     @Override
@@ -576,8 +545,7 @@ public class XiaomiCharger extends Charger {
         System.out.println("小米充电器给" + phone + "充电");
     }
 }
-```
-
+```java
 工厂接口：
 
 ```java
@@ -585,8 +553,7 @@ public interface Factory {
     Phone producePhone();
     Charger produceCharger();
 }
-```
-
+```java
 工厂实现类：
 
 ```java
@@ -600,8 +567,7 @@ public class HuaweiPhoneFactory implements Factory {
         return new HuaiweiCharger();
     }
 }
-```
-
+```java
 ```java
 public class XiaomiPhoneFactory implements Factory {
     @Override
@@ -613,8 +579,7 @@ public class XiaomiPhoneFactory implements Factory {
         return new XiaomiCharger();
     }
 }
-```
-
+```java
 调用具体的工厂实现类：
 
 ```java
@@ -626,8 +591,7 @@ public class ZTest {
         huaweiPhoneFactory.produceCharger().Charge(huaweiPhoneFactory.producePhone());
     }
 }
-```
-
+```java
 ### 4.3 优缺点
 
 抽象工厂模式继承了工厂模式的优点，能用于存在多个产品的情况，但其对应的产品族必须相对固定，假设我们现在认为 手机 + 充电器 + 耳机 才算一个可以对外出售的产品，则上面所有的工厂类都需要更改，但显然不是所有的手机都有配套的耳机，手机 + 充电器 这个产品族是相对固定的。
@@ -653,8 +617,7 @@ public class Phone {
     /*屏幕*/
     private String screen;
 }
-```
-
+```java
 建造者抽象类：
 
 ```java
@@ -672,8 +635,7 @@ public abstract class Builder {
         return phone;
     }
 }
-```
-
+```java
 建造者实现类：
 
 ```java
@@ -693,8 +655,7 @@ public class HuaweiBuilder extends Builder {
         phone.setScreen("OLED");
     }
 }
-```
-
+```java
 ```java
 public class XiaomiBuilder extends Builder {
     @Override
@@ -712,8 +673,7 @@ public class XiaomiBuilder extends Builder {
         phone.setScreen("OLED");
     }
 }
-```
-
+```java
 定义管理者类（也称为导演类），由它来驱使具体的构建者按照指定的顺序完成构建过程：
 
 ```java
@@ -732,8 +692,7 @@ public class Manager {
         return builder.produce();
     }
 }
-```
-
+```java
 调用管理者类获取产品：
 
 ```java
@@ -748,8 +707,7 @@ public class ZTest {
 // 输出：
 Phone(processor=海思麒麟处理器, camera=莱卡摄像头, screen=OLED)
 Phone(processor=高通骁龙处理器, camera=索尼摄像头, screen=OLED)
-```
-
+```java
 ### 5.3 优点
 
 建造者模式的优点在于将复杂的构建过程拆分为多个独立的单元，在保证拓展性的基础上也保证了良好的封装性，使得客户端不必知道产品的具体创建流程。
@@ -784,16 +742,14 @@ public class Phone implements Cloneable {
         return super.clone();
     }
 }
-```
-
+```java
 使用克隆来创建对象：
 
 ```java
 Phone phone = new Phone("3G手机");
 Phone clonePhone = (Phone) phone.clone();
 clonePhone.call();
-```
-
+```java
 在使用 clone 方法时需要注意区分深拷贝和浅拷贝：即如果待拷贝的对象中含有引用类型的变量，也需要对其进行拷贝，示例如下：
 
 ```java
@@ -819,8 +775,7 @@ public class SmartPhone implements Cloneable {
         return smartPhone;
     }
 }
-```
-
+```java
 ### 6.3 适用场景
 
 原型模式是直接在内存中进行二进制流的拷贝，被拷贝对象的构造函数并不会被执行，因此其性能表现非常优秀。如果对象的创建需要消耗非常多的资源，此时应该考虑使用原型模式。
@@ -843,8 +798,7 @@ public class SmartPhone implements Cloneable {
 public interface IService {
     void compute();
 }
-```
-
+```java
 目标对象：
 
 ```java
@@ -854,8 +808,7 @@ public class ComputeService implements IService {
         System.out.println("业务处理");
     }
 }
-```
-
+```java
 在代理对象中注入目标对象的实例：
 
 ```java
@@ -874,15 +827,13 @@ public class ProxyService implements IService {
         System.out.println("资源回收");
     }
 }
-```
-
+```java
 调用时候应该访问代理对象，而不是目标对象：
 
 ```java
 ProxyService proxyService = new ProxyService(new ComputeService());
 proxyService.compute();
-```
-
+```java
 ### 1.3 JDK 代理
 
 除了使用静态代理外，还可以利用 JDK 中的 Proxy 类和反射功能来实现对目标对象的代理：
@@ -899,8 +850,7 @@ IService proxyInstance = (IService) Proxy.newProxyInstance(
         return invoke;
     });
 proxyInstance.compute();
-```
-
+```java
 静态代理和 JDK 动态代理都要求目标对象必须实现一个或者多个接口，如果目标对象不存在任何接口，此时可以使用 Cglib 方式对其进行代理。
 
 ### 1.4 Cglib 代理
@@ -913,8 +863,7 @@ proxyInstance.compute();
     <artifactId>cglib</artifactId>
     <version>3.3.0</version>
 </dependency>
-```
-
+```java
 此时目标对象不需要实现任何接口：
 
 ```java
@@ -923,8 +872,7 @@ public class ComputeService {
         System.out.println("业务处理");
     }
 }
-```
-
+```java
 使用 Cglib 进行代理：
 
 ```java
@@ -948,7 +896,7 @@ public class Proxy implements MethodInterceptor {
     }
 
    /**
-    * 我们只需要实现此处的拦截逻辑，其他代码都是相对固定的
+    - 我们只需要实现此处的拦截逻辑，其他代码都是相对固定的
     */
     @Override
     public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws InvocationTargetException, IllegalAccessException {
@@ -958,16 +906,14 @@ public class Proxy implements MethodInterceptor {
         return invoke;
     }
 }
-```
-
+```java
 访问代理对象：
 
 ```java
 Proxy proxy = new Proxy(new ComputeService());
 ComputeService service = (ComputeService) proxy.getProxyInstance();
 service.compute();
-```
-
+```java
 ## 2. 适配器模式
 
 ### 2.1 定义
@@ -992,16 +938,14 @@ public class PowerSupply {
         return output;
     }
 }
-```
-
+```java
 手机电压规格：
 
 ```java
 public interface Target {
     int output5V();
 }
-```
-
+```java
 适配器需要继承自源类，并实现目标类接口：
 
 ```java
@@ -1015,8 +959,7 @@ public class ChargerAdapter extends PowerSupply implements Target {
         return output;
     }
 }
-```
-
+```java
 测试：
 
 ```java
@@ -1031,8 +974,7 @@ public class ZTest {
 电源电压：220
 充电头适配转换
 输出电压：5
-```
-
+```java
 ## 3. 桥接模式
 
 ### 3.1 定义
@@ -1078,8 +1020,7 @@ public class Yellow implements Color {
         return "黄色";
     }
 }
-```
-
+```java
 图形的抽象和实现：
 
 ```java
@@ -1099,7 +1040,6 @@ public abstract class Shape {
     public abstract void getDesc();
 }
 
-
 public class Round extends Shape {
     @Override
     public void getDesc() {
@@ -1113,8 +1053,7 @@ public class Square extends Shape {
         System.out.println(getColor().getDesc() + "正方形");
     }
 }
-```
-
+```java
 通过聚合的方式来进行调用：
 
 ```java
@@ -1122,8 +1061,7 @@ new Square().setColor(new Red()).getDesc();
 new Square().setColor(new Blue()).getDesc();
 new Round().setColor(new Blue()).getDesc();
 new Round().setColor(new Yellow()).getDesc();
-```
-
+```java
 ## 4. 组合模式
 
 ### 4.1 定义
@@ -1161,7 +1099,6 @@ public abstract class Component {
         throw new UnsupportedOperationException("不支持删除操作");
     }
 
-
     public void vim(String content) {
         throw new UnsupportedOperationException("不支持使用vim编辑器打开");
     }
@@ -1175,8 +1112,7 @@ public abstract class Component {
     }
 
 }
-```
-
+```java
 文件夹类：
 
 ```java
@@ -1204,8 +1140,7 @@ public class Folder extends Component {
         componentList.forEach(x -> System.out.println("    " + x.getName()));
     }
 }
-```
-
+```java
 文件类：
 
 ```java
@@ -1232,8 +1167,7 @@ public class File extends Component {
         System.out.println(getName());
     }
 }
-```
-
+```java
 通过组合来实现层级结构：
 
 ```java
@@ -1248,8 +1182,7 @@ rootDir.print();
 startup.vim("java -jar");
 startup.cat();
 nginx.cat();
-```
-
+```java
 ## 5. 装饰模式
 
 ### 5.1 定义
@@ -1287,8 +1220,7 @@ public class MiPhone extends Phone {
         return "MiPhone";
     }
 }
-```
-
+```java
 装饰器抽象类：
 
 ```java
@@ -1310,8 +1242,7 @@ public abstract class Decorator extends Phone {
         return phone.getDesc();
     }
 }
-```
-
+```java
 手机壳装饰器：
 
 ```java
@@ -1331,8 +1262,7 @@ public class ShellDecorator extends Decorator {
         return super.getDesc() + " + 手机壳";
     }
 }
-```
-
+```java
 屏幕保护膜装饰器：
 
 ```java
@@ -1352,8 +1282,7 @@ public class FilmDecorator extends Decorator {
         return super.getDesc() + " + 钢化膜";
     }
 }
-```
-
+```java
 调用装饰器对目标对象进行装饰：
 
 ```java
@@ -1365,8 +1294,7 @@ public class ZTest {
 }
 
 // 输出： MiPhone + 钢化膜 + 手机壳 : 2299
-```
-
+```java
 ## 6. 外观模式
 
 ### 6.1 定义
@@ -1393,8 +1321,7 @@ public class EnvInspectionService {
         return true;
     }
 }
-```
-
+```java
 支付子系统：
 
 ```java
@@ -1404,8 +1331,7 @@ public class AccountService {
         return true;
     }
 }
-```
-
+```java
 物流子系统：
 
 ```java
@@ -1414,8 +1340,7 @@ public class LogisticsService {
         System.out.println(phone.getName() + "已经发货，请注意查收...");
     }
 }
-```
-
+```java
 下单系统（外观门面）：
 
 ```java
@@ -1434,8 +1359,7 @@ public class OrderService {
         }
     }
 }
-```
-
+```java
 用户只需要访问外观门面，调用下单接口即可：
 
 ```java
@@ -1448,8 +1372,7 @@ orderService.order(phone);
 账户余额校验...
 支付成功
 XXX手机已经发货，请注意查收...
-```
-
+```java
 ## 7. 享元模式
 
 ### 7.1 定义
@@ -1495,8 +1418,7 @@ public abstract class PowerPoint {
             '}';
     }
 }
-```
-
+```java
 PPT 实现类：
 
 ```java
@@ -1529,8 +1451,7 @@ public class ArtPPT extends PowerPoint {
         System.out.println("艺术类PPT模板");
     }
 }
-```
-
+```java
 通过工厂模式来进行创建和共享：
 
 ```java
@@ -1554,8 +1475,7 @@ public class PPTFactory {
         return null;
     }
 }
-```
-
+```java
 调用工厂类来创建或获取享元对象：
 
 ```java
@@ -1578,8 +1498,7 @@ public class ZTest {
 编号：1744347043: PowerPoint{copyright='PPT工厂版本所有', title='第一季度工作汇报'}
 编号：1744347043: PowerPoint{copyright='PPT工厂版本所有', title='第二季度工作汇报'}
 编号：662441761: PowerPoint{copyright='PPT工厂版本所有', title='科技展汇报'}
-```
-
+```java
 # 行为型
 
 ## 1. 观察者模式
@@ -1612,8 +1531,7 @@ public interface Observable {
     // 通知观察者
     void notifyObservers(String message);
 }
-```
-
+```java
 ```java
 public class Business implements Observable {
 
@@ -1636,16 +1554,14 @@ public class Business implements Observable {
         }
     }
 }
-```
-
+```java
 观察者接口及用户实现类：
 
 ```java
 public interface Observer {
     void receive(String message);
 }
-```
-
+```java
 ```java
 public class User implements Observer {
 
@@ -1660,8 +1576,7 @@ public class User implements Observer {
         System.out.println(getName() + "收到消息：" + message);
     }
 }
-```
-
+```java
 测试商户发送消息：
 
 ```java
@@ -1675,8 +1590,7 @@ business.notifyObservers("商品促销通知");
 用户1收到消息：商品促销通知
 用户2收到消息：商品促销通知
 用户3收到消息：商品促销通知
-```
-
+```java
 ## 2. 责任链模式
 
 ### 2.1 定义
@@ -1705,8 +1619,7 @@ public class Application {
     /*请假天数*/
     private int dayNum;
 }
-```
-
+```java
 抽象的领导类：
 
 ```java
@@ -1723,8 +1636,7 @@ public abstract class Leader {
     public abstract void approval(Application application);
 
 }
-```
-
+```java
 3 天以下的请假只需要组长审核即可：
 
 ```java
@@ -1737,8 +1649,7 @@ public class GroupLeader extends Leader {
         }
     }
 }
-```
-
+```java
 3 天以上 5 天以下的请假则需要组长和部门经理共同审核：
 
 ```java
@@ -1751,8 +1662,7 @@ public class DepartManager extends Leader {
         }
     }
 }
-```
-
+```java
 5 天以上的请假则还需要总经理审核：
 
 ```java
@@ -1762,8 +1672,7 @@ public class President extends Leader {
         System.out.println(application.getTitle() + "被总经理审批通过");
     }
 }
-```
-
+```java
 组建责任链并测试：
 
 ```java
@@ -1781,8 +1690,7 @@ groupLeader.approval(new Application("婚假单", 10));
 婚假单被组长审批通过
 婚假单被部门经理审批通过
 婚假单被总经理审批通过
-```
-
+```java
 ## 3. 模板方法模式
 
 ### 3.1 定义
@@ -1841,8 +1749,7 @@ public abstract class Phone {
     // 抽象方法
     abstract void packaged();
 }
-```
-
+```java
 具体的子类：
 
 ```java
@@ -1858,8 +1765,7 @@ public class OlderPhone extends Phone {
         System.out.println("附赠一个手机壳");
     }
 }
-```
-
+```java
 ```java
 public class SmartPhone extends Phone {
 
@@ -1873,8 +1779,7 @@ public class SmartPhone extends Phone {
         System.out.println("附赠耳机一副");
     }
 }
-```
-
+```java
 测试与输出结果如下：
 
 ```java
@@ -1892,8 +1797,7 @@ smartPhone.assembling();
 安装电池
 增加NFC功能
 附赠耳机一副
-```
-
+```java
 ## 4. 策略模式
 
 ### 4.1 定义
@@ -1933,8 +1837,7 @@ public class WorkOvertimeStrategy implements Strategy {
         System.out.println("奖励加班");
     }
 }
-```
-
+```java
 公司类：
 
 ```java
@@ -1951,8 +1854,7 @@ public class Company {
         strategy.execute();
     }
 }
-```
-
+```java
 客户端使用时，需要根据不同的营业额选择不同的激励策略：
 
 ```java
@@ -1968,8 +1870,7 @@ public static void main(String[] args) {
         company.setStrategy(new WorkOvertimeStrategy()).execute();
     }
 }
-```
-
+```java
 ## 6. 状态模式
 
 ### 6.1 定义
@@ -2015,16 +1916,14 @@ public class State {
         player.setState(Player.SPEED_STATE);
     }
 }
-```
-
+```java
 定义四种状态的具体实现类，并限制它们之间的转换关系：
 
 ```java
 public class PlayState extends State {
 
 }
-```
-
+```java
 ```java
 public class CloseState extends State {
     @Override
@@ -2036,8 +1935,7 @@ public class CloseState extends State {
         System.out.println("操作失败：视频已处于关闭状态，无法加速");
     }
 }
-```
-
+```java
 ```java
 public class PauseState extends State {
     @Override
@@ -2045,8 +1943,7 @@ public class PauseState extends State {
         System.out.print("操作失败：暂停状态下不支持加速");
     }
 }
-```
-
+```java
 ```java
 public class SpeedState extends State {
     @Override
@@ -2054,8 +1951,7 @@ public class SpeedState extends State {
         System.out.println("系统提示：你当前已处于加速播放状态");
     }
 }
-```
-
+```java
 组装播放器：
 
 ```java
@@ -2104,8 +2000,7 @@ public class Player {
     }
 
 }
-```
-
+```java
 调用我们自定义的播放器：
 
 ```java
@@ -2129,8 +2024,7 @@ player.speed();
 关闭视频
 视频加速
 操作失败：视频已处于关闭状态，无法加速
-```
-
+```java
 ## 7. 中介者模式
 
 ### 7.1 定义
@@ -2152,8 +2046,7 @@ abstract class Mediator {
 
     public abstract void send(String from, String message);
 }
-```
-
+```java
 具体的房屋中介，它会将卖方的出售消息广播给所有人：
 
 ```java
@@ -2180,8 +2073,7 @@ public class HouseMediator extends Mediator {
         }
     }
 }
-```
-
+```java
 定义用户类，它可以是买方也可以是卖方，它们都是中介的客户：
 
 ```java
@@ -2202,8 +2094,7 @@ public class Person {
         System.out.println(name + "收到消息：" + message);
     }
 }
-```
-
+```java
 最后买卖双方通过中介人就可以进行沟通：
 
 ```java
@@ -2227,8 +2118,7 @@ public class ZTest {
 买方收到消息：10万
 买方发送消息：太贵了
 卖方收到消息：太贵了
-```
-
+```java
 ## 8. 迭代器模式
 
 ### 8.1 定义
@@ -2246,8 +2136,7 @@ public class Book {
         this.name = name;
     }
 }
-```
-
+```java
 定义书柜接口及其实现类：
 
 ```java
@@ -2276,8 +2165,7 @@ public class BookshelfImpl implements Bookshelf {
         return new BookIterator(bookList);
     }
 }
-```
-
+```java
 定义迭代器接口及其实现类：
 
 ```java
@@ -2305,8 +2193,7 @@ public class BookIterator implements Iterator<Book> {
         return position < bookList.size();
     }
 }
-```
-
+```java
 调用自定义的迭代器进行遍历：
 
 ```java
@@ -2318,8 +2205,7 @@ BookIterator iterator = bookshelf.iterator();
 while (iterator.hasNext()) {
     System.out.println(iterator.next());
 }
-```
-
+```java
 ## 9. 访问者模式
 
 ### 9.1 定义
@@ -2366,8 +2252,7 @@ public class SecretArchive implements Archive {
         visitor.visit(this);
     }
 }
-```
-
+```java
 定义访问者接口及其实现类：
 
 ```java
@@ -2377,8 +2262,7 @@ public interface Visitor {
     // 访问加密档案
     void visit(SecretArchive secretArchive);
 }
-```
-
+```java
 ```java
 public class DepartManager implements Visitor {
 
@@ -2392,8 +2276,7 @@ public class DepartManager implements Visitor {
         System.out.println("三级以下权限的加密档案");
     }
 }
-```
-
+```java
 ```java
 public class President implements Visitor {
 
@@ -2407,8 +2290,7 @@ public class President implements Visitor {
         System.out.println("所有加密档案");
     }
 }
-```
-
+```java
 通过公司类来管理访问：
 
 ```java
@@ -2434,8 +2316,7 @@ public class Company {
     }
 
 }
-```
-
+```java
 测试及输出结果：
 
 ```java
@@ -2452,8 +2333,7 @@ company.accept(new President());
 // 输出：
 所有加密档案
 所有公开档案
-```
-
+```java
 ## 10. 备忘录模式
 
 ### 10.1 定义
@@ -2475,8 +2355,7 @@ public class Article {
     private String title;
     private String content;
 }
-```
-
+```java
 根据业务需求的不同，你可能只需要保存数据的部分字段，或者还需要额外增加字段（如保存时间等），所以在保存时需要将目标对象转换为备忘录对象：
 
 ```java
@@ -2499,8 +2378,7 @@ public class Memorandum {
     }
 
 }
-```
-
+```java
 管理者类：
 
 ```java
@@ -2525,8 +2403,7 @@ public class GitRepository {
         return repository.get(repository.size() - 1).toArticle();
     }
 }
-```
-
+```java
 测试类：
 
 ```java
@@ -2539,8 +2416,7 @@ article.setContent("版本三");
 repository.save(article);
 System.out.println(repository.back());
 System.out.println(repository.get(0));
-```
-
+```java
 ## 11. 解释器模式
 
 给分析对象定义一种语言，并定义该语言的文法表示，然后设计一个解析器来解释语言中的语句，用编译语言的方式来分析应用中的实例。解释器模式的实现比较复杂，在通常的开发也较少使用，这里就不提供示例了。

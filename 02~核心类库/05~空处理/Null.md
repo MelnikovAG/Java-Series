@@ -16,8 +16,7 @@ public class NullTest {
         System.out.println(o instanceof Object);  //false
     }
 }
-```
-
+```java
 # 运算
 
 null==null 返回 true，被转换为同种类型的 null，都返回 true，不同类型直接编译报错。用 String 转换后的 null 可以进行字符串运算,这是因为字符串进行连接的时候,编译器对 null 进行了特别的优化,其实就是例化 StringBuilder,在调用 append()方法时对 null 的一个特别处理,当为 null 时，转化为“null”，最后调用 toString()返回一个 String 对象。
@@ -42,4 +41,4 @@ c static void main(String[] args) {
 
     }
 }
-```
+```java

@@ -52,8 +52,7 @@ public class ClassLoaderTest {
     System.out.printLn(classLoaderTest instanceof jvm.ClassLoaderTest); //true
   }
 }
-```
-
+```java
 可以看出，代码中使用自定义类加载器（myLoader）加载的 jvm.ClassLoaderTest 类和通过应用程序类加载器加载的类不是同一个类。
 
 # Links

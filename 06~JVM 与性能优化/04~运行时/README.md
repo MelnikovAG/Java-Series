@@ -18,8 +18,7 @@ Java 遵循一次编写、到处运行的理念，即设计一个面向 Java 语
 0x24:  48 83 c4 10           add    rsp,0x10
 0x28:  5d                    pop    rbp
 0x29:  c3                    ret
-```
-
+```java
 最左列是偏移，中间列是给虚拟机读的机器码，最右列是给人读的代码。
 
 ```sh
@@ -27,8 +26,7 @@ Java 遵循一次编写、到处运行的理念，即设计一个面向 Java 语
 0x03:  12 03            ldc "Hello, World!"
 0x05:  b6 00 04         invokevirtual java.io.PrintStream.println
 0x08:  b1               return
-```
-
+```java
 从虚拟机视角来看，执行 Java 代码首先需要将它编译而成的 class 文件加载到 Java 虚拟机中；加载后的 Java 类会被存放于方法区（Method Area）中。实际运行时，虚拟机会执行方法区内的代码。Java 虚拟机会将栈细分为面向 Java 方法的 Java 方法栈，面向本地方法（用 C++ 写的 native 方法）的本地方法栈，以及存放各个线程执行位置的 PC 寄存器。在运行过程中，每当调用进入一个 Java 方法，Java 虚拟机会在当前线程的 Java 方法栈中生成一个栈帧，用以存放局部变量以及字节码的操作数。这个栈帧的大小是提前计算好的，而且 Java 虚拟机不要求栈帧在内存空间里连续分布。当退出当前执行的方法时，不管是正常返回还是异常返回，Java 虚拟机均会弹出当前线程的当前栈帧，并将之舍弃。
 
 ![Java 虚拟机与底层硬件](https://ngte-superbed.oss-cn-beijing.aliyuncs.com/item/20230416202800.png)

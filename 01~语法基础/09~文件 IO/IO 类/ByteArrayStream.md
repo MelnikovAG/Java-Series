@@ -6,16 +6,14 @@
 
 ```java
 ByteArrayInputStream bArray = new ByteArrayInputStream(byte [] a);
-```
-
+```java
 另一种创建方式是接收一个字节数组，和两个整形变量 off、len，off 表示第一个读取的字节，len 表示读取字节的长度。
 
 ```java
 ByteArrayInputStream bArray = new ByteArrayInputStream(byte []a,
               int off,
               int len)
-```
-
+```java
 成功创建字节数组输入流对象后，可以参见以下列表中的方法，对流进行读操作或其他操作。
 
 | 序号 | 方法描述                                                                                        |
@@ -61,4 +59,4 @@ public class ByteStreamTest {
       }
    }
 }
-```
+```java

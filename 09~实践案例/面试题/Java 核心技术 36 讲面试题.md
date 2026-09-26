@@ -188,7 +188,6 @@ public class ThreadMXBeanTest {
         }).start();
     }
 
-
     public  static  class Test1{
         Object obj1=new Object();
         Object obj2=new Object();
@@ -220,15 +219,13 @@ public class ThreadMXBeanTest {
 
                 }
 
-
             }
         }
 
     }
 }
 
-```
-
+```java
 > 如`何在编程中尽量预防死锁呢?`
 > 尽量避免使用多个锁,并且只有需要时才持有锁
 > 如果必须使用多个锁,尽量设计好锁的获取顺序

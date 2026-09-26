@@ -22,9 +22,9 @@ gc roots 中的对象，是指那些可以从堆外访问到的对象的集合�
 
 - System Class: 由 Bootstrap Classloader 加载的类，例如 rt.jar，里面的类的包名都是 `java.util.*` 开头的。
 
-* Thread Block/Thread: 正在存活的线程，被当前活跃的线程锁引用的对象。
+- Thread Block/Thread: 正在存活的线程，被当前活跃的线程锁引用的对象。
 
-* Busy Monitor: 调用了 wait()、notify()或 synchronized 关键字修饰的代码——例如 synchronized(object)或 synchronized 方法。
+- Busy Monitor: 调用了 wait()、notify()或 synchronized 关键字修饰的代码——例如 synchronized(object)或 synchronized 方法。
 
 - Java Local：局部变量。例如函数的输入参数、正在运行的线程栈里创建的对象。
 

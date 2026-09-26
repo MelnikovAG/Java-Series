@@ -21,8 +21,7 @@ try {
 } catch (IOException e) {
     e.printStackTrace();
 }
-```
-
+```java
 Car.class 是我们自定义的类，其作为第二个参数传入到 readValue 函数中。为了使用 Jackson 正确地从 JSON 读取 Java 对象，重要的是要知道 Jackson 如何将 JSON 对象的字段映射到 Java 对象的字段，因此我将解释 Jackson 是如何做到的。默认情况下，Jackson 通过将 JSON 字段的名称与 Java 对象中的 getter 和 setter 方法进行匹配，将 JSON 对象的字段映射到 Java 对象中的字段。Jackson 删除了 getter 和 setter 方法名称的“ get”和“ set”部分，并将其余名称的第一个字符转换为小写。
 
 例如，名为 brand 的 JSON 字段与名为 getBrand() 和 setBrand() 的 Java getter 和 setter 方法匹配。名为 engineNumber 的 JSON 字段将与名为 getEngineNumber() 和 setEngineNumber() 的 getter 和 setter 匹配。如果需要以其他方式将 JSON 对象字段与 Java 对象字段匹配，则需要使用自定义序列化器和反序列化器，或者使用许多 Jackson 注释中的一些。
@@ -65,8 +64,7 @@ Car car = objectMapper.readValue(file, Car.class);
 // 从 URL 读取
 InputStream input = new FileInputStream("data/car.json");
 Car car = objectMapper.readValue(input, Car.class);
-```
-
+```java
 我们可以设置在读取到 Null 的原始类型时抛出异常：
 
 ```java
@@ -79,8 +77,7 @@ Exception in thread "main" com.fasterxml.jackson.databind.exc.MismatchedInputExc
     (set DeserializationConfig.DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES to 'false' to allow)
  at [Source: (String)
     "{ "brand":"Toyota", "doors":null }"; line: 1, column: 29] (through reference chain: jackson.Car["doors"])
-```
-
+```java
 最后，我们也可以注册自定义的解释器：
 
 ```java
@@ -123,8 +120,7 @@ ObjectMapper mapper = new ObjectMapper();
 mapper.registerModule(module);
 
 Car car = mapper.readValue(json, Car.class);
-```
-
+```java
 ### 序列化为字符串
 
 ```java
@@ -145,8 +141,7 @@ car.doors = 4;
 
 String json = objectMapper.writeValueAsString(car);
 System.out.println(json);
-```
-
+```java
 ## Annotations
 
 Jackson 包含一组 Java 批注，您可以使用这些批注来修改 Jackson 到 Java 对象之间读写 JSON 的方式。Jackson 批注 @JsonIgnore 用于告诉 Jackson 忽略 Java 对象的某个属性（字段）。在将 JSON 读取到 Java 对象中以及将 Java 对象写入 JSON 时，都将忽略该属性。这是使用 @JsonIgnore 批注的示例类：
@@ -161,4 +156,4 @@ public class PersonIgnore {
 
     public String  name = null;
 }
-```
+```java

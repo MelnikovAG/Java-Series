@@ -103,8 +103,7 @@ MapSturct 是一个生成类型安全，高性能且无依赖的 JavaBean 映射
         </plugins>
     </pluginManagement>
 </build>
-```
-
+```java
 ## Entity
 
 这里面假设基于一些业务需求采用的是 MySQL，且将一些扩展的数据放在了 config 字段中，并以 JSON 转 String 存储。
@@ -211,8 +210,7 @@ public void vo2DoTest() {
     System.out.println(userVo);
 }
 
-```
-
+```java
 # MapStrcut 实现的原理?
 
 MapStruct 来生成的代码，其类似于人手写。速度上可以得到保证。前面例子中生成的代码可以在编译后看到, 在 target/generated-sources/annotations 里可以看到; 同时真正在代码包执行的可以在 target/classes 包中看到。
@@ -279,8 +277,7 @@ public class UserConverterImpl implements UserConverter {
         return list;
     }
 }
-```
-
+```java
 ## 这里面用了什么机制？
 
 核心之处就是对于注解的解析上。JDK5 引入了注解的同时，也提供了两种解析方式。

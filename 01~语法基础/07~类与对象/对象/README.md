@@ -21,8 +21,7 @@ public class Puppy {
     Puppy myPuppy = new Puppy("tommy");
   }
 }
-```
-
+```java
 通过已创建的对象来访问成员变量和成员方法，如下所示：
 
 ```java
@@ -32,6 +31,5 @@ Object referenceVariable = new Constructor();
 referenceVariable.variableName;
 /* 访问类中的方法 */
 referenceVariable.methodName();
-```
-
+```java
 # 类型判断

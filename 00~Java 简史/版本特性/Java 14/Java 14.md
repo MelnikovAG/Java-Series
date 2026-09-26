@@ -21,8 +21,7 @@ var log = switch (event) {
               " logged on " + now;
     }
 };
-```
-
+```java
 # Text Blocks
 
 Java 13 引入了文本块作为预览功能。文本块使使用多行字符串文字更加容易。此功能将通过 Java 14 进行第二轮预览，并进行了一些调整。作为复习，编写带有许多字符串连接和转义序列的代码以提供适当的多行文本格式非常普遍。下面的代码显示了 HTML 格式的示例：
@@ -33,8 +32,7 @@ String html = "<HTML>" +
 "\n\t\t" + "<H1>\"Java 14 is here!\"</H1>" +
 "\n\t" + "</BODY>" +
 "\n" + "</HTML>";
-```
-
+```java
 使用文本块，您可以简化此过程并使用界定文本块开头和结尾的三个引号来编写更优雅的代码：
 
 ```java
@@ -44,8 +42,7 @@ String html = """
     <H1>"Java 14 is here!"</H1>
   </BODY>
 </HTML>""";
-```
-
+```java
 与普通的字符串文字相比，文本块还提供了更高的表达能力。Java 14 中添加了两个新的转义序列。首先，可以使用新的 \s 转义序列来表示单个空格。其次，您可以使用反斜杠 \ 来禁止在行尾插入新行字符。当您想分隔很长的行以简化文本块内的可读性时，这很有用。
 
 ```java
@@ -53,8 +50,7 @@ String literal =
          "Lorem ipsum dolor sit amet, consectetur adipiscing " +
          "elit, sed do eiusmod tempor incididunt ut labore " +
          "et dolore magna aliqua.";
-```
-
+```java
 使用文本块中的 \ 转义序列，可以表示如下：
 
 ```java
@@ -63,8 +59,7 @@ String text = """
                 elit, sed do eiusmod tempor incididunt ut labore \
                 et dolore magna aliqua.\
                 """;
-```
-
+```java
 # Pattern Matching for instanceof
 
 Java 14 引入了预览功能，该功能有助于消除对在有条件的 instanceof 检查之前进行显式强制转换的需求。例如，考虑以下代码：
@@ -76,16 +71,14 @@ if (obj instanceof Group) {
   // use group specific methods
   var entries = group.getEntries();
 }
-```
-
+```java
 可以改写为如下：
 
 ```java
 if (obj instanceof Group group) {
   var entries = group.getEntries();
 }
-```
-
+```java
 由于条件检查断言 obj 是 Group 类型，为什么还要在第一个代码段中用条件块再次说 obj 是 Group 类型？ 这种需求可能会增加错误的范围。较短的语法将删除典型 Java 程序中的许多强制转换。（2011 年一项提出相关语言功能的研究报告指出，所有 casts 中约有 24％遵循条件语句中的 instanceof。）JEP 305 涵盖了此更改，并从 Joshua Bloch 的 Effective Java 书中指出了一个示例，该示例通过以下相等方法进行说明：
 
 ```java
@@ -93,8 +86,7 @@ if (obj instanceof Group group) {
     return (o instanceof CaseInsensitiveString) &&
             ((CaseInsensitiveString) o).s.equalsIgnoreCase(s);
 }
-```
-
+```java
 通过删除对 CaseInsensitiveString 的冗余显式转换，可以将前面的代码简化为以下形式：
 
 ```java
@@ -102,8 +94,7 @@ if (obj instanceof Group group) {
     return (o instanceof CaseInsensitiveString cis) &&
             cis.s.equalsIgnoreCase(s);
 }
-```
-
+```java
 这是一个有趣的预览功能，因为它为更广泛的模式匹配打开了大门。模式匹配的思想是为语言功能提供方便的语法，以根据某些条件提取对象的成分。instanceof 运算符就是这种情况，因为条件是类型检查，并且提取操作正在调用适当的方法或访问特定字段。
 
 换句话说，此预览功能仅仅是个开始，您可以期待一种语言功能，它可以帮助进一步减少冗长性，从而减少错误的可能性。
@@ -126,7 +117,6 @@ public class BankTransaction {
     private final LocalDate date;
     private final double amount;
     private final String description;
-
 
     public BankTransaction(final LocalDate date,
                            final double amount,
@@ -172,22 +162,19 @@ public class BankTransaction {
         return Objects.hash(date, amount, description);
     }
 }
-```
-
+```java
 Java 14 提供了一种消除冗长并明确意图的方法，即您想要的只是一个只将数据与 equals，hashCode 和 toString 方法的实现一起聚合的类。您可以按以下方式重构 BankTransaction：
 
 ```java
 public record BankTransaction(Date date,
                               double amount,
                               String description) {}
-```
-
+```java
 使用记录，您可以“自动”获取除构造函数和获取方法外的 equals，hashCode 和 toString 的实现。要尝试该示例，请记住您需要使用预览标志来编译文件：
 
 ```java
 javac --enable-preview --release 14 BankTransaction.java
-```
-
+```java
 记录的字段是隐式最终的。这意味着您无法重新分配它们。请注意，但这并不意味着整个记录都是不变的。存储在字段中的对象本身可以是可变的。
 
 # Helpful NullPointerExceptions
@@ -196,18 +183,16 @@ javac --enable-preview --release 14 BankTransaction.java
 
 ```java
 var name = user.getLocation().getCity().getName();
-```
-
+```java
 在 Java 14 之前，您可能会收到以下错误：
 
 ```java
 Exception in thread "main" java.lang.NullPointerException
     at NullPointerExample.main(NullPointerExample.java:5)
-```
-
+```java
 不幸的是，如果在第 5 行，有一个具有多个方法调用的赋值：`getLocation()` 和 `getCity()`，两者都可能返回 null。实际上，变量 user 也可以为 null。因此，尚不清楚是什么导致了`<strong> NullPointerException </strong>`。
 
 ```java
 Exception in thread "main" java.lang.NullPointerException: Cannot invoke "Location.getCity()" because the return value of "User.getLocation()" is null
     at NullPointerExample.main(NullPointerExample.java:5)
-```
+```java

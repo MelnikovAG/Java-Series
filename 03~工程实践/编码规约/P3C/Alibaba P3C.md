@@ -98,8 +98,7 @@
         </plugins>
     </reporting>
 </project>
-```
-
+```java
 配置完毕后，执行 `mvn site` 即可以生成报告，找到 target 目录下的 index.html 点击打开；找到 target 目录下的 pmd.html 打开。
 
 ## CI 集成
@@ -115,8 +114,7 @@
         <goal>check</goal>
     </goals>
 </execution>
-```
-
+```java
 根据需求控制每次需要检查的规约，例如：只检查命名规范，则需要修改 rulesets 标签中的内容，只保留 naming 这一条规则。注释其他的规则。
 
 ```xml
@@ -132,8 +130,7 @@
 	<!--<ruleset>rulesets/java/ali-other.xml</ruleset>-->
 	<!--<ruleset>rulesets/java/ali-set.xml</ruleset>-->
 </rulesets>
-```
-
+```java
 # Gradle
 
 # IDE

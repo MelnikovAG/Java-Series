@@ -35,8 +35,7 @@ task generate(type:  MyTaskType) {
 artifacts {
     archives file: generate.destFile, name: 'my-artifact', type: 'text', builtBy: generate
 }
-```
-
+```java
 这样就简单地定义了好几种 artifact 生成的定义，根据不同的场景需求，生成文本文件、jar 包或者 zip，还可以再上传到服务器上。一般情况下，常用的插件，比如说 `Java plugin` 都默认定义了 jar 这样的 artifact task，所以一般不需要额外开发。但是，针对于一些复杂情况，或者在 plugin 基础上增强的话，自定义 artifact task 还是非常有用的。
 
 # 项目发布
@@ -108,8 +107,7 @@ uploadArchives {
         }
     }
 }
-```
-
+```java
 在上面的代码中，大家请将根域中的 group, archiveBaseName, version 以及 uploadArchives#pom.project 中的相关描述信息替换成自己的就好了。这些信息将会在接下来上传的时候，自动打包成 Maven 项目，并封装相应信息。
 
 ### 密钥
@@ -124,8 +122,7 @@ signing.password= 密钥的密码 (生成证书时填写的密码)
 signing.secretKeyRingFile=..\\secret.gpg（secret.gpg为私密证书。将导出的私密证书，放置在工程目录下）
 ossrhUsername= sonatype 账号
 ossrhPassword= sonatype 密码
-```
-
+```java
 配置成功之后，按照下图运行 uploadArchives 就可以开始上传了，这样就可以将你的文件上传到 Maven 中央库了。
 
 ### 正式发布
@@ -158,4 +155,4 @@ uploadArchives {
         }
     }
 }
-```
+```java
